@@ -1,0 +1,22 @@
+{
+  "landingNavbarFeatures": "Features",
+  "landingNavbarAboutUs": "About us",
+  "landingNavbarPricing": "Pricing",
+  "landingNavbarFeedback": "Feedback",
+  "landingNavbarSignIn": "My Account",
+  "landingNavbarSignUp": "Create Account",
+  "landingFirstScreenTitle": "Manage your entire clinic\nusing a single system",
+  "landingFirstScreenSubTitle": "Desde o financeiro, até a gestão de pessoas,\n da logistica até a agenda",
+  "landingSecondScreenTitle": "Todos os módulos disponíveis",
+  "landingSecondScreenSubTitle": "De acordo com o plano escolhido",
+  "landingSecondScreenFinanceTitle": "Tenha a sua gestão financeira",
+  "landingSecondScreenFinanceDescription": "O seu próprio fluxo de caixa, gerencie os honorários, pagamentos e receitas",
+  "landingSecondScreenHRTitle": "Gerencie seus profissionais",
+  "landingSecondScreenHRDescription": "Todas as informações dos seus funcionarios, em um só lugar",
+  "landingSecondScreen": "",
+  "landingFourthScreenTitle": "Escolha um plano que se adeque ao seu negócio",
+  "landingFourthScreenSubTitle": "Temos vários planos, para pequenas, médias e grandes clinicas",
+  "landingFourthBasicPlan": "Basic Plan",
+  "landingFourthMediumPlan": "Medium Plan",
+  "landingFourthPremiumPlan": "Premium Plan"
+}

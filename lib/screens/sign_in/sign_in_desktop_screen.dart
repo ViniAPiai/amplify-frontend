@@ -11,6 +11,24 @@ class _SignInDesktopScreen extends State<_$SignInDesktopScreen> {
   @override
   Widget build(BuildContext context) {
     SignInProvider provider = Provider.of<SignInProvider>(context);
-    return Scaffold();
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Card(
+          elevation: 5,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16)
+          ),
+          child: Container(
+            width: context.mqWidth * .4,
+            height: context.mqHeight * .4,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+              color: Colors.grey
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

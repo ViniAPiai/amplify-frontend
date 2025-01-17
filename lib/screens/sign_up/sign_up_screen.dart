@@ -11,6 +11,9 @@ part 'sign_up_tablet_screen.dart';
 part 'sign_up_desktop_screen.dart';
 
 class SignUpScreen extends StatefulWidget {
+
+  static final String routeName = 'sign_up';
+
   const SignUpScreen({super.key});
 
   @override
