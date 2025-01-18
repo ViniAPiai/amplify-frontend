@@ -1,5 +1,8 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/models/auth/auth_request_model.dart';
+import 'package:frontend/services/auth_service.dart';
+import 'package:frontend/services/user_service.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 

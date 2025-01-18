@@ -26,9 +26,15 @@ class _SignInDesktopScreen extends State<_$SignInDesktopScreen> {
               borderRadius: BorderRadius.circular(16),
               color: Colors.grey
             ),
+            child: TextButton(onPressed: (){
+              UserService.me();
+            }, child: Text("ME")),
           ),
         ),
       ),
+      floatingActionButton: FloatingActionButton(onPressed: (){
+        AuthService.signIn(AuthRequestModel("vinicius-piai@hotmail.com", "V!nicius99"));
+      }),
     );
   }
 }

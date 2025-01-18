@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
               useMaterial3: true,
               textTheme: GoogleFonts.montserratTextTheme()
             ),
-            locale: const Locale('en', 'US'),
+            locale: const Locale('pt', 'PT'),
             localizationsDelegates: [
               GlobalMaterialLocalizations.delegate,
               GlobalWidgetsLocalizations.delegate,

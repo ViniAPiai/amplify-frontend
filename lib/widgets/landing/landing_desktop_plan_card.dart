@@ -16,7 +16,7 @@ class LandingDesktopPlanCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
       ),
       child: Container(
-        width: context.mqWidth * .30,
+        width: context.mqWidth * .28,
         height: context.mqHeight * .6,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),

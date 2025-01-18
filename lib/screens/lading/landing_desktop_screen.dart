@@ -211,6 +211,8 @@ class _LandingDesktopScreen extends State<_$LandingDesktopScreen> {
                 ),
                 const SizedBox(height: 32,),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   spacing: 32,
                   children: [
                     LandingDesktopPlanCard(title: t.landingFourthBasicPlan, blockFrom: 2),

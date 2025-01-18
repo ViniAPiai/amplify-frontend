@@ -7,7 +7,7 @@ class Routes {
 
   GoRouter get routes => GoRouter(
       initialLocation: '/',
-      redirect: (BuildContext context, GoRouterState state) async {
+      /*redirect: (BuildContext context, GoRouterState state) async {
         final isAuthenticated = false;
         final isInSignInScreen = state.path == '/';
         if (!isAuthenticated && !isInSignInScreen) {
@@ -15,7 +15,7 @@ class Routes {
         } else {
           return null;
         }
-      },
+      },*/
       routes: [
         GoRoute(
           name: LandingScreen.routeName,

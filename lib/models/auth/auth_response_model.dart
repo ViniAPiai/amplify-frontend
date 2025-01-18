@@ -12,4 +12,9 @@ class AuthResponseModel {
 
   AuthResponseModel(this.token, this.expiresIn);
 
+  factory AuthResponseModel.fromJson(Map<String, dynamic> json) =>
+      _$AuthResponseModelFromJson(json);
+
+  Map<String, dynamic> toJson() => _$AuthResponseModelToJson(this);
+
 }
