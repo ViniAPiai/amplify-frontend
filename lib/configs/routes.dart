@@ -18,13 +18,8 @@ class Routes {
       },*/
       routes: [
         GoRoute(
-          name: LandingScreen.routeName,
-          path: '/',
-          builder: (context, state) => LandingScreen(),
-        ),
-        GoRoute(
           name: SignInScreen.routeName,
-          path: '/${SignInScreen.routeName}',
+          path: '/',
           builder: (context, state) => SignInScreen(),
         ),
       ]

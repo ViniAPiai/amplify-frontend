@@ -32,7 +32,8 @@ class _SignInDesktopScreen extends State<_$SignInDesktopScreen> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(onPressed: (){
+      floatingActionButton: FloatingActionButton(onPressed: () async{
+        // AuthService.signIn();
         AuthService.signIn(AuthRequestModel("vinicius-piai@hotmail.com", "V!nicius99"));
       }),
     );

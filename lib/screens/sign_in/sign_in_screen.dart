@@ -1,4 +1,6 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/models/auth/auth_request_model.dart';
 import 'package:frontend/services/auth_service.dart';

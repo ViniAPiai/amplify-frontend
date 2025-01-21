@@ -13,9 +13,6 @@ class AuthInterceptor extends InterceptorsWrapper {
       if(DateTime.now().isBefore(expiresIn)) {
         options.contentType = Headers.jsonContentType;
         options.headers["Authorization"] = 'Bearer $token';
-        options.headers['Access-Control-Allow-Origin'] = '*';
-        options.headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
-        options.headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
       }
     }
     super.onRequest(options, handler);

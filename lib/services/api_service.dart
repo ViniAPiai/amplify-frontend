@@ -1,7 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:frontend/services/interceptors/auth_interceptor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
@@ -10,31 +7,38 @@ class ApiService {
   static final ApiService instance = ApiService._singleton();
 
   String get baseUrl {
-    if (kDebugMode) {
-      return 'http://localhost:8080/api';
-    }
+    String local = 'http://localhost:8080/api';
+    String localIp = 'http://192.168.0.176:8080/api';
+    String prod = 'http://144.126.227.199:8080/api';
 
-    return 'http://localhost:8080/api';
+    return prod;
   }
 
   Dio getDioWithAuth() {
     Dio dio = Dio()
-      ..options = BaseOptions(baseUrl: baseUrl,)
-      ..interceptors.add(AuthInterceptor());
-    print(dio.options.headers);
+      ..options = BaseOptions(
+        baseUrl: baseUrl,
+      )
+      ..interceptors.add(InterceptorsWrapper(
+        onRequest: (options, handler) async {
+          final prefs = await SharedPreferences.getInstance();
+          final token = prefs.getString('auth_token');
+          if (token != null) {
+            options.headers['Authorization'] = 'Bearer $token';
+          }
+          return handler.next(options);
+        },
+      ));
     return dio;
   }
 
   Dio getDio() {
-    return Dio(
-      BaseOptions(
-          baseUrl: baseUrl,
-          contentType: Headers.jsonContentType,
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-            'Access-Control-Allow-Headers': 'Content-Type, Authorization',
-          }),
-    );
+    return Dio(BaseOptions(
+        baseUrl: baseUrl,
+        contentType: Headers.jsonContentType,
+        headers: {
+          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Header": "*"
+        }));
   }
 }

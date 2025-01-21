@@ -14,8 +14,7 @@ class UserService {
         print("kdawkdmkawmdkwa");
       }
     }catch(e) {
-      print(e);
-      throw Exception("uiiiiii");
+      throw Exception(e);
     }
   }
   
