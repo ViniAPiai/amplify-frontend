@@ -11,6 +11,10 @@ class _HomeDesktopScreen extends State<_$HomeDesktopScreen> {
   @override
   Widget build(BuildContext context) {
     HomeProvider provider = Provider.of<HomeProvider>(context);
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Text("MEEEEEEEEEEEEEEEEEEEEEEEE"),
+      ),
+    );
   }
 }

@@ -1,7 +1,9 @@
 part of 'sign_in_screen.dart';
 
 class _$SignInTabletScreen extends StatefulWidget {
-  const _$SignInTabletScreen({super.key});
+  const _$SignInTabletScreen({required this.signIn});
+
+  final void Function() signIn;
 
   @override
   createState() => _SignInTabletScreen();

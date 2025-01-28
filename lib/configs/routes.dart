@@ -1,29 +1,45 @@
 import 'package:flutter/cupertino.dart';
-import 'package:frontend/screens/lading/landing_screen.dart';
+import 'package:frontend/screens/home/home_screen.dart';
 import 'package:frontend/screens/sign_in/sign_in_screen.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
+import 'auth_notifier.dart';
 
 class Routes {
 
-  GoRouter get routes => GoRouter(
+  GoRouter getRoutes(BuildContext context) {
+    return GoRouter(
       initialLocation: '/',
-      /*redirect: (BuildContext context, GoRouterState state) async {
-        final isAuthenticated = false;
-        final isInSignInScreen = state.path == '/';
-        if (!isAuthenticated && !isInSignInScreen) {
-          return '/';
-        } else {
+      refreshListenable: Provider.of<AuthNotifier>(context, listen: true),
+      redirect: (BuildContext context, GoRouterState state) async {
+        final authNotifier = Provider.of<AuthNotifier>(context, listen: false);
+        if (authNotifier.isLoading) {
           return null;
         }
-      },*/
+        final bool isAuthenticated = authNotifier.value;
+        final bool isInSignInScreen = state.matchedLocation == '/';
+        if (!isAuthenticated && !isInSignInScreen) {
+          return '/';
+        }
+        if (isAuthenticated && isInSignInScreen) {
+          return '/${HomeScreen.routeName}';
+        }
+        return null;
+      },
       routes: [
         GoRoute(
           name: SignInScreen.routeName,
           path: '/',
-          builder: (context, state) => SignInScreen(),
+          builder: (context, state) => const SignInScreen(),
         ),
-      ]
-
-  );
+        GoRoute(
+          name: HomeScreen.routeName,
+          path: '/${HomeScreen.routeName}',
+          builder: (context, state) => const HomeScreen(),
+        ),
+      ],
+    );
+  }
 
 }

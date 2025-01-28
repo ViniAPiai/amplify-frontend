@@ -1,7 +1,10 @@
 part of 'sign_in_screen.dart';
 
 class _$SignInMobileScreen extends StatefulWidget {
-  const _$SignInMobileScreen({super.key});
+
+  const _$SignInMobileScreen({required this.signIn});
+
+  final void Function() signIn;
 
   @override
   createState() => _SignInMobileScreen();

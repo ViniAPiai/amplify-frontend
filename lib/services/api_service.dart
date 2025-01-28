@@ -11,7 +11,7 @@ class ApiService {
     String localIp = 'http://192.168.0.176:8080/api';
     String prod = 'http://144.126.227.199:8080/api';
 
-    return prod;
+    return local;
   }
 
   Dio getDioWithAuth() {
