@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
@@ -10,6 +11,7 @@ part 'home_tablet_screen.dart';
 
 part 'home_desktop_screen.dart';
 
+@PagePath("/home")
 class HomeScreen extends StatefulWidget {
 
   static final String routeName = 'home';
