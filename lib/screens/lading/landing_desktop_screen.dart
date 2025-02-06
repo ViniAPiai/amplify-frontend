@@ -12,8 +12,8 @@ class _LandingDesktopScreen extends State<_$LandingDesktopScreen> {
   Widget build(BuildContext context) {
     LandingProvider provider = Provider.of<LandingProvider>(context);
     var t = AppLocalizations.of(context)!;
-    List<String> items = [t.landingNavbarFeatures, t.landingNavbarAboutUs,
-      t.landingNavbarPricing];
+    /*List<String> items = [t.landingNavbarFeatures, t.landingNavbarAboutUs,
+      t.landingNavbarPricing];*/
     return Scaffold(
       appBar: PreferredSize(
           preferredSize: Size(context.mqWidth, 100),
@@ -36,10 +36,11 @@ class _LandingDesktopScreen extends State<_$LandingDesktopScreen> {
                     ),
                 ),
                 Expanded(child: SizedBox()),
-                ...items.map((e) {
+                ...[].map((e) {
                   return TextButton(
                       onPressed: () {
-                        provider.setPage(items.indexOf(e) + 1);
+                        // provider.setPage(items.indexOf(e) + 1);
+                        provider.setPage(0 + 1);
                       },
                       child: Text(
                         e,
@@ -59,7 +60,7 @@ class _LandingDesktopScreen extends State<_$LandingDesktopScreen> {
                             side: BorderSide(color: Colors.black)),
                         minimumSize: Size(175, 50)),
                     child: Text(
-                      t.landingNavbarSignIn,
+                      "t.landingNavbarSignIn",
                       style:
                           TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
                     )),
@@ -71,7 +72,7 @@ class _LandingDesktopScreen extends State<_$LandingDesktopScreen> {
                             borderRadius: BorderRadius.circular(6)),
                         minimumSize: Size(175, 50)),
                     child: Text(
-                      t.landingNavbarSignUp,
+                     " t.landingNavbarSignUp",
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
@@ -98,14 +99,14 @@ class _LandingDesktopScreen extends State<_$LandingDesktopScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        t.landingFirstScreenTitle,
+                        "t.landingFirstScreenTitle",
                         style: TextStyle(
                             fontSize: 40,
                             fontWeight: FontWeight.bold,
                             color: Colors.black),
                       ),
                       Text(
-                        t.landingFirstScreenSubTitle,
+                        "t.landingFirstScreenSubTitle",
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w600,
@@ -168,13 +169,13 @@ class _LandingDesktopScreen extends State<_$LandingDesktopScreen> {
                   children: [
                     LandingDesktopFeaturesCard(
                         icon: FontAwesomeIcons.receipt,
-                        title: t.landingSecondScreenFinanceTitle,
-                        subTitle: t.landingSecondScreenFinanceDescription
+                        title: "t.landingSecondScreenFinanceTitle",
+                        subTitle: "t.landingSecondScreenFinanceDescription"
                     ),
                     LandingDesktopFeaturesCard(
                         icon: FontAwesomeIcons.userGroup,
-                        title: t.landingSecondScreenHRTitle,
-                        subTitle: t.landingSecondScreenHRDescription
+                        title: "t.landingSecondScreenHRTitle",
+                        subTitle: "t.landingSecondScreenHRDescription"
                     ),
                   ],
                 )
@@ -195,14 +196,14 @@ class _LandingDesktopScreen extends State<_$LandingDesktopScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
-                  t.landingFourthScreenTitle,
+                  "t.landingFourthScreenTitle",
                   style: TextStyle(
                       fontSize: 40,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),
                 Text(
-                  t.landingFourthScreenSubTitle,
+                  "t.landingFourthScreenSubTitle",
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.w600,
@@ -215,9 +216,9 @@ class _LandingDesktopScreen extends State<_$LandingDesktopScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   spacing: 32,
                   children: [
-                    LandingDesktopPlanCard(title: t.landingFourthBasicPlan, blockFrom: 2),
-                    LandingDesktopPlanCard(title: t.landingFourthMediumPlan, blockFrom: 3),
-                    LandingDesktopPlanCard(title: t.landingFourthPremiumPlan, blockFrom: 6)
+                    LandingDesktopPlanCard(title: "t.landingFourthBasicPlan", blockFrom: 2),
+                    LandingDesktopPlanCard(title: "t.landingFourthMediumPlan", blockFrom: 3),
+                    LandingDesktopPlanCard(title: "t.landingFourthPremiumPlan", blockFrom: 6)
                   ],
                 )
               ],

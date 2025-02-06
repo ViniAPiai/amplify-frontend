@@ -1,7 +1,9 @@
 part of 'side_bar_screen.dart';
 
 class _$SideBarDesktopScreen extends StatefulWidget {
-  const _$SideBarDesktopScreen({super.key});
+  final Widget child;
+
+  const _$SideBarDesktopScreen({required this.child});
 
   @override
   createState() => _SideBarDesktopScreen();
@@ -17,48 +19,69 @@ class _SideBarDesktopScreen extends State<_$SideBarDesktopScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            width: 64,
-            height: context.mqHeight,
-            margin: EdgeInsets.all(16),
-            padding: EdgeInsets.fromLTRB(8, 32, 0, 16),
-            decoration: BoxDecoration(
-              color: Colors.black,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              spacing: 32,
-              children: [
-                SideBarItem(name: '1', provider: provider, icon: FontAwesomeIcons.bars,),
-                SideBarItem(name: '2', provider: provider, icon: FontAwesomeIcons.bookMedical,),
-                SideBarItem(name: '3', provider: provider, icon: FontAwesomeIcons.tooth,),
-                Expanded(child: Container()),
-                CircleAvatar(
-                  backgroundColor: Colors.purple,
-                  child: Center(
-                    child: Text("V"),
+              width: 200,
+              height: context.mqHeight,
+              padding: EdgeInsets.fromLTRB(8, 32, 8, 16),
+              color: AppColors.black,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                spacing: 16,
+                children: [
+                  SvgPicture.asset(Assets.amplifyPrimaryGreen, height: 45),
+                  const SizedBox(
+                    height: 32,
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                  },
-                  icon: Icon(FontAwesomeIcons.signOut),
-                  iconSize: 32,
-                  color: Colors.white,
-                  style: IconButton.styleFrom(
-                      fixedSize: Size(100, 24),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.horizontal(
-                              left: Radius.circular(12), right: Radius.circular(-12)))),
-                )
-              ],
-            )
-          ),
-          Expanded(
-              child: Center(
-            child: Text('Olá'),
-          ))
+                  SideBarItem(
+                    title: "Dashboard",
+                    path: "/dashboard",
+                    icon: FontAwesomeIcons.chartColumn,
+                  ),
+                  SideBarItem(
+                    title: "Agenda",
+                    path: "/agenda",
+                    icon: Icons.calendar_month,
+                  ),
+                  SideBarItem(
+                    title: "Médicos",
+                    path: "/doctors",
+                    icon: FontAwesomeIcons.userDoctor,
+                  ),
+                  SideBarItem(
+                    title: "Enfermeiras",
+                    path: "/nurses",
+                    icon: FontAwesomeIcons.userNurse,
+                  ),
+                  SideBarItem(
+                    title: "Pacientes",
+                    path: "/patients",
+                    icon: FontAwesomeIcons.hospitalUser,
+                  ),
+                  Expanded(child: Container()),
+                  ListTile(
+                    title: Text(
+                      "Vinicius",
+                      style: GoogleFonts.inter(
+                        fontSize: 16,
+                        color: Colors.white,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    leading: CircleAvatar(
+                      backgroundColor: context.primaryColor,
+                      child: Center(
+                        child: Text("V"),
+                      ),
+                    ),
+                  ),
+                  SideBarItem(
+                    title: "Sair",
+                    path: "/logout",
+                    icon: FontAwesomeIcons.doorOpen,
+                  ),
+                ],
+              )),
+          Expanded(child: widget.child)
         ],
       ),
     );

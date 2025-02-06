@@ -1,0 +1,23 @@
+{
+  "Norte": [
+    "Amarante", "Barcelos", "Braga", "Braganca", "Chaves", "Esposende", "Fafe", "Felgueiras", "Guimaraes", "Lamego", "Macedo de Cavaleiros", "Miranda do Douro", "Mirandela", "Mogadouro", "Mondim de Basto", "Moncao", "Pacos de Ferreira", "Penafiel", "Peso da Regua", "Ponte de Lima", "Povoa de Varzim", "Ribeira de Pena", "Sabrosa", "Santa Maria da Feira", "Santo Tirso", "Sao Joao da Madeira", "Terras de Bouro", "Trofa", "Valenca", "Valongo", "Viana do Castelo", "Vila do Conde", "Vila Nova de Famalicao", "Vila Nova de Gaia", "Vila Real", "Vizela"
+  ],
+  "Centro": [
+    "Agueda", "Alcobaca", "Anadia", "Aveiro", "Belmonte", "Bombarral", "Caldas da Rainha", "Cantanhede", "Castelo Branco", "Coimbra", "Covilha", "Entroncamento", "Estarreja", "Figueira da Foz", "Fundao", "Guarda", "Ilhavo", "Leiria", "Lousa", "Mangualde", "Marinha Grande", "Mealhada", "Mira", "Miranda do Corvo", "Mortagua", "Nazare", "Nelas", "Obidos", "Oliveira do Hospital", "Ourém", "Pombal", "Santa Comba Dao", "Serta", "Seia", "Soure", "Tondela", "Torres Novas", "Vagos", "Viseu"
+  ],
+  "Alentejo": [
+    "Alcacer do Sal", "Aljustrel", "Almodovar", "Avis", "Beja", "Borba", "Campo Maior", "Castelo de Vide", "Elvas", "Estremoz", "Evora", "Ferreira do Alentejo", "Moura", "Mourao", "Montemor-o-Novo", "Nisa", "Odemira", "Portalegre", "Redondo", "Reguengos de Monsaraz", "Sines"
+  ],
+  "Área Metropolitana de Lisboa": [
+    "Almada", "Amadora", "Barreiro", "Cascais", "Lisboa", "Loures", "Mafra", "Moita", "Montijo", "Odivelas", "Oeiras", "Palmela", "Seixal", "Sesimbra", "Setubal", "Sintra", "Vila Franca de Xira"
+  ],
+  "Algarve": [
+    "Albufeira", "Alcoutim", "Aljezur", "Castro Marim", "Faro", "Lagoa", "Lagos", "Loule", "Monchique", "Portimao", "Tavira"
+  ],
+  "Região Autónoma da Madeira": [
+    "Calheta", "Câmara de Lobos", "Funchal", "Machico", "Ponta do Sol", "Ribeira Brava", "Santa Cruz"
+  ],
+  "Região Autónoma dos Açores": [
+    "Angra do Heroísmo", "Horta", "Lagoa", "Ponta Delgada", "Praia da Vitória", "Ribeira Grande"
+  ]
+}

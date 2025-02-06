@@ -1,7 +1,7 @@
 part of 'side_bar_screen.dart';
 
 class _$SideBarMobileScreen extends StatefulWidget {
-  const _$SideBarMobileScreen({super.key});
+  const _$SideBarMobileScreen();
 
   @override
   createState() => _SideBarMobileScreen();

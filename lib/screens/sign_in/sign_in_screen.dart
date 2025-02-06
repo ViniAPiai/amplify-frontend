@@ -1,18 +1,20 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
-import 'package:dio/dio.dart';
-import 'package:dio/io.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:frontend/configs/assets.dart';
 import 'package:frontend/configs/auth_notifier.dart';
 import 'package:frontend/models/auth/auth_request_model.dart';
 import 'package:frontend/screens/home/home_screen.dart';
+import 'package:frontend/screens/sign_up/sign_up_screen.dart';
 import 'package:frontend/services/auth_service.dart';
-import 'package:frontend/services/user_service.dart';
+import 'package:frontend/widgets/form/label.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'sign_in_provider.dart';
 
@@ -32,15 +34,12 @@ class SignInScreen extends StatefulWidget {
 }
 
 class _SignInScreen extends State<SignInScreen> {
-  void signIn() async {
+  void signIn(SignInProvider provider) async {
     final currentContext = context;
-    SignInProvider provider =
-        Provider.of<SignInProvider>(currentContext, listen: false);
     try {
       bool authenticated = await provider.signIn(currentContext);
       if (authenticated) {
         if (mounted) {
-          print("AQUI");
           Provider.of<AuthNotifier>(context, listen: false).login();
           currentContext.goNamed(HomeScreen.routeName);
         }
@@ -48,21 +47,17 @@ class _SignInScreen extends State<SignInScreen> {
         Provider.of<AuthNotifier>(context, listen: false).logout();
         PanaraInfoDialog.show(context,
             message: "E-mail e/ou senha incorretos",
-            buttonText: "Ok",
-            onTapDismiss: () {Navigator.pop(context);},
-            panaraDialogType: PanaraDialogType.warning);
+            buttonText: "Ok", onTapDismiss: () {
+          Navigator.pop(context);
+        }, panaraDialogType: PanaraDialogType.warning);
       }
     } catch (e) {
       Provider.of<AuthNotifier>(context, listen: false).logout();
-      PanaraInfoDialog.show(
-          context,
+      PanaraInfoDialog.show(context,
           message: "Um erro ocorreu no servidor",
-          buttonText: "Ok",
-          onTapDismiss: () {
-            Navigator.pop(context);
-          },
-          barrierDismissible: false,
-          panaraDialogType: PanaraDialogType.error);
+          buttonText: "Ok", onTapDismiss: () {
+        Navigator.pop(context);
+      }, barrierDismissible: false, panaraDialogType: PanaraDialogType.error);
     }
   }
 
@@ -70,13 +65,13 @@ class _SignInScreen extends State<SignInScreen> {
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
       mobile: (context) => _$SignInMobileScreen(
-        signIn: signIn,
+        signIn: (SignInProvider provider) => signIn(provider),
       ),
       tablet: (context) => _$SignInTabletScreen(
-        signIn: signIn,
+        signIn: (SignInProvider provider) => signIn(provider),
       ),
       desktop: (context) => _$SignInDesktopScreen(
-        signIn: signIn,
+        signIn: (SignInProvider provider) => signIn(provider),
       ),
     );
   }
