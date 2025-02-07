@@ -20,10 +20,10 @@ part 'side_bar_desktop_screen.dart';
 part 'side_bar_item.dart';
 
 class SideBarScreen extends StatefulWidget {
-
+  final PreferredSize? appBar;
   final Widget child;
 
-  const SideBarScreen({super.key, required this.child});
+  const SideBarScreen({super.key, required this.child, this.appBar});
 
   @override
   createState() => _SideBarScreen();
@@ -33,9 +33,15 @@ class _SideBarScreen extends State<SideBarScreen> {
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (context) => _$SideBarMobileScreen(),
-      tablet: (context) => _$SideBarTabletScreen(),
-      desktop: (context) => _$SideBarDesktopScreen(child: widget.child,),
+      mobile: (context) => _$SideBarMobileScreen(
+        appBar: widget.appBar,
+        child: widget.child,
+      ),
+      tablet: (context) => _$SideBarTabletScreen(
+        appBar: widget.appBar,
+        child: widget.child,
+      ),
+      desktop: (context) => _$SideBarDesktopScreen(child: widget.child),
     );
   }
 }

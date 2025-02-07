@@ -57,9 +57,11 @@ dependencies:
   intl: ^0.20.1
   json_annotation: ^4.9.0
   mask_text_input_formatter: ^2.9.0
+  number_pagination: ^1.1.6
   panara_dialogs: ^0.1.5
   provider: ^6.1.2
   responsive_builder: ^0.7.1
+  syncfusion_flutter_datepicker: ^28.2.4
   shared_preferences: ^2.3.5
   smooth_page_indicator: ^1.2.0+3
   toggle_switch: ^2.3.0

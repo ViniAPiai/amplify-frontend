@@ -31,6 +31,11 @@ class AgendaProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setMonth(DateTime month) {
+    monthKey.currentState!.animateToMonth(month);
+    notifyListeners();
+  }
+
   void nextWeek() {
     weekKey.currentState!.nextPage();
     notifyListeners();
@@ -43,6 +48,21 @@ class AgendaProvider extends ChangeNotifier {
 
   void setWeek(DateTime week) {
     weekKey.currentState!.animateToWeek(week);
+    notifyListeners();
+  }
+
+  void nextDay() {
+    dayKey.currentState!.nextPage();
+    notifyListeners();
+  }
+
+  void previousDay() {
+    dayKey.currentState!.previousPage();
+    notifyListeners();
+  }
+
+  void setDay(DateTime day) {
+    dayKey.currentState!.animateToDate(day);
     notifyListeners();
   }
 

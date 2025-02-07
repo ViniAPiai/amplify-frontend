@@ -17,6 +17,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
   usePathUrlStrategy();
+  ResponsiveSizingConfig.instance.setCustomBreakpoints(
+    ScreenBreakpoints(desktop: 1100, tablet: 550, watch: 200),
+  );
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_) => SideBarProvider()),

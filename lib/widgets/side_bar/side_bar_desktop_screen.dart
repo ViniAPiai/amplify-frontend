@@ -3,7 +3,7 @@ part of 'side_bar_screen.dart';
 class _$SideBarDesktopScreen extends StatefulWidget {
   final Widget child;
 
-  const _$SideBarDesktopScreen({required this.child});
+  const _$SideBarDesktopScreen({super.key, required this.child});
 
   @override
   createState() => _SideBarDesktopScreen();

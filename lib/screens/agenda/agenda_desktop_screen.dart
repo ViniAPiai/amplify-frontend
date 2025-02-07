@@ -27,21 +27,7 @@ class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 spacing: 16,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 8),
-                    child: Icon(
-                      Icons.calendar_month,
-                      color: context.primaryColor,
-                      size: 32,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 6),
-                    child: Text(
-                      t.agenda,
-                      style: GoogleFonts.inter(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),
-                    ),
-                  ),
+                  HeaderTitle(icon: Icons.calendar_month, title: t.agenda),
                   ToggleSwitch(
                     minWidth: 100,
                     minHeight: 50,
@@ -71,14 +57,15 @@ class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
                       label: Text(
                         t.newPatient,
                         style: GoogleFonts.inter(color: context.primaryColor, fontSize: 16, fontWeight: FontWeight.w500),
-                      ))
+                      )),
+                  LocaleChanger()
                 ],
               ),
             ),
             Divider(
               color: Colors.grey.shade300,
             ),
-            SizedBox(width: context.mqWidth, height: context.mqHeight - 150, child: _getCalendar(provider, locale, t)),
+            SizedBox(width: context.mqWidth, height: context.mqHeight - 150, child: AmplifyCalendar()),
           ],
         ),
       );
@@ -88,7 +75,7 @@ class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
   Widget _getCalendar(AgendaProvider provider, LocaleProvider locale, AppLocalizations t) {
     switch (provider.selectedIndex) {
       case 0:
-        return SizedBox();
+        return _getDayView(provider, locale, t);
       case 1:
         return _getWeekView(provider, locale, t);
       case 2:
@@ -96,6 +83,133 @@ class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
       default:
         return _getMonthView(provider, locale, t);
     }
+  }
+
+  DayView _getDayView(AgendaProvider provider, LocaleProvider locale, AppLocalizations t) {
+    return DayView(
+      key: provider.dayKey,
+      controller: EventController(),
+      dayTitleBuilder: (date) {
+        String finalDate = DateFormat.yMMMMd(locale.getLocaleString()).format(date);
+        return Padding(
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+          child: Row(
+            spacing: 16,
+            children: [
+              OutlinedButton(
+                  onPressed: () => provider.previousDay(),
+                  style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                      backgroundColor: Colors.white,
+                      padding: EdgeInsets.zero,
+                      fixedSize: Size(25, 25)),
+                  child: Icon(
+                    Icons.arrow_back_ios_new_outlined,
+                    color: Colors.grey.shade700,
+                    size: 24,
+                  )),
+              OutlinedButton(
+                  onPressed: () async {
+                    DateTime? date = await showDatePicker(
+                      context: context,
+                      firstDate: DateTime.now().subtract(Duration(days: 365)),
+                      lastDate: DateTime.now().add(Duration(days: 365 * 4)),
+                      locale: locale.locale,
+                      builder: (context, child) {
+                        return Theme(
+                          data: ThemeData(
+                            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.secondary),
+                          ),
+                          child: child!,
+                        );
+                      },
+                    );
+                    if (date != null) {
+                      provider.setDay(date);
+                    }
+                  },
+                  style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                      backgroundColor: Colors.white,
+                      padding: EdgeInsets.zero,
+                      fixedSize: Size(420, 25)),
+                  child: Text(
+                    finalDate,
+                    style: GoogleFonts.inter(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
+                  )),
+              OutlinedButton(
+                  onPressed: () => provider.nextDay(),
+                  style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                      backgroundColor: Colors.white,
+                      padding: EdgeInsets.zero,
+                      fixedSize: Size(25, 25)),
+                  child: Icon(
+                    Icons.arrow_forward_ios_outlined,
+                    color: Colors.grey.shade700,
+                    size: 24,
+                  )),
+              Expanded(child: const SizedBox()),
+              OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                      backgroundColor: Colors.white,
+                      padding: EdgeInsets.zero,
+                      fixedSize: Size(25, 25)),
+                  child: Icon(
+                    Icons.refresh,
+                    color: Colors.grey.shade700,
+                    size: 24,
+                  )),
+              OutlinedButton(
+                  onPressed: () {},
+                  style: OutlinedButton.styleFrom(
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                      backgroundColor: Colors.white,
+                      padding: EdgeInsets.zero,
+                      fixedSize: Size(25, 25)),
+                  child: Icon(
+                    Icons.print,
+                    color: Colors.grey.shade700,
+                    size: 24,
+                  )),
+              OutlinedButton.icon(
+                onPressed: () {},
+                style: OutlinedButton.styleFrom(
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                  backgroundColor: Colors.white,
+                  padding: EdgeInsets.zero,
+                  fixedSize: Size(120, 25),
+                ),
+                icon: Icon(
+                  Icons.filter_alt,
+                  color: Colors.grey.shade700,
+                  size: 24,
+                ),
+                label: Text(
+                  t.filter,
+                  style: GoogleFonts.inter(color: Colors.grey.shade700, fontSize: 16, fontWeight: FontWeight.w500),
+                ),
+              ),
+            ],
+          ),
+        );
+      },
+      timeLineBuilder: (date) {
+        return Container(
+          padding: EdgeInsets.all(8),
+          height: 70,
+          margin: EdgeInsets.zero,
+          child: Text(
+            DateFormat.Hm(locale.getLocaleString()).format(date),
+            textAlign: TextAlign.right,
+            style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
+          ),
+        );
+      },
+      backgroundColor: AppColors.gray,
+    );
   }
 
   WeekView _getWeekView(AgendaProvider provider, LocaleProvider locale, AppLocalizations t) {
@@ -125,7 +239,25 @@ class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
                     size: 24,
                   )),
               OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    DateTime? date = await showDatePicker(
+                      context: context,
+                      firstDate: DateTime.now().subtract(Duration(days: 365)),
+                      lastDate: DateTime.now().add(Duration(days: 365 * 4)),
+                      locale: locale.locale,
+                      builder: (context, child) {
+                        return Theme(
+                          data: ThemeData(
+                            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.secondary),
+                          ),
+                          child: child!,
+                        );
+                      },
+                    );
+                    if (date != null) {
+                      provider.setWeek(date);
+                    }
+                  },
                   style: OutlinedButton.styleFrom(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
                       backgroundColor: Colors.white,
@@ -200,17 +332,15 @@ class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
         return Container(
             padding: EdgeInsets.all(8),
             height: 70,
-            decoration: BoxDecoration(border: Border.all(color: Color(0xffe0e1e1)), color: date == DateTime.now() ? AppColors.secondary : AppColors.gray),
+            decoration:
+                BoxDecoration(border: Border.all(color: Color(0xffe0e1e1)), color: date == DateTime.now() ? AppColors.secondary : AppColors.gray),
             child: RichText(
-              textAlign: TextAlign.center,
-                text: TextSpan(
-                    text: "$day\n",
-                    style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500),
-                    children: [
-              TextSpan(
-                  text: DateFormat.d(locale.getLocaleString()).format(date),
-                  style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
-            ])));
+                textAlign: TextAlign.center,
+                text: TextSpan(text: "$day\n", style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500), children: [
+                  TextSpan(
+                      text: DateFormat.d(locale.getLocaleString()).format(date),
+                      style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
+                ])));
       },
       timeLineBuilder: (date) {
         return Container(
@@ -224,7 +354,9 @@ class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
           ),
         );
       },
-      weekNumberBuilder: (firstDayOfWeek) => Container(color: AppColors.gray,),
+      weekNumberBuilder: (firstDayOfWeek) => Container(
+        color: AppColors.gray,
+      ),
       startDay: WeekDays.monday,
       backgroundColor: AppColors.gray,
     );

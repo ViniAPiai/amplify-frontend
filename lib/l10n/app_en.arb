@@ -32,12 +32,16 @@
   "signUp": "Sign Up",
   "signIn": "Sign In",
   "search": "Search",
-  "searchPatientHint": "Tip to search a patient by NINo, E-mail, Name or Phone Number",
+  "searchPatientHint": "NINo, E-mail, Name or Phone Number",
   "newPatient": "New",
   "agenda": "Agenda",
   "daily": "Daily",
   "weakly": "Weakly",
   "monthly": "Monthly",
   "to": "to",
-  "filter": "Filter"
+  "filter": "Filter",
+  "patientList": "Patients",
+  "patientsLabel": "patients",
+  "sortBy": "Sort by",
+  "basicInfo": "Basic Information"
 }

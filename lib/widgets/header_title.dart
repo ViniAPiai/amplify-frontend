@@ -1,0 +1,52 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/configs/app_colors.dart';
+import 'package:frontend/extension/utils_extension.dart';
+import 'package:frontend/widgets/side_bar/side_bar_screen.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+
+class HeaderTitle extends StatelessWidget {
+  final IconData icon;
+  final String title;
+
+  const HeaderTitle({super.key, required this.icon, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
+    return Row(
+      spacing: context.isTabletOrDesktop ? 16 : 8,
+      children: [
+        context.isDesktop
+            ? SizedBox()
+            : Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: IconButton(
+                  onPressed: () => sideBarProvider.key.currentState!.openDrawer(),
+                  icon: Icon(
+                    Icons.menu,
+                    color: AppColors.grayBlack,
+                    size: context.isTabletOrDesktop ? 32 : 20,
+                  ),
+                )),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Icon(
+            icon,
+            color: context.primaryColor,
+            size: 32,
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 6),
+          child: Text(
+            title,
+            style: GoogleFonts.inter(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),
+          ),
+        ),
+      ],
+    );
+  }
+}

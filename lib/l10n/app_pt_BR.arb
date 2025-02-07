@@ -32,12 +32,16 @@
   "signUp": "Cadastre-se",
   "signIn": "Entrar",
   "search": "Pesquisar",
-  "searchPatientHint": "Digite para pesquisar um paciente por CPF, E-mail, Nome ou Número de Celular",
+  "searchPatientHint": "CPF, E-mail, Nome ou Número de Celular",
   "newPatient": "Novo",
   "agenda": "Agenda",
   "daily": "Diário",
   "weakly": "Semanal",
   "monthly": "Mensal",
   "to": "até",
-  "filter": "Filtrar"
+  "filter": "Filtrar",
+  "patientList": "Pacientes",
+  "patientsLabel": "pacientes",
+  "sortBy": "Ordenar por",
+  "basicInfo": "Informações Básicas"
 }
