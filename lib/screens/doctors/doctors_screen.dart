@@ -14,31 +14,34 @@ import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-part 'patients_provider.dart';
 
-part 'patients_mobile_screen.dart';
+part 'doctors_provider.dart';
 
-part 'patients_tablet_screen.dart';
+part 'doctors_mobile_screen.dart';
 
-part 'patients_desktop_screen.dart';
+part 'doctors_tablet_screen.dart';
 
-class PatientsScreen extends StatefulWidget {
+part 'doctors_desktop_screen.dart';
 
-  static const String routeName = 'patients';
+class DoctorsScreen extends StatefulWidget {
 
-  const PatientsScreen({super.key});
+  static const String routeName = 'doctors';
+
+  const DoctorsScreen({super.key});
 
   @override
-  createState() => _PatientsScreen();
+  createState() => _DoctorsScreen();
 }
 
-class _PatientsScreen extends State<PatientsScreen> {
+class _DoctorsScreen extends State<DoctorsScreen> {
+
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout.builder(
-      mobile: (context) => _$PatientsMobileScreen(),
-      tablet: (context) => _$PatientsTabletScreen(),
-      desktop: (context) => _$PatientsDesktopScreen(),
+      mobile: (context) => _DoctorsMobileScreen(),
+      tablet: (context) => _DoctorsTabletScreen(),
+      desktop: (context) => _DoctorsDesktopScreen(),
     );
   }
+
 }

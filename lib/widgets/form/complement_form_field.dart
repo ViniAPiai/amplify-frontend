@@ -6,10 +6,10 @@ import 'label.dart';
 class ComplementFormField extends StatelessWidget {
   final TextEditingController controller;
   final bool enabled;
-  final FocusNode currentFocusNode;
-  final FocusNode nextFocusNode;
+  final FocusNode? currentFocusNode;
+  final FocusNode? nextFocusNode;
 
-  const ComplementFormField({super.key, required this.controller, required this.enabled, required this.currentFocusNode, required this.nextFocusNode});
+  const ComplementFormField({super.key, required this.controller, required this.enabled, this.currentFocusNode, this.nextFocusNode});
 
   @override
   Widget build(BuildContext context) {

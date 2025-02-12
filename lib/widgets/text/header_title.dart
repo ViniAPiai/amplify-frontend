@@ -19,31 +19,29 @@ class HeaderTitle extends StatelessWidget {
     return Row(
       spacing: context.isTabletOrDesktop ? 16 : 8,
       children: [
-        context.isDesktop
-            ? SizedBox()
-            : Padding(
-                padding: const EdgeInsets.only(bottom: 8),
-                child: IconButton(
-                  onPressed: () => sideBarProvider.key.currentState!.openDrawer(),
-                  icon: Icon(
-                    Icons.menu,
-                    color: AppColors.grayBlack,
-                    size: context.isTabletOrDesktop ? 32 : 20,
-                  ),
-                )),
+        context.isDesktop ? const SizedBox() : Padding(
+            padding: const EdgeInsets.only(bottom: 8),
+            child: IconButton(
+              onPressed: () => sideBarProvider.key.currentState!.openDrawer(),
+              icon: Icon(
+                Icons.menu,
+                color: AppColors.grayBlack,
+                size: 20,
+              ),
+            )),
         Padding(
           padding: const EdgeInsets.only(bottom: 8),
           child: Icon(
             icon,
             color: context.primaryColor,
-            size: 32,
+            size: context.isTabletOrDesktop ? 32 : 20,
           ),
         ),
         Padding(
           padding: const EdgeInsets.only(bottom: 6),
           child: Text(
             title,
-            style: GoogleFonts.inter(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),
+            style: GoogleFonts.inter(color: Colors.black, fontSize: context.isTabletOrDesktop ? 18 : 24, fontWeight: FontWeight.w700),
           ),
         ),
       ],

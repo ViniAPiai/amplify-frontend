@@ -9,8 +9,8 @@ class DocumentNumberFormField extends StatelessWidget {
   final RegExp regExpValidator;
   final MaskTextInputFormatter formatter;
   final bool enabled;
-  final FocusNode currentFocusNode;
-  final FocusNode nextFocusNode;
+  final FocusNode? currentFocusNode;
+  final FocusNode? nextFocusNode;
 
   const DocumentNumberFormField(
       {super.key,
@@ -18,8 +18,8 @@ class DocumentNumberFormField extends StatelessWidget {
       required this.enabled,
       required this.regExpValidator,
       required this.formatter,
-      required this.currentFocusNode,
-      required this.nextFocusNode});
+      this.currentFocusNode,
+      this.nextFocusNode});
 
   @override
   Widget build(BuildContext context) {

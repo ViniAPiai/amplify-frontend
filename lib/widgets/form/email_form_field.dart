@@ -5,11 +5,11 @@ import 'label.dart';
 
 class EmailFormField extends StatelessWidget {
   final TextEditingController controller;
-  final FocusNode currentFocusNode;
-  final FocusNode nextFocusNode;
+  final FocusNode? currentFocusNode;
+  final FocusNode? nextFocusNode;
   final bool enabled;
 
-  const EmailFormField({super.key, required this.controller, required this.currentFocusNode, required this.nextFocusNode, required this.enabled});
+  const EmailFormField({super.key, required this.controller, this.currentFocusNode, this.nextFocusNode, required this.enabled});
 
   @override
   Widget build(BuildContext context) {

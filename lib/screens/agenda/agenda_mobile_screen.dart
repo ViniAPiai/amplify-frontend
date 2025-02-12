@@ -62,7 +62,7 @@ class _AgendaMobileScreen extends State<_$AgendaMobileScreen> {
                         color: context.primaryColor,
                       ),
                       label: Text(
-                        t.newPatient,
+                        t.newLabel,
                         style: GoogleFonts.inter(color: context.primaryColor, fontSize: 16, fontWeight: FontWeight.w500),
                       )),
                 ],

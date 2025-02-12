@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:frontend/screens/agenda/agenda_screen.dart';
+import 'package:frontend/screens/doctors/doctors_screen.dart';
 import 'package:frontend/screens/home/home_screen.dart';
+import 'package:frontend/screens/patient_detail/patient_detail_screen.dart';
 import 'package:frontend/screens/patients/patients_screen.dart';
+import 'package:frontend/screens/patients_register/patient_register_screen.dart';
 import 'package:frontend/screens/sign_in/sign_in_screen.dart';
 import 'package:frontend/screens/sign_up/sign_up_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -14,7 +17,8 @@ class Routes {
   GoRouter getRoutes(BuildContext context) {
     return GoRouter(
       navigatorKey: GlobalKey<NavigatorState>(),
-      initialLocation: '/patients',
+      initialLocation: '/patients/detail/12312',
+      // initialLocation: '/patients',
       // refreshListenable: Provider.of<AuthNotifier>(context, listen: true),
       /*redirect: (BuildContext context, GoRouterState state) {
         final authNotifier = context.read<AuthNotifier>();
@@ -55,11 +59,28 @@ class Routes {
           name: PatientsScreen.routeName,
           path: '/${PatientsScreen.routeName}',
           builder: (context, state) => PatientsScreen(),
+          routes: [
+            GoRoute(
+              name: PatientRegisterScreen.routeName,
+              path: 'new',
+              builder: (context, state) => PatientRegisterScreen(),
+            ),
+            GoRoute(
+              name: 'patient_detail',
+              path: 'detail/:uuid',
+              builder: (context, state) => PatientDetailScreen(patientUuid: state.pathParameters['uuid']!),
+            ),
+          ]
         ),
         GoRoute(
           name: AgendaScreen.routeName,
           path: '/${AgendaScreen.routeName}',
           builder: (context, state) => AgendaScreen(),
+        ),
+        GoRoute(
+          name: DoctorsScreen.routeName,
+          path: '/${DoctorsScreen.routeName}',
+          builder: (context, state) => DoctorsScreen(),
         ),
       ],
     );

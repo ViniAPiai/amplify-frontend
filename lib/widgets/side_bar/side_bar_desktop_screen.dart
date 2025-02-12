@@ -14,7 +14,7 @@ class _SideBarDesktopScreen extends State<_$SideBarDesktopScreen> {
   Widget build(BuildContext context) {
     SideBarProvider provider = Provider.of<SideBarProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.gray,
       body: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [

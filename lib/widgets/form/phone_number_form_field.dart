@@ -9,8 +9,8 @@ class PhoneNumberFormField extends StatelessWidget {
   final PatternValidator validator;
   final MaskTextInputFormatter formatter;
   final bool enabled;
-  final FocusNode currentFocusNode;
-  final FocusNode nextFocusNode;
+  final FocusNode? currentFocusNode;
+  final FocusNode? nextFocusNode;
 
   const PhoneNumberFormField(
       {super.key,
@@ -18,8 +18,8 @@ class PhoneNumberFormField extends StatelessWidget {
       required this.enabled,
       required this.validator,
       required this.formatter,
-      required this.currentFocusNode,
-      required this.nextFocusNode});
+      this.currentFocusNode,
+      this.nextFocusNode});
 
   @override
   Widget build(BuildContext context) {

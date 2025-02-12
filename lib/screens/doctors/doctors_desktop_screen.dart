@@ -1,16 +1,12 @@
-part of 'patients_screen.dart';
+part of 'doctors_screen.dart';
 
-class _$PatientsDesktopScreen extends StatefulWidget {
-  const _$PatientsDesktopScreen();
+class _DoctorsDesktopScreen extends StatelessWidget {
 
-  @override
-  createState() => _PatientsDesktopScreen();
-}
+  const _DoctorsDesktopScreen();
 
-class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
   @override
   Widget build(BuildContext context) {
-    PatientsProvider provider = Provider.of<PatientsProvider>(context);
+    DoctorsProvider provider = Provider.of<DoctorsProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return SideBarScreen(
       child: Container(
@@ -20,17 +16,15 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
         child: Column(
           spacing: 16,
           children: [
-            Container(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-              decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
               child: Row(
                 spacing: 16,
                 children: [
-                  HeaderTitle(icon: Icons.person_3, title: t.patientList),
+                  HeaderTitle(icon: Icons.person_3, title: t.doctorsList),
                   Expanded(child: SizedBox()),
                   SizedBox(
                     width: 300,
-                    height: 40,
                     child: TextFormField(
                       controller: provider.tecSearch,
                       decoration: InputDecoration(
@@ -39,53 +33,65 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
                       ),
                     ),
                   ),
-                  ElevatedButton.icon(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                        backgroundColor: context.primaryColor,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        padding: EdgeInsets.all(16)),
-                    label: Text(
-                      AppLocalizations.of(context)!.search,
-                      style: GoogleFonts.inter(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.search,
-                      color: Colors.white,
-                      size: 16,
-                    ),
-                  ),
-                  OutlinedButton.icon(
-                    onPressed: () {},
-                    style: OutlinedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: context.primaryColor)),
-                        padding: EdgeInsets.all(16)),
-                    label: Text(
-                      AppLocalizations.of(context)!.newPatient,
-                      style: GoogleFonts.inter(
-                        color: context.primaryColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    icon: Icon(
-                      Icons.add,
-                      color: context.primaryColor,
-                      size: 16,
-                    ),
-                  ),
+                  ElevatedButton(
+                      onPressed: () {},
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: context.primaryColor,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          padding: EdgeInsets.all(16),
+                          fixedSize: Size(135, 50)),
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.search,
+                            style: GoogleFonts.inter(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          FaIcon(
+                            FontAwesomeIcons.search,
+                            color: Colors.white,
+                            size: 16,
+                          )
+                        ],
+                      )),
+                  OutlinedButton(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: context.primaryColor)),
+                          padding: EdgeInsets.all(16),
+                          fixedSize: Size(100, 50)),
+                      child: Row(
+                        spacing: 8,
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.newPatient,
+                            style: GoogleFonts.inter(
+                              color: context.primaryColor,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          FaIcon(
+                            FontAwesomeIcons.plus,
+                            color: context.primaryColor,
+                            size: 16,
+                          )
+                        ],
+                      )),
+                  LocaleChanger()
                 ],
               ),
             ),
+            Divider(thickness: .5, color: AppColors.gray2),
             Container(
               width: context.width,
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-              decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
+              height: 35,
+              padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
               child: Row(
                 spacing: 16,
                 children: [
@@ -98,13 +104,13 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
                             fontWeight: FontWeight.w700,
                           ),
                           children: [
-                        TextSpan(
-                            text: " ${t.patientsLabel}",
-                            style: GoogleFonts.inter(
-                              color: AppColors.gray2,
-                              fontSize: 20,
-                            ))
-                      ])),
+                            TextSpan(
+                                text: " ${t.doctorsLabel}",
+                                style: GoogleFonts.inter(
+                                  color: AppColors.gray2,
+                                  fontSize: 20,
+                                ))
+                          ])),
                   VerticalDivider(
                     thickness: .5,
                   ),
@@ -118,9 +124,11 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
                 ],
               ),
             ),
+            Divider(thickness: .5, color: AppColors.gray2),
             Container(
                 width: context.mqWidth,
-                padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                height: context.height - 300,
+                padding: EdgeInsets.all(16),
                 child: SingleChildScrollView(
                   child: DataTable(
                       showCheckboxColumn: true,
@@ -129,29 +137,29 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
                       columns: [
                         DataColumn(
                             label: Label(
-                          label: t.basicInfo,
-                          required: false,
-                        )),
+                              label: t.basicInfo,
+                              required: false,
+                            )),
                         DataColumn(
                             label: Label(
-                          label: t.documentNumber,
-                          required: false,
-                        )),
+                              label: t.documentNumber,
+                              required: false,
+                            )),
                         DataColumn(
                             label: Label(
-                          label: t.healthNumber,
-                          required: false,
-                        )),
+                              label: t.healthNumber,
+                              required: false,
+                            )),
                         DataColumn(
                             label: Label(
-                          label: t.phoneNumber,
-                          required: false,
-                        )),
+                              label: t.phoneNumber,
+                              required: false,
+                            )),
                         DataColumn(
                             label: Label(
-                          label: "Ações",
-                          required: false,
-                        )),
+                              label: "Ações",
+                              required: false,
+                            )),
                       ],
                       rows: List.generate(10, (index) {
                         return DataRow(
@@ -206,14 +214,14 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
                               return states.contains(WidgetState.hovered) ? Colors.blue : Colors.white;
                             }));
                       })),
-                )).expanded(),
+                )),
             NumberPagination(
               onPageChanged: (page) {},
               totalPages: 10,
               currentPage: 1,
               fontFamily: GoogleFonts.interTextTheme().toString(),
               controlButtonColor: AppColors.secondary,
-            ).paddingOnly(bottom: 16),
+            )
           ],
         ),
       ),

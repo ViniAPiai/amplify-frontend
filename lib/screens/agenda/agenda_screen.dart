@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/widgets/amplify_calendar/amplify_calendar.dart';
-import 'package:frontend/widgets/header_title.dart';
+import 'package:frontend/widgets/text/header_title.dart';
 import 'package:frontend/widgets/locale_changer/locale_changer.dart';
 import 'package:frontend/widgets/side_bar/side_bar_screen.dart';
 import 'package:google_fonts/google_fonts.dart';

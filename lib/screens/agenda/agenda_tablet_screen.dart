@@ -77,7 +77,7 @@ class _AgendaTabletScreen extends State<_$AgendaTabletScreen> {
                         color: context.primaryColor,
                       ),
                       label: Text(
-                        t.newPatient,
+                        t.newLabel,
                         style: GoogleFonts.inter(color: context.primaryColor, fontSize: 16, fontWeight: FontWeight.w500),
                       )),
                 ],

@@ -5,11 +5,11 @@ import 'package:frontend/widgets/form/label.dart';
 
 class FullNameFormField extends StatelessWidget {
   final TextEditingController controller;
-  final FocusNode currentFocusNode;
-  final FocusNode nextFocusNode;
+  final FocusNode? currentFocusNode;
+  final FocusNode? nextFocusNode;
   final bool enabled;
 
-  const FullNameFormField({super.key, required this.controller, required this.currentFocusNode, required this.nextFocusNode, required this.enabled});
+  const FullNameFormField({super.key, required this.controller, this.currentFocusNode, this.nextFocusNode, required this.enabled});
 
   @override
   Widget build(BuildContext context) {

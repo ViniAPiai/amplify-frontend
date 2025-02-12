@@ -10,8 +10,8 @@ class ConfirmPasswordFormField extends StatelessWidget {
   final bool showPassword;
   final String password;
   final bool enabled;
-  final FocusNode currentFocusNode;
-  final FocusNode nextFocusNode;
+  final FocusNode? currentFocusNode;
+  final FocusNode? nextFocusNode;
 
   const ConfirmPasswordFormField(
       {super.key,
@@ -19,7 +19,7 @@ class ConfirmPasswordFormField extends StatelessWidget {
       required this.updateShowPassword,
       required this.showPassword,
       required this.password,
-      required this.enabled, required this.currentFocusNode, required this.nextFocusNode});
+      required this.enabled, this.currentFocusNode, this.nextFocusNode});
 
   @override
   Widget build(BuildContext context) {

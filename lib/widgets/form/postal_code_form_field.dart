@@ -10,8 +10,8 @@ class PostalCodeFormField extends StatelessWidget {
   final MaskTextInputFormatter formatter;
   final String hintText;
   final bool enabled;
-  final FocusNode currentFocusNode;
-  final FocusNode nextFocusNode;
+  final FocusNode? currentFocusNode;
+  final FocusNode? nextFocusNode;
 
   const PostalCodeFormField(
       {super.key,
@@ -20,8 +20,8 @@ class PostalCodeFormField extends StatelessWidget {
       required this.formatter,
       required this.hintText,
       required this.enabled,
-      required this.currentFocusNode,
-      required this.nextFocusNode});
+      this.currentFocusNode,
+      this.nextFocusNode});
 
   @override
   Widget build(BuildContext context) {

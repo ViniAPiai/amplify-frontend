@@ -18,6 +18,7 @@ class _SideBarMobileScreen extends State<_$SideBarMobileScreen> {
     return Scaffold(
       key: provider.key,
       appBar: widget.appBar,
+      backgroundColor: AppColors.gray,
       drawer: Drawer(
         backgroundColor: AppColors.black,
         shape: RoundedRectangleBorder(

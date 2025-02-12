@@ -29,7 +29,7 @@ class _PatientsTabletScreen extends State<_$PatientsTabletScreen> {
                 child: Row(
                   spacing: 16,
                   children: [
-                    HeaderTitle(icon: Icons.person_3, title: AppLocalizations.of(context)!.patientList),
+                    HeaderTitle(icon: Icons.person_3, title: t.patientList),
                     Expanded(child: SizedBox()),
                     SizedBox(
                       width: 300,
