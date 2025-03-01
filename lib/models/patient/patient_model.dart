@@ -4,20 +4,20 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'patient_model.g.dart';
 
-@JsonSerializable(explicitToJson: true)
+@JsonSerializable(includeIfNull: false)
 class PatientModel extends UserModel {
   late String gender;
   late DateTime birthDate;
   late String phoneNumber;
   late String healthNumber;
   late String nationalRegistry;
-  late DateTime nationalRegistryExpirationDate;
+  late DateTime? nationalRegistryExpirationDate;
   late String occupation;
   late AddressModel address;
 
-  PatientModel(this.gender, this.birthDate, this.phoneNumber, this.healthNumber, this.nationalRegistry, this.nationalRegistryExpirationDate,
-      this.occupation, String uuid, String fullName, String email, String documentNumber, DateTime createdAt, DateTime updatedAt, String roleName)
-      : super(uuid, fullName, email, documentNumber, createdAt, updatedAt, roleName);
+  PatientModel({required this.gender, required this.birthDate, required this.phoneNumber, required this.healthNumber, required this.nationalRegistry,
+    this.nationalRegistryExpirationDate, required this.occupation, required this.address,
+    required super.uuid, required super.fullName, required super.email, required super.documentNumber});
 
   factory PatientModel.fromJson(Map<String, dynamic> json) => _$PatientModelFromJson(json);
 

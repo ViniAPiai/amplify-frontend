@@ -18,16 +18,18 @@ class _PatientRegisterDesktopScreen extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
                 decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
                 child: Row(
+                  spacing: 16,
                   children: [
                     HeaderTitle(icon: Icons.person_add_alt, title: t.newPatient),
                     SizedBox().expanded(),
                     RegisterButton(
-                      onPressed: () {},
-                    )
+                      onPressed: () => provider.validateForm(context),
+                    ),
+                    LocaleChanger()
                   ],
                 ),
               ),
-              Container(
+              !provider.isLoading ? Container(
                 width: context.width,
                 padding: EdgeInsets.all(16),
                 child: SingleChildScrollView(
@@ -42,6 +44,7 @@ class _PatientRegisterDesktopScreen extends StatelessWidget {
                             CountryFormField(
                               country: provider.tecCountry,
                               onChanged: (value) => provider.updateCountry(value),
+                              enabled: false,
                             ).expanded(),
                             EmailFormField(controller: provider.tecEmail, enabled: provider.tecCountry.isNotEmpty).expanded(),
                           ],
@@ -65,11 +68,9 @@ class _PatientRegisterDesktopScreen extends StatelessWidget {
                           spacing: 16,
                           children: [
                             FullNameFormField(controller: provider.tecFullName, enabled: provider.tecCountry.isNotEmpty).expanded(),
-                            PostalCodeFormField(
+                            ZipCodeFormField(
                               controller: provider.tecZipCode,
-                              postalCodeValidator: provider.getPostalCodeValidator(),
-                              formatter: provider.getPostalCodeFormatter(),
-                              hintText: provider.getPostalCodeHint(),
+                              country: provider.tecCountry,
                               enabled: provider.tecCountry.isNotEmpty,
                             ).expanded(),
                           ],
@@ -119,11 +120,8 @@ class _PatientRegisterDesktopScreen extends StatelessWidget {
                           spacing: 16,
                           children: [
                             DocumentNumberFormField(
-                              controller: provider.tecDocumentNumber,
-                              enabled: provider.tecCountry.isNotEmpty,
-                              regExpValidator: provider.documentNumberValidator(),
-                              formatter: provider.documentNumberFormatter(),
-                            ).expanded(),
+                                    controller: provider.tecDocumentNumber, enabled: provider.tecCountry.isNotEmpty, country: provider.tecCountry)
+                                .expanded(),
                             BirthdayDateFormField(
                               enabled: provider.tecCountry.isNotEmpty,
                               controller: provider.tecBirthDate,
@@ -134,11 +132,8 @@ class _PatientRegisterDesktopScreen extends StatelessWidget {
                           spacing: 16,
                           children: [
                             PhoneNumberFormField(
-                              controller: provider.tecPhoneNumber,
-                              enabled: provider.tecCountry.isNotEmpty,
-                              validator: provider.phoneValidator(),
-                              formatter: provider.phoneFormatter(),
-                            ).expanded(),
+                                    controller: provider.tecPhoneNumber, enabled: provider.tecCountry.isNotEmpty, country: provider.tecCountry)
+                                .expanded(),
                             OccupationFormField(
                               controller: provider.tecOccupation,
                               enabled: provider.tecCountry.isNotEmpty,
@@ -149,7 +144,7 @@ class _PatientRegisterDesktopScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-              ).expanded()
+              ).expanded() : Center(child: CircularProgressIndicator(),).expanded()
             ],
           )),
     );

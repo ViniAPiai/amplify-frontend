@@ -92,58 +92,57 @@ class _PatientsMobileScreen extends State<_$PatientsMobileScreen> {
         color: AppColors.gray,
         padding: const EdgeInsets.all(8),
         child: Column(
+          spacing: 8,
           children: [
-            Expanded(
-              child: ListView.builder(
-                  itemCount: 10,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: Material(
-                        color: Colors.white,
-                        child: ListTile(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+            provider.hasContent() ? ListView.builder(
+                itemCount: provider.patients.content.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  PatientModel p = provider.patients.content[index];
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: Material(
+                      color: Colors.white,
+                      child: ListTile(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        contentPadding: EdgeInsets.all(8),
+                        minVerticalPadding: 2,
+                        leading: CircleAvatar(
+                            backgroundColor: AppColors.secondary,
+                            child: Center(
+                              child: Text(p.fullName[0].toUpperCase()),
+                            )),
+                        title: Text(
+                          p.fullName,
+                          style: GoogleFonts.inter(
+                            color: AppColors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
                           ),
-                          contentPadding: EdgeInsets.all(8),
-                          minVerticalPadding: 2,
-                          leading: CircleAvatar(
-                              backgroundColor: AppColors.secondary,
-                              child: Center(
-                                child: Text("IG"),
-                              )),
-                          title: Text(
-                            "igor@gmail.com",
-                            style: GoogleFonts.inter(
-                              color: AppColors.black,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          subtitle: Text(
-                            "igor@gmail.com",
-                            style: GoogleFonts.inter(
-                              color: AppColors.gray2,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w200,
-                            ),
+                        ),
+                        subtitle: Text(
+                          p.email!,
+                          style: GoogleFonts.inter(
+                            color: AppColors.gray2,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w200,
                           ),
                         ),
                       ),
-                    );
-                  },
-              ),
-            ),
-            const SizedBox(height: 8,),
-            NumberPagination(
-              onPageChanged: (page) {},
-              totalPages: 10,
-              currentPage: 1,
+                    ),
+                  );
+                },
+            ).expanded() : const SizedBox(),
+            provider.hasContent() ? NumberPagination(
+              onPageChanged: (page) => provider.changePage(page),
+              totalPages: provider.patients.totalPages,
+              currentPage: provider.selectedPage,
               visiblePagesCount: 3,
               fontFamily: GoogleFonts.interTextTheme().toString(),
               controlButtonColor: AppColors.secondary,
-            )
+            ) : const SizedBox()
           ],
         )
       ),

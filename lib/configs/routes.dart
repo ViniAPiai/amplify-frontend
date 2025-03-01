@@ -17,7 +17,7 @@ class Routes {
   GoRouter getRoutes(BuildContext context) {
     return GoRouter(
       navigatorKey: GlobalKey<NavigatorState>(),
-      initialLocation: '/patients/detail/12312',
+      initialLocation: '/agenda',
       // initialLocation: '/patients',
       // refreshListenable: Provider.of<AuthNotifier>(context, listen: true),
       /*redirect: (BuildContext context, GoRouterState state) {

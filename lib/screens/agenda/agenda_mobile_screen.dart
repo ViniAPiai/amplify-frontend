@@ -11,6 +11,7 @@ class _AgendaMobileScreen extends State<_$AgendaMobileScreen> {
   @override
   Widget build(BuildContext context) {
     SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
+    AgendaProvider provider = Provider.of<AgendaProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return SideBarScreen(
         appBar: PreferredSize(
@@ -70,6 +71,28 @@ class _AgendaMobileScreen extends State<_$AgendaMobileScreen> {
             ),
           ),
         ),
-        child: Container(padding: EdgeInsets.only(top: 16), color: AppColors.gray, height: context.height, child: AmplifyCalendar(selectedIndex: 0,)));
+        child: Stack(
+          children: [
+            Container(
+                padding: EdgeInsets.only(top: 16),
+                color: AppColors.gray,
+                height: context.height,
+                child: AmplifyCalendar(
+                  selectedIndex: 0,
+                )),
+            if (provider.isLoadingConsultation)
+              Container(
+                width: context.mqWidth,
+                height: context.mqHeight,
+                color: Colors.black,
+                child: SizedBox(
+                    width: 250,
+                    height: 250,
+                    child: CircularProgressIndicator(
+                      color: AppColors.secondary,
+                    )).toCenter(),
+              ).setOpacity(opacity: 0.5),
+          ],
+        ));
   }
 }

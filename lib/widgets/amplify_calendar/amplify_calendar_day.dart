@@ -8,14 +8,25 @@ class _$AmplifyCalendarDay extends StatefulWidget {
 }
 
 class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<AgendaProvider>(context, listen: false).loadEventsByDate(DateTime.now());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
+    AgendaProvider agendaProvider = Provider.of<AgendaProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return Consumer<AgendaProvider>(builder: (context, provider, child) {
       return DayView(
         key: provider.dayKey,
         controller: provider.controller,
+        backgroundColor: AppColors.gray,
         dayTitleBuilder: (date) {
           String finalDate = DateFormat.yMMMMd(locale.getLocaleString()).format(date);
           return Container(
@@ -80,7 +91,7 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
                     )),
                 Expanded(child: const SizedBox()),
                 context.isTabletOrDesktop
-                    ? Row(children: [
+                    ? Row(spacing: 16, children: [
                         OutlinedButton(
                             onPressed: () {},
                             style: OutlinedButton.styleFrom(
@@ -141,7 +152,21 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
             ),
           );
         },
-        backgroundColor: AppColors.gray,
+        onDateTap: (date) => agendaProvider.openAddConsultation(date: date),
+        onEventTap: (events, date) {
+          switch (ConsultationStatusEnum.fromColor(events.first.color)) {
+            case ConsultationStatusEnum.waitingForClinicConfirmation:
+              provider.confirmConsultation(context, events.first);
+              break;
+            case ConsultationStatusEnum.cancelled:
+              break;
+            case ConsultationStatusEnum.scheduled:
+            case ConsultationStatusEnum.patientInTheClinic:
+            case ConsultationStatusEnum.finished:
+              provider.openAddConsultation(date: date, event: events.first);
+          }
+        },
+        onPageChange: (date, _) => provider.loadEventsByDate(date),
       );
     });
   }

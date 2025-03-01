@@ -7,38 +7,49 @@ part of 'patient_model.dart';
 // **************************************************************************
 
 PatientModel _$PatientModelFromJson(Map<String, dynamic> json) => PatientModel(
-      json['gender'] as String,
-      DateTime.parse(json['birthDate'] as String),
-      json['phoneNumber'] as String,
-      json['healthNumber'] as String,
-      json['nationalRegistry'] as String,
-      DateTime.parse(json['nationalRegistryExpirationDate'] as String),
-      json['occupation'] as String,
-      json['uuid'] as String,
-      json['fullName'] as String,
-      json['email'] as String,
-      json['documentNumber'] as String,
-      DateTime.parse(json['createdAt'] as String),
-      DateTime.parse(json['updatedAt'] as String),
-      json['roleName'] as String,
-    )..address = AddressModel.fromJson(json['address'] as Map<String, dynamic>);
+      gender: json['gender'] as String,
+      birthDate: DateTime.parse(json['birthDate'] as String),
+      phoneNumber: json['phoneNumber'] as String,
+      healthNumber: json['healthNumber'] as String,
+      nationalRegistry: json['nationalRegistry'] as String,
+      nationalRegistryExpirationDate: json['nationalRegistryExpirationDate'] ==
+              null
+          ? null
+          : DateTime.parse(json['nationalRegistryExpirationDate'] as String),
+      occupation: json['occupation'] as String,
+      address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
+      uuid: json['uuid'] as String?,
+      fullName: json['fullName'] as String,
+      email: json['email'] as String?,
+      documentNumber: json['documentNumber'] as String?,
+    )
+      ..createdAt = json['createdAt'] == null
+          ? null
+          : DateTime.parse(json['createdAt'] as String)
+      ..updatedAt = json['updatedAt'] == null
+          ? null
+          : DateTime.parse(json['updatedAt'] as String)
+      ..roleName = json['roleName'] as String?;
 
 Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
     <String, dynamic>{
-      'uuid': instance.uuid,
+      if (instance.uuid case final value?) 'uuid': value,
       'fullName': instance.fullName,
-      'email': instance.email,
-      'documentNumber': instance.documentNumber,
-      'createdAt': instance.createdAt.toIso8601String(),
-      'updatedAt': instance.updatedAt.toIso8601String(),
-      'roleName': instance.roleName,
+      if (instance.email case final value?) 'email': value,
+      if (instance.documentNumber case final value?) 'documentNumber': value,
+      if (instance.createdAt?.toIso8601String() case final value?)
+        'createdAt': value,
+      if (instance.updatedAt?.toIso8601String() case final value?)
+        'updatedAt': value,
+      if (instance.roleName case final value?) 'roleName': value,
       'gender': instance.gender,
       'birthDate': instance.birthDate.toIso8601String(),
       'phoneNumber': instance.phoneNumber,
       'healthNumber': instance.healthNumber,
       'nationalRegistry': instance.nationalRegistry,
-      'nationalRegistryExpirationDate':
-          instance.nationalRegistryExpirationDate.toIso8601String(),
+      if (instance.nationalRegistryExpirationDate?.toIso8601String()
+          case final value?)
+        'nationalRegistryExpirationDate': value,
       'occupation': instance.occupation,
-      'address': instance.address.toJson(),
+      'address': instance.address,
     };

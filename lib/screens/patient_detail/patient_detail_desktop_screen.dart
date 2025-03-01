@@ -11,7 +11,7 @@ class _PatientDetailDesktopScreen extends StatelessWidget {
     AppLocalizations t = AppLocalizations.of(context)!;
     return SideBarScreen(
         child: FutureBuilder<PatientModel>(
-            future: PatientService().findById('12391239123'),
+            future: PatientService().findById(patientUuid),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
                 return const Center(child: CircularProgressIndicator(color: AppColors.secondary));
@@ -31,7 +31,7 @@ class _PatientDetailDesktopScreen extends StatelessWidget {
                         spacing: 16,
                         children: [
                           HeaderTitle(icon: Icons.person_outlined, title: patient.fullName.split(" ").first),
-                          ToggleSwitch(
+                          /*ToggleSwitch(
                             minWidth: 185,
                             minHeight: 50,
                             initialLabelIndex: provider.selectedIndex,
@@ -44,11 +44,11 @@ class _PatientDetailDesktopScreen extends StatelessWidget {
                             customTextStyles: [GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500)],
                             onToggle: (index) => provider.toggle(index!),
                             cornerRadius: 12,
-                          ),
+                          ),*/
                           SizedBox().expanded(),
                           NewButton(
                             onPressed: () => context.go('/patients/new'),
-                          )
+                          ),
                         ],
                       ),
                     ),
@@ -71,9 +71,12 @@ class _PatientDetailDesktopScreen extends StatelessWidget {
                             SizedBox().expanded(),
                             RefreshButton(),
                             PrinterButton(),
+                            NewConsultationButton()
                           ],
                         )),
-                    _chooseView(context, provider, patient, t)
+                    // _chooseView(context, provider, patient, t)
+                    _patientInfo(context, provider, patient, t),
+                    _medicalHistory(context, provider, patient, t)
                   ],
                 ),
               );
@@ -134,7 +137,7 @@ class _PatientDetailDesktopScreen extends StatelessWidget {
                   children: [InfoShower(label: t.gender, value: patient.gender),
                     InfoShower(
                         label: t.birthDate, value: DateFormat.yMMMMd(locale.getLocaleString()).format(patient.birthDate)),
-                    InfoShower(label: t.documentNumber, value: patient.documentNumber),],
+                    InfoShower(label: t.documentNumber, value: patient.documentNumber!),],
                 ).expanded(),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,6 +181,26 @@ class _PatientDetailDesktopScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                Row(
+                  spacing: 16,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Icon(
+                        Icons.medical_information_outlined,
+                        color: context.primaryColor,
+                        size: 32,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 6),
+                      child: Text(
+                        t.medicalRecord,
+                        style: GoogleFonts.inter(color: Colors.black, fontSize: 24, fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                  ],
+                ),
                 Row(
                   children: [
                     Column(

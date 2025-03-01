@@ -1,5 +1,5 @@
 
-import 'package:frontend/models/medical_history_model/medical_history_model.dart';
+import 'package:frontend/models/medical_history/medical_history_model.dart';
 
 class MedicalHistoryService {
 

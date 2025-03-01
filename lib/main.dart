@@ -19,6 +19,9 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 void main() async {
+  print("ZipCode: ${RegExp(r'^\d{4}-\d{3}$').hasMatch("1234-567")}");
+  print("NIF: ${RegExp(r'^\d{9}$').hasMatch("123456789")}");
+
   usePathUrlStrategy();
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     ScreenBreakpoints(desktop: 1100, tablet: 550, watch: 200),

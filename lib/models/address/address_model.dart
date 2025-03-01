@@ -6,7 +6,7 @@ part 'address_model.g.dart';
 @JsonSerializable()
 class AddressModel {
 
-  late int id;
+  late String? uuid;
   late String street;
   late String number;
   late String neighborhood;
@@ -14,7 +14,8 @@ class AddressModel {
   late String state;
   late String country;
 
-  AddressModel(this.id, this.street, this.number, this.neighborhood, this.city, this.state, this.country);
+  AddressModel({this.uuid, required this.street, required this.number, required this.neighborhood, required this.city,
+    required this.state, required this.country});
 
   Map<String, dynamic> toJson() => _$AddressModelToJson(this);
 

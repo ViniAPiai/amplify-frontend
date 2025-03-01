@@ -11,6 +11,7 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
   @override
   Widget build(BuildContext context) {
     PatientsProvider provider = Provider.of<PatientsProvider>(context);
+    AgendaProvider agendaProvider = Provider.of<AgendaProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return SideBarScreen(
       child: Container(
@@ -40,7 +41,7 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
                     ),
                   ),
                   ElevatedButton.icon(
-                    onPressed: () {},
+                    onPressed: () => provider.search(),
                     style: ElevatedButton.styleFrom(
                         backgroundColor: context.primaryColor,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -60,7 +61,7 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
                     ),
                   ),
                   OutlinedButton.icon(
-                    onPressed: () {},
+                    onPressed: () => context.goNamed(PatientRegisterScreen.routeName),
                     style: OutlinedButton.styleFrom(
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: context.primaryColor)),
@@ -82,138 +83,161 @@ class _PatientsDesktopScreen extends State<_$PatientsDesktopScreen> {
                 ],
               ),
             ),
-            Container(
-              width: context.width,
-              padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
-              decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
-              child: Row(
-                spacing: 16,
-                children: [
-                  RichText(
-                      text: TextSpan(
-                          text: "76",
-                          style: GoogleFonts.inter(
-                            color: context.primaryColor,
-                            fontSize: 32,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          children: [
-                        TextSpan(
-                            text: " ${t.patientsLabel}",
-                            style: GoogleFonts.inter(
-                              color: AppColors.gray2,
-                              fontSize: 20,
-                            ))
-                      ])),
-                  VerticalDivider(
-                    thickness: .5,
-                  ),
-                  Text(
-                    t.sortBy,
-                    style: GoogleFonts.inter(color: AppColors.gray2, fontSize: 20, fontWeight: FontWeight.w500),
-                  ),
-                  Expanded(child: SizedBox()),
-                  PrinterButton(),
-                  FilterButton()
-                ],
-              ),
-            ),
-            Container(
-                width: context.mqWidth,
-                padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
-                child: SingleChildScrollView(
-                  child: DataTable(
-                      showCheckboxColumn: true,
-                      dataRowMinHeight: 100,
-                      dataRowMaxHeight: 100,
-                      columns: [
-                        DataColumn(
-                            label: Label(
-                          label: t.basicInfo,
-                          required: false,
-                        )),
-                        DataColumn(
-                            label: Label(
-                          label: t.documentNumber,
-                          required: false,
-                        )),
-                        DataColumn(
-                            label: Label(
-                          label: t.healthNumber,
-                          required: false,
-                        )),
-                        DataColumn(
-                            label: Label(
-                          label: t.phoneNumber,
-                          required: false,
-                        )),
-                        DataColumn(
-                            label: Label(
-                          label: "Ações",
-                          required: false,
-                        )),
-                      ],
-                      rows: List.generate(10, (index) {
-                        return DataRow(
-                            cells: [
-                              DataCell(ListTile(
-                                leading: CircleAvatar(
-                                    backgroundColor: AppColors.secondary,
-                                    child: Center(
-                                      child: Text("IG"),
-                                    )),
-                                title: Text(
-                                  "igor@gmail.com",
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.black,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                subtitle: Text(
-                                  "igor@gmail.com",
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.gray2,
-                                    fontSize: 12,
-                                    fontWeight: FontWeight.w200,
-                                  ),
-                                ),
-                                contentPadding: EdgeInsets.zero,
-                              )),
-                              DataCell(Label(
-                                label: "098.912.312-04",
-                                required: false,
-                              )),
-                              DataCell(Label(
-                                label: "123489381239123",
-                                required: false,
-                              )),
-                              DataCell(Label(
-                                label: "(48) 99231-1323",
-                                required: false,
-                              )),
-                              DataCell(FaIcon(
-                                FontAwesomeIcons.pen,
-                                color: context.primaryColor,
-                                size: 16,
-                              )),
+            provider.isLoading
+                ? Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.secondary,
+                    ),
+                  ).expanded()
+                : provider.hasContent()
+                    ? Column(spacing: 16, children: [
+                        Container(
+                          width: context.width,
+                          padding: const EdgeInsets.fromLTRB(24, 0, 24, 16),
+                          decoration: BoxDecoration(border: Border(bottom: BorderSide(color: Colors.grey.shade300))),
+                          child: Row(
+                            spacing: 16,
+                            children: [
+                              RichText(
+                                  text: TextSpan(
+                                      text: "${provider.patients.totalItems}",
+                                      style: GoogleFonts.inter(
+                                        color: context.primaryColor,
+                                        fontSize: 32,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                      children: [
+                                    TextSpan(
+                                        text: " ${t.patientsLabel}",
+                                        style: GoogleFonts.inter(
+                                          color: AppColors.gray2,
+                                          fontSize: 20,
+                                        ))
+                                  ])),
+                              VerticalDivider(
+                                thickness: .5,
+                              ),
+                              Text(
+                                t.sortBy,
+                                style: GoogleFonts.inter(color: AppColors.gray2, fontSize: 20, fontWeight: FontWeight.w500),
+                              ),
+                              Expanded(child: SizedBox()),
+                              PrinterButton(),
+                              FilterButton()
                             ],
-                            /*mouseCursor: WidgetStateProperty.resolveWith<MouseCursor>((states) {
-                        return states.contains(WidgetState.hovered) ? SystemMouseCursors.click : SystemMouseCursors.basic;
-                      },),*/
-                            selected: true,
-                            color: WidgetStateProperty.resolveWith<Color?>((Set<WidgetState> states) {
-                              return states.contains(WidgetState.hovered) ? Colors.blue : Colors.white;
-                            }));
-                      })),
-                )).expanded(),
-            NumberPagination(
-              onPageChanged: (page) {},
-              totalPages: 10,
-              currentPage: 1,
-              fontFamily: GoogleFonts.interTextTheme().toString(),
-              controlButtonColor: AppColors.secondary,
-            ).paddingOnly(bottom: 16),
+                          ),
+                        ),
+                        Container(
+                            width: context.mqWidth,
+                            padding: EdgeInsets.fromLTRB(24, 0, 24, 0),
+                            child: SingleChildScrollView(
+                              child: DataTable(
+                                  showCheckboxColumn: true,
+                                  dataRowMinHeight: 100,
+                                  dataRowMaxHeight: 100,
+                                  columns: [
+                                    DataColumn(
+                                        label: Label(
+                                      label: t.basicInfo,
+                                      required: false,
+                                    )),
+                                    DataColumn(
+                                        label: Label(
+                                      label: t.documentNumber,
+                                      required: false,
+                                    )),
+                                    DataColumn(
+                                        label: Label(
+                                      label: t.healthNumber,
+                                      required: false,
+                                    )),
+                                    DataColumn(
+                                        label: Label(
+                                      label: t.phoneNumber,
+                                      required: false,
+                                    )),
+                                    DataColumn(
+                                        label: Label(
+                                      label: "Ações",
+                                      required: false,
+                                    )),
+                                  ],
+                                  rows: provider.patients.content.map((p) {
+                                    return DataRow(
+                                      cells: [
+                                        DataCell(ListTile(
+                                          leading: CircleAvatar(
+                                              backgroundColor: AppColors.secondary,
+                                              child: Center(
+                                                child: Text(p.fullName[0].toUpperCase()),
+                                              )),
+                                          title: Text(
+                                            p.fullName,
+                                            style: GoogleFonts.inter(
+                                              color: AppColors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                          subtitle: Text(
+                                            p.email!,
+                                            style: GoogleFonts.inter(
+                                              color: AppColors.gray2,
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w200,
+                                            ),
+                                          ),
+                                          contentPadding: EdgeInsets.zero,
+                                        )),
+                                        DataCell(Label(
+                                          label: p.documentNumber!,
+                                          required: false,
+                                        )),
+                                        DataCell(Label(
+                                          label: p.healthNumber,
+                                          required: false,
+                                        )),
+                                        DataCell(Label(
+                                          label: p.phoneNumber,
+                                          required: false,
+                                        )),
+                                        DataCell(Row(spacing: 16, children: [
+                                          IconButton(
+                                            onPressed: () => context.goNamed(PatientDetailScreen.routeName, pathParameters: {"uuid": p.uuid!}),
+                                            icon: Icon(
+                                              Icons.info,
+                                              color: AppColors.secondary,
+                                              size: 32,
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () => agendaProvider.openAddConsultation(),
+                                            icon: Icon(
+                                              Icons.edit_calendar,
+                                              color: AppColors.secondary,
+                                              size: 32,
+                                            ),
+                                          )
+                                        ])),
+                                      ],
+                                      selected: true,
+                                    );
+                                  }).toList()),
+                            )).expanded(),
+                        NumberPagination(
+                          onPageChanged: (page) => provider.changePage(page),
+                          totalPages: provider.patients.totalPages,
+                          currentPage: provider.selectedPage,
+                          fontFamily: GoogleFonts.interTextTheme().toString(),
+                          controlButtonColor: AppColors.secondary,
+                        ).paddingOnly(bottom: 16)
+                      ]).expanded()
+                    : Center(
+                        child: Text(
+                          "Nenhum paciente encontrado",
+                          style: GoogleFonts.inter(color: AppColors.gray2, fontSize: 20, fontWeight: FontWeight.w500),
+                        ),
+                      ),
           ],
         ),
       ),

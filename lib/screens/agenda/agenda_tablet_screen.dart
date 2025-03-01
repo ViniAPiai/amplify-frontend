@@ -69,8 +69,8 @@ class _AgendaTabletScreen extends State<_$AgendaTabletScreen> {
                       onPressed: () {},
                       style: OutlinedButton.styleFrom(
                         side: BorderSide(color: context.primaryColor, width: 2),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-                        fixedSize: const Size(115, 50),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        fixedSize: const Size(115, 25),
                       ),
                       icon: Icon(
                         Icons.add,
@@ -85,6 +85,22 @@ class _AgendaTabletScreen extends State<_$AgendaTabletScreen> {
             ),
           ),
         ),
-        child: Container(padding: EdgeInsets.only(top: 16), color: AppColors.gray, height: context.height, child: AmplifyCalendar()));
+        child: Stack(
+          children: [
+            Container(padding: EdgeInsets.only(top: 16), color: AppColors.gray, height: context.height, child: AmplifyCalendar()),
+            if (provider.isLoadingConsultation)
+              Container(
+                width: context.mqWidth,
+                height: context.mqHeight,
+                color: Colors.black,
+                child: SizedBox(
+                    width: 250,
+                    height: 250,
+                    child: CircularProgressIndicator(
+                      color: AppColors.secondary,
+                    )).toCenter(),
+              ).setOpacity(opacity: 0.5),
+          ],
+        ));
   }
 }

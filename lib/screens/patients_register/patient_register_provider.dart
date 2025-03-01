@@ -1,48 +1,55 @@
 part of 'patient_register_screen.dart';
 
 class PatientRegisterProvider extends ChangeNotifier {
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   bool showPassword = false;
-  TextEditingController tecEmail = TextEditingController();
-  TextEditingController tecFullName = TextEditingController();
-  TextEditingController tecDocumentNumber = TextEditingController();
-  TextEditingController tecPassword = TextEditingController();
-  TextEditingController tecConfirmPassword = TextEditingController();
-  TextEditingController tecStreet = TextEditingController();
-  TextEditingController tecNumber = TextEditingController();
-  TextEditingController tecComplement = TextEditingController();
-  TextEditingController tecDistrict = TextEditingController();
-  TextEditingController tecZipCode = TextEditingController();
   String? tecCity;
   String? tecState;
   String tecCountry = "";
   String? tecGender;
-  TextEditingController tecBirthDate = TextEditingController();
-  TextEditingController tecPhoneNumber = TextEditingController();
-  TextEditingController tecHealthNumber = TextEditingController();
-  TextEditingController tecNationalRegistry = TextEditingController();
-  TextEditingController tecNationalRegistryExpirationDate = TextEditingController();
-  TextEditingController tecOccupation = TextEditingController();
+  TextEditingController tecEmail = TextEditingController(text: "vini@gmail.com");
+  TextEditingController tecFullName = TextEditingController(text: "Vinicius");
+  TextEditingController tecDocumentNumber = TextEditingController(text: "123456789");
+  TextEditingController tecPassword = TextEditingController(text: "T&stantdo1");
+  TextEditingController tecConfirmPassword = TextEditingController(text: "T&stantdo1");
+  TextEditingController tecStreet = TextEditingController(text: "Alvorada");
+  TextEditingController tecNumber = TextEditingController(text: "345");
+  TextEditingController tecComplement = TextEditingController(text: "Casa");
+  TextEditingController tecDistrict = TextEditingController(text: "Forquilhas");
+  TextEditingController tecZipCode = TextEditingController(text: "8810-546");
+  TextEditingController tecBirthDate = TextEditingController(text: "08/07/1999");
+  TextEditingController tecPhoneNumber = TextEditingController(text: "934 912 012");
+  TextEditingController tecHealthNumber = TextEditingController(text: "12312312312");
+  TextEditingController tecNationalRegistry = TextEditingController(text: "2131231231231");
+  TextEditingController tecNationalRegistryExpirationDate = TextEditingController(text: "01/05/2030");
+  TextEditingController tecOccupation = TextEditingController(text: "Programmer");
 
   Map<String, dynamic> _states = {};
-  bool isLoadingStates = true;
+  bool isLoading = true;
 
   List<String> get states => _states.keys.toList();
+
   List<String> get cities => tecState != null ? _states[tecState!]! : [];
 
   PatientRegisterProvider() {
+    init();
+  }
+
+  void init() async {
+    String resp = await ClinicService.getCountry();
+    print(resp);
+    tecCountry = resp;
     loadStates();
-    isLoadingStates = false;
+    isLoading = false;
     notifyListeners();
   }
 
   void loadStates() async {
     String resp = "";
-    if(tecCountry == 'Portugal') {
+    if (tecCountry == 'Portugal') {
       resp = await rootBundle.loadString('assets/countries_states_and_cities/portugal.json');
-    } else if(tecCountry == 'Brasil') {
+    } else if (tecCountry == 'Brasil') {
       resp = await rootBundle.loadString('assets/countries_states_and_cities/brazil.json');
     } else {
       resp = await rootBundle.loadString('assets/countries_states_and_cities/portugal.json');
@@ -78,6 +85,8 @@ class PatientRegisterProvider extends ChangeNotifier {
 
   void updateCountry(String country) {
     tecCountry = country;
+    tecState = "";
+    tecCity = "";
     loadStates();
     notifyListeners();
   }
@@ -87,93 +96,38 @@ class PatientRegisterProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  PatternValidator getPostalCodeValidator() {
-    if (tecCountry == 'Portugal') {
-      return PatternValidator(RegExp(r'^\d{4}-\d{3}$'), errorText: "Um Código Postal válido deve ser informado");
-    } else if(tecCountry == 'Brasil') {
-      return PatternValidator(RegExp(r'^\d{5}-?\d{3}$'), errorText: "Um Código Postal válido deve ser informado");
+  void validateForm(BuildContext context) {
+    if (formKey.currentState!.validate()) {
+      DateFormat format = DateFormat("dd/MM/yyyy");
+      PatientModel patientModel = PatientModel(
+          gender: tecGender!,
+          birthDate: format.parse(tecBirthDate.text),
+          phoneNumber: tecPhoneNumber.text,
+          healthNumber: tecHealthNumber.text,
+          nationalRegistry: tecNationalRegistry.text,
+          nationalRegistryExpirationDate: format.parse(tecNationalRegistryExpirationDate.text),
+          occupation: tecOccupation.text,
+          uuid: "",
+          fullName: tecFullName.text,
+          email: tecEmail.text,
+          documentNumber: tecDocumentNumber.text,
+          address: AddressModel(
+              uuid: "",
+              street: tecStreet.text,
+              number: tecNumber.text,
+              neighborhood: tecDistrict.text,
+              city: tecCity!,
+              state: tecState!,
+              country: tecCountry));
+      PatientService().insertByClinic(patientModel).then(
+        (value) {
+          PanaraInfoDialog.show(context,
+              message: context.getMessage(value),
+              buttonText: "OK!",
+              onTapDismiss: () => context.pop(),
+              panaraDialogType: PanaraDialogType.success);
+        },
+      );
     }
-    return PatternValidator(RegExp(r'^\d{4}-\d{3}$'), errorText: "Um Código Postal válido deve ser informado");
   }
-
-  MaskTextInputFormatter getPostalCodeFormatter() {
-    if(tecCountry == 'Portugal') {
-      return MaskTextInputFormatter(mask: '#####-###', filter: { "#": RegExp(r'[0-9]') },);
-    }else if(tecCountry == 'Brasil') {
-      return MaskTextInputFormatter(mask: '#####-###', filter: { "#": RegExp(r'[0-9]') },);
-    }
-    return MaskTextInputFormatter(mask: '#####-###', filter: { "#": RegExp(r'[0-9]') },);
-  }
-
-  String getPostalCodeHint() {
-    if(tecCountry == 'Portugal') {
-      return "1234-567";
-    }else if(tecCountry == 'Brasil') {
-      return "12345-678";
-    }
-    return "1234-567";
-  }
-
-  PatternValidator phoneValidator() {
-    final regexBrazil = PatternValidator(RegExp(r'^\(?[1-9]{2}\)? ?9[0-9]{4}-?[0-9]{4}$'), errorText: "Um número de celular válido deve ser informado");
-    final regexPortugal = PatternValidator(RegExp(r'^9\d{2} ?\d{3} ?\d{3}$'), errorText: "Um número de celular válido deve ser informado");
-    if (tecCountry == "Brasil") {
-      return regexBrazil;
-    } else if (tecCountry == "Portugal") {
-      return regexPortugal;
-    }
-    return regexPortugal;
-  }
-
-  MaskTextInputFormatter phoneFormatter() {
-    if(tecCountry == 'Portugal') {
-      return MaskTextInputFormatter(mask: '9## ### ###', filter: { "#": RegExp(r'[0-9]') },);
-    }else if(tecCountry == 'Brasil') {
-      return MaskTextInputFormatter(mask: '(##) 9####-####', filter: { "#": RegExp(r'[0-9]') },);
-    }
-    return MaskTextInputFormatter(mask: '9## ### ###', filter: { "#": RegExp(r'[0-9]') },);
-  }
-
-  RegExp documentNumberValidator() {
-    RegExp brazil = RegExp(r'^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$');
-    RegExp portugal = RegExp(r'^\d{9}$');
-    if(tecCountry == 'Portugal') {
-      return portugal;
-    } else if(tecCountry == 'Brasil') {
-      return brazil;
-    }
-    return portugal;
-  }
-
-  MaskTextInputFormatter documentNumberFormatter() {
-    if(tecCountry == 'Brasil') {
-      return MaskTextInputFormatter(mask: '###.###.###-##', filter: { "#": RegExp(r'[0-9]')},);
-    } else if(tecCountry == 'Portugal') {
-      return MaskTextInputFormatter(mask: '#########', filter: { "#": RegExp(r'[0-9]')},);
-    }
-    return MaskTextInputFormatter(mask: '#########', filter: { "#": RegExp(r'[0-9]')},);
-  }
-
-  RegExp healthNumberValidator() {
-    final RegExp brazil = RegExp(r'^\d{15}$');
-    final RegExp portugal = RegExp(r'^\d{9}$');
-    if(tecCountry == 'Portugal') {
-      return portugal;
-    } else if(tecCountry == 'Brasil') {
-      return brazil;
-    }
-    return portugal;
-  }
-
-  MaskTextInputFormatter healthNumberFormatter() {
-    MaskTextInputFormatter brazil = MaskTextInputFormatter(mask: '################', filter: { "#": RegExp(r'[0-9]')},);
-    MaskTextInputFormatter portugal = MaskTextInputFormatter(mask: '#########', filter: { "#": RegExp(r'[0-9]')},);
-    if(tecCountry == 'Brasil') {
-      return brazil;
-    }else if(tecCountry == 'Portugal') {
-      return portugal;
-    }
-    return portugal;
-  }
-
 }

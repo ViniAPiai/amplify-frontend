@@ -40,6 +40,7 @@ class _PatientRegisterTabletScreen extends StatelessWidget {
                       CountryFormField(
                         country: provider.tecCountry,
                         onChanged: (value) => provider.updateCountry(value),
+                        enabled: false,
                       ).expanded(),
                       EmailFormField(controller: provider.tecEmail, enabled: provider.tecCountry.isNotEmpty).expanded(),
                     ],
@@ -63,11 +64,9 @@ class _PatientRegisterTabletScreen extends StatelessWidget {
                     spacing: 16,
                     children: [
                       FullNameFormField(controller: provider.tecFullName, enabled: provider.tecCountry.isNotEmpty).expanded(),
-                      PostalCodeFormField(
+                      ZipCodeFormField(
                         controller: provider.tecZipCode,
-                        postalCodeValidator: provider.getPostalCodeValidator(),
-                        formatter: provider.getPostalCodeFormatter(),
-                        hintText: provider.getPostalCodeHint(),
+                        country: provider.tecCountry,
                         enabled: provider.tecCountry.isNotEmpty,
                       ).expanded(),
                     ],
@@ -119,8 +118,7 @@ class _PatientRegisterTabletScreen extends StatelessWidget {
                       DocumentNumberFormField(
                         controller: provider.tecDocumentNumber,
                         enabled: provider.tecCountry.isNotEmpty,
-                        regExpValidator: provider.documentNumberValidator(),
-                        formatter: provider.documentNumberFormatter(),
+                        country: provider.tecCountry,
                       ).expanded(),
                       BirthdayDateFormField(
                         enabled: provider.tecCountry.isNotEmpty,
@@ -134,8 +132,7 @@ class _PatientRegisterTabletScreen extends StatelessWidget {
                       PhoneNumberFormField(
                         controller: provider.tecPhoneNumber,
                         enabled: provider.tecCountry.isNotEmpty,
-                        validator: provider.phoneValidator(),
-                        formatter: provider.phoneFormatter(),
+                        country: provider.tecCountry,
                       ).expanded(),
                       OccupationFormField(
                         controller: provider.tecOccupation,

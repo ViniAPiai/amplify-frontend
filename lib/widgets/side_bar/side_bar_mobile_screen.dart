@@ -15,9 +15,10 @@ class _SideBarMobileScreen extends State<_$SideBarMobileScreen> {
   @override
   Widget build(BuildContext context) {
     SideBarProvider provider = Provider.of<SideBarProvider>(context);
+    AgendaProvider agendaProvider = Provider.of<AgendaProvider>(context);
     return Scaffold(
       key: provider.key,
-      appBar: widget.appBar,
+      appBar: agendaProvider.showBarrier ? null : widget.appBar,
       backgroundColor: AppColors.gray,
       drawer: Drawer(
         backgroundColor: AppColors.black,
@@ -89,7 +90,26 @@ class _SideBarMobileScreen extends State<_$SideBarMobileScreen> {
           ),
         ),
       ),
-      body: widget.child,
+      body: Stack(
+        children: [
+          widget.child,
+          /**
+           * Barrier for any modal
+           */
+          agendaProvider.showBarrier
+              ? ModalBarrier(
+            dismissible: agendaProvider.showBarrier,
+            color: Colors.grey.shade300,
+          ).setOpacity(opacity: .6)
+              : SizedBox(),
+          /**
+           * Modal for adding a consultation to the calendar
+           */
+          agendaProvider.showConsultationModal
+              ? ConsultationModal()
+              : SizedBox()
+        ],
+      ),
     );
   }
 }

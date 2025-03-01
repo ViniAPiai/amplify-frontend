@@ -41,7 +41,7 @@ class HeaderTitle extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 6),
           child: Text(
             title,
-            style: GoogleFonts.inter(color: Colors.black, fontSize: context.isTabletOrDesktop ? 18 : 24, fontWeight: FontWeight.w700),
+            style: GoogleFonts.inter(color: Colors.black, fontSize: context.isTabletOrDesktop ? 24 : 18, fontWeight: FontWeight.w700),
           ),
         ),
       ],

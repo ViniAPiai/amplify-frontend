@@ -15,7 +15,7 @@ class ApiService {
   }
 
   Dio getDioWithAuth() {
-    Dio dio = Dio()
+    /*Dio dio = Dio()
       ..options = BaseOptions(
         baseUrl: baseUrl,
       )
@@ -28,7 +28,10 @@ class ApiService {
           }
           return handler.next(options);
         },
-      ));
+      ));*/
+    Dio dio = Dio()
+      ..options = BaseOptions(baseUrl: baseUrl, contentType: "application/json",
+          headers: {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIuc2VjcmV0YXJ5QGV4YW1wbGUuY29tIiwiaWF0IjoxNzQwNjI0MzQ3LCJleHAiOjE3NDA3MzIzNDd9.MVTmCQDN4NoHHRWm4el9CykKEpSbrDNMNQV5RufiAaY"});
     return dio;
   }
 

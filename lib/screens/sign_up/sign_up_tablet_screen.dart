@@ -119,7 +119,7 @@ class _SignUpTabletScreen extends State<_$SignUpTabletScreen> {
                       ],
                     ),
                   ),*/
-                  CountryFormField(country: provider.tecCountry, onChanged: (value) => provider.updateCountry(value)),
+                  CountryFormField(country: provider.tecCountry, onChanged: (value) => provider.updateCountry(value), enabled: false,),
                   EmailFormField(
                     controller: provider.tecEmail,
                     currentFocusNode: provider.fnEmail,
@@ -194,11 +194,9 @@ class _SignUpTabletScreen extends State<_$SignUpTabletScreen> {
               child: Column(
                 spacing: 16,
                 children: [
-                  PostalCodeFormField(
+                  ZipCodeFormField(
                     controller: provider.tecZipCode,
-                    postalCodeValidator: provider.getPostalCodeValidator(),
-                    formatter: provider.getPostalCodeFormatter(),
-                    hintText: provider.getPostalCodeHint(),
+                    country: provider.tecCountry!,
                     enabled: provider.currentStep == 1,
                     currentFocusNode: provider.fnZipCode,
                     nextFocusNode: provider.fnStreet,
@@ -302,24 +300,6 @@ class _SignUpTabletScreen extends State<_$SignUpTabletScreen> {
                   child: Column(
                     spacing: 16,
                     children: [
-                      /*SizedBox(
-                        height: context.mqHeight * .3,
-                        child: Column(
-                          spacing: 16,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "AMPLIFY",
-                              style: TextStyle(fontSize: 48, fontWeight: FontWeight.w900),
-                            ),
-                            Text(
-                              "Informações do Pessoais",
-                              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w900),
-                            ),
-                          ],
-                        ),
-                      ),*/
                       GenderFormField(
                         enabled: provider.currentStep == 2,
                         onChanged: (value) => provider.updateGender(value),
@@ -328,8 +308,7 @@ class _SignUpTabletScreen extends State<_$SignUpTabletScreen> {
                       DocumentNumberFormField(
                           controller: provider.tecDocumentNumber,
                           enabled: provider.currentStep == 2,
-                          regExpValidator: provider.documentNumberValidator(),
-                          formatter: provider.documentNumberFormatter(),
+                          country: provider.tecCountry!,
                           currentFocusNode: provider.fnDocumentNumber,
                           nextFocusNode: provider.fnBirthDate),
                       BirthdayDateFormField(
@@ -340,8 +319,7 @@ class _SignUpTabletScreen extends State<_$SignUpTabletScreen> {
                       PhoneNumberFormField(
                         controller: provider.tecPhoneNumber,
                         enabled: provider.currentStep == 2,
-                        validator: provider.phoneValidator(),
-                        formatter: provider.phoneFormatter(),
+                        country: provider.tecCountry!,
                         currentFocusNode: provider.fnPhoneNumber,
                         nextFocusNode: provider.fnOccupation,
                       ),
@@ -351,46 +329,6 @@ class _SignUpTabletScreen extends State<_$SignUpTabletScreen> {
                         currentFocusNode: provider.fnOccupation,
                         nextFocusNode: provider.fnOccupation,
                       ),
-                      /*provider.currentStep == 2
-                          ? Row(
-                              spacing: 16,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                OutlinedButton(
-                                    onPressed: () {
-                                      provider.updatePage(1);
-                                    },
-                                    style: FilledButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(12),
-                                        ),
-                                        backgroundColor: Colors.white,
-                                        padding: EdgeInsets.all(16),
-                                        fixedSize: Size(context.mqWidth * .33 * .42, 50)),
-                                    child: Text(
-                                      "Voltar",
-                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Colors.black),
-                                    )),
-                                FilledButton(
-                                    onPressed: () {
-                                      if (provider.formKeyAddressInfo.currentState!.validate()) {
-                                        provider.updatePage(2);
-                                      }
-                                    },
-                                    style: FilledButton.styleFrom(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(12),
-                                        ),
-                                        backgroundColor: Colors.black,
-                                        padding: EdgeInsets.all(16),
-                                        fixedSize: Size(context.mqWidth * .33 * .42, 50)),
-                                    child: Text(
-                                      "Finalizar",
-                                      style: TextStyle(fontWeight: FontWeight.w600, fontSize: 16, color: Colors.white),
-                                    )),
-                              ],
-                            )
-                          : const SizedBox()*/
                     ],
                   ),
                 ),
