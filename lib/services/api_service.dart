@@ -31,7 +31,7 @@ class ApiService {
       ));*/
     Dio dio = Dio()
       ..options = BaseOptions(baseUrl: baseUrl, contentType: "application/json",
-          headers: {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIuc2VjcmV0YXJ5QGV4YW1wbGUuY29tIiwiaWF0IjoxNzQwNjI0MzQ3LCJleHAiOjE3NDA3MzIzNDd9.MVTmCQDN4NoHHRWm4el9CykKEpSbrDNMNQV5RufiAaY"});
+          headers: {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIuc2VjcmV0YXJ5QGV4YW1wbGUuY29tIiwiaWF0IjoxNzQzODIyMTk0LCJleHAiOjE3NDM5MzAxOTR9.5ztfDV3imzuB3ilURuZ9na8k3R1RUG0k8enuYSPiQ5o"});
     return dio;
   }
 

@@ -20,69 +20,7 @@ class _AmplifyCalendarDesktopScreen extends State<_$AmplifyCalendarMonth> {
   Widget build(BuildContext context) {
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     AgendaProvider provider = Provider.of<AgendaProvider>(context);
-    return Column(
-      children: [
-        Container(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-          color: AppColors.gray,
-          child: Row(
-            spacing: 16,
-            children: [
-              OutlinedButton(
-                  onPressed: () => provider.previousMonth(),
-                  style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                      backgroundColor: Colors.white,
-                      padding: EdgeInsets.zero,
-                      fixedSize: Size(25, 25)),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_outlined,
-                    color: Colors.grey.shade700,
-                    size: 24,
-                  )),
-              OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                      backgroundColor: Colors.white,
-                      padding: EdgeInsets.zero,
-                      fixedSize: Size(200, 25)),
-                  child: Text(
-                    _dateTimeToMonthYearString(provider.calendarController.displayDate!, locale),
-                    style: GoogleFonts.inter(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
-                  )),
-              OutlinedButton(
-                  onPressed: () => provider.nextMonth(),
-                  style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                      backgroundColor: Colors.white,
-                      padding: EdgeInsets.zero,
-                      fixedSize: Size(25, 25)),
-                  child: Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.grey.shade700,
-                    size: 24,
-                  )),
-              Expanded(child: const SizedBox()),
-              RefreshButton(),
-              PrinterButton(),
-              FilterButton(),
-            ],
-          ),
-        ),
-        SfCalendar(
-          controller: provider.calendarController,
-          initialDisplayDate: DateTime.now(),
-          headerHeight: 0,
-          dataSource: MeetingDataSource(_getDataSource()),
-          allowViewNavigation: false,
-          resourceViewSettings: ResourceViewSettings(showAvatar: true),
-          monthViewSettings: MonthViewSettings(
-              showAgenda: true, appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
-        ).expanded(),
-      ],
-    );
-    /*return MonthView(
+    return MonthView(
       key: provider.monthKey,
       controller: provider.controller,
       startDay: WeekDays.sunday,
@@ -185,7 +123,7 @@ class _AmplifyCalendarDesktopScreen extends State<_$AmplifyCalendarMonth> {
       },
       onCellTap: (events, date) => provider.openAddConsultation(date: date),
       onPageChange: (date, _) => provider.loadEventsByDate(date),
-    );*/
+    );
   }
 
   String _dateTimeToMonthYearString(DateTime date, LocaleProvider locale) {

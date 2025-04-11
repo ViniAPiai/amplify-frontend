@@ -5,7 +5,6 @@ class AgendaProvider extends ChangeNotifier {
   GlobalKey<WeekViewState> weekKey = GlobalKey<WeekViewState>();
   GlobalKey<DayViewState> dayKey = GlobalKey<DayViewState>();
   GlobalKey<FormState> consultationKey = GlobalKey<FormState>();
-  CalendarController calendarController = CalendarController();
   EventController controller = EventController();
   CalendarEventData? currentEvent;
   int selectedIndex = 2;
@@ -29,8 +28,6 @@ class AgendaProvider extends ChangeNotifier {
   UserModel? nurse;
 
   AgendaProvider() {
-    calendarController.displayDate = DateTime.now();
-    calendarController.view = CalendarView.month;
     SharedPreferences.getInstance().then((prefs) {
       selectedIndex = prefs.getInt("agenda_selected_type") ?? 2;
       notifyListeners();
@@ -41,7 +38,7 @@ class AgendaProvider extends ChangeNotifier {
   void toggle(int index) async {
     selectedIndex = index;
     (await SharedPreferences.getInstance()).setInt("agenda_selected_type", index);
-    switch (index) {
+    /*switch (index) {
       case 0:
         calendarController.view = CalendarView.day;
         break;
@@ -51,7 +48,7 @@ class AgendaProvider extends ChangeNotifier {
       case 2:
         calendarController.view = CalendarView.month;
         break;
-    }
+    }*/
     notifyListeners();
     getEvents(DateTime.now());
   }
@@ -207,10 +204,7 @@ class AgendaProvider extends ChangeNotifier {
   }
 
   void nextMonth() {
-    // monthKey.currentState!.nextPage();
-    calendarController.displayDate = calendarController.displayDate!.add(Duration(days: 30));
-    calendarController.forward!();
-    notifyListeners();
+    monthKey.currentState!.nextPage();
   }
 
   void previousMonth() {
