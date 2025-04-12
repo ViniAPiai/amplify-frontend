@@ -3,8 +3,8 @@ part of 'sign_in_screen.dart';
 class SignInProvider extends ChangeNotifier {
 
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  TextEditingController tecEmail = TextEditingController(text: "vinicius-piai@hotmail.com");
-  TextEditingController tecPassword = TextEditingController(text: "V!nicius99");
+  TextEditingController tecEmail = TextEditingController(text: "tester.secretary@example.com");
+  TextEditingController tecPassword = TextEditingController(text: "T&ste1");
   bool isLoading = false;
 
   Future<bool> signIn(BuildContext context) async {

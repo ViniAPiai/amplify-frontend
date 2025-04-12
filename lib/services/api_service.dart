@@ -9,9 +9,9 @@ class ApiService {
   String get baseUrl {
     String local = 'http://localhost:8080/api';
     String localIp = 'http://192.168.0.176:8080/api';
-    String prod = 'http://144.126.227.199:8080/api';
+    String prod = 'https://amplify-backend-production.up.railway.app/api';
 
-    return local;
+    return prod;
   }
 
   Dio getDioWithAuth() {
@@ -31,7 +31,7 @@ class ApiService {
       ));*/
     Dio dio = Dio()
       ..options = BaseOptions(baseUrl: baseUrl, contentType: "application/json",
-          headers: {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIuc2VjcmV0YXJ5QGV4YW1wbGUuY29tIiwiaWF0IjoxNzQzODIyMTk0LCJleHAiOjE3NDM5MzAxOTR9.5ztfDV3imzuB3ilURuZ9na8k3R1RUG0k8enuYSPiQ5o"});
+          headers: {"Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIuc2VjcmV0YXJ5QGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ0NDU5NDY3LCJleHAiOjE3NDQ1Njc0Njd9.GYazvsCtg889TIwvoKR0AheQbtQebQBIgdwrFq5OYFU"});
     return dio;
   }
 

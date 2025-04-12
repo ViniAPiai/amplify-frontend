@@ -5,6 +5,7 @@ import 'package:frontend/configs/auth_notifier.dart';
 import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/configs/routes.dart';
 import 'package:frontend/screens/agenda/agenda_screen.dart';
+import 'package:frontend/screens/appointment/new_appointment_screen.dart';
 import 'package:frontend/screens/doctors/doctors_screen.dart';
 import 'package:frontend/screens/home/home_screen.dart';
 import 'package:frontend/screens/patient_detail/patient_detail_screen.dart';
@@ -39,6 +40,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => DoctorsProvider()),
       ChangeNotifierProvider(create: (_) => PatientRegisterProvider()),
       ChangeNotifierProvider(create: (_) => PatientDetailProvider()),
+      ChangeNotifierProvider(create: (_) => NewAppointmentProvider()),
     ],
     child: MyApp(),
   ));

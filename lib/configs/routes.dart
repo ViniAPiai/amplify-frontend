@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:frontend/screens/agenda/agenda_screen.dart';
+import 'package:frontend/screens/appointment/new_appointment_screen.dart';
 import 'package:frontend/screens/doctors/doctors_screen.dart';
 import 'package:frontend/screens/home/home_screen.dart';
 import 'package:frontend/screens/patient_detail/patient_detail_screen.dart';
@@ -17,7 +18,7 @@ class Routes {
   GoRouter getRoutes(BuildContext context) {
     return GoRouter(
       navigatorKey: GlobalKey<NavigatorState>(),
-      initialLocation: '/agenda',
+      initialLocation: '/',
       // initialLocation: '/patients',
       // refreshListenable: Provider.of<AuthNotifier>(context, listen: true),
       /*redirect: (BuildContext context, GoRouterState state) {
@@ -82,6 +83,11 @@ class Routes {
           path: '/${DoctorsScreen.routeName}',
           builder: (context, state) => DoctorsScreen(),
         ),
+        GoRoute(
+          name: NewAppointmentScreen.routeName,
+          path: '/${NewAppointmentScreen.routeName}',
+          builder: (context, state) => NewAppointmentScreen(),
+        )
       ],
     );
   }
