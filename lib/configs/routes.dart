@@ -20,8 +20,8 @@ class Routes {
       navigatorKey: GlobalKey<NavigatorState>(),
       initialLocation: '/',
       // initialLocation: '/patients',
-      // refreshListenable: Provider.of<AuthNotifier>(context, listen: true),
-      /*redirect: (BuildContext context, GoRouterState state) {
+      refreshListenable: Provider.of<AuthNotifier>(context, listen: true),
+      redirect: (BuildContext context, GoRouterState state) {
         final authNotifier = context.read<AuthNotifier>();
         if (authNotifier.isLoading) {
           return null;
@@ -39,7 +39,7 @@ class Routes {
           return '/${HomeScreen.routeName}';
         }
         return null;
-      },*/
+      },
       routes: [
         GoRoute(
           name: SignInScreen.routeName,
