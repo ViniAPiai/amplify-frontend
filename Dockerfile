@@ -2,6 +2,7 @@
 FROM cirrusci/flutter:latest AS build
 WORKDIR /app
 COPY . .
+RUN flutter pub get
 RUN flutter build web
 
 # Etapa de produção
