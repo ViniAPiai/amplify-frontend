@@ -17,7 +17,7 @@ dependencies:
 
   awesome_extensions: ^2.0.20
   brasil_fields: ^1.17.0
-  build_runner: ^2.4.14
+  build_runner: ^2.4.15
   calendar_view: ^1.4.0
   cupertino_icons: ^1.0.8
   data_table_2: ^2.5.18
@@ -27,7 +27,8 @@ dependencies:
   flutter_svg: ^2.0.17
   font_awesome_flutter: ^10.8.0
   form_field_validator: ^1.1.0
-  go_router: ^14.6.3
+  katana_router: ^2.6.2
+  katana_router_builder: ^2.2.10
   google_fonts: ^6.2.1
   horizontal_calendar: ^1.1.2
 #  http: ^1.2.2

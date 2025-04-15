@@ -1,14 +1,15 @@
+/*
 import 'package:flutter/cupertino.dart';
-import 'package:frontend/screens/agenda/agenda_screen.dart';
-import 'package:frontend/screens/appointment/new_appointment_screen.dart';
-import 'package:frontend/screens/doctors/doctors_screen.dart';
-import 'package:frontend/screens/home/home_screen.dart';
-import 'package:frontend/screens/patient_detail/patient_detail_screen.dart';
-import 'package:frontend/screens/patients/patients_screen.dart';
-import 'package:frontend/screens/patients_register/patient_register_screen.dart';
-import 'package:frontend/screens/sign_in/sign_in_screen.dart';
-import 'package:frontend/screens/sign_up/sign_up_screen.dart';
-import 'package:go_router/go_router.dart';
+import 'package:frontend/screens/agenda/agenda.dart';
+import 'package:frontend/screens/new_appointment/new_appointment.dart';
+import 'package:frontend/screens/doctors/doctors.dart';
+import 'package:frontend/screens/home/home.dart';
+import 'package:frontend/screens/patient_detail/patient_detail.dart';
+import 'package:frontend/screens/patients/patients.dart';
+import 'package:frontend/screens/new_patient/new_patient.dart';
+import 'package:frontend/screens/sign_in/sign_in.dart';
+import 'package:frontend/screens/sign_up/sign_up.dart';
+
 import 'package:provider/provider.dart';
 
 import 'auth_notifier.dart';
@@ -85,3 +86,4 @@ class Routes {
   }
 
 }
+*/

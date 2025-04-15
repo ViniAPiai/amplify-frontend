@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/extension/utils_extension.dart';
-import 'package:frontend/widgets/side_bar/side_bar_screen.dart';
+import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

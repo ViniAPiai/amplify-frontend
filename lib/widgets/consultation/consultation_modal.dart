@@ -5,7 +5,7 @@ import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/extension/message_extension.dart';
 import 'package:frontend/extension/utils_extension.dart';
 import 'package:frontend/models/consultation/consultation_model.dart';
-import 'package:frontend/screens/agenda/agenda_screen.dart';
+import 'package:frontend/screens/agenda/agenda.dart';
 import 'package:frontend/widgets/dialogs/amplify_dialog.dart';
 
 import 'package:frontend/widgets/form/consultation_register/date_picker_button.dart';

@@ -4,25 +4,41 @@ import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:frontend/configs/auth_notifier.dart';
 import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/configs/routes.dart';
-import 'package:frontend/screens/agenda/agenda_screen.dart';
-import 'package:frontend/screens/appointment/new_appointment_screen.dart';
-import 'package:frontend/screens/doctors/doctors_screen.dart';
-import 'package:frontend/screens/home/home_screen.dart';
-import 'package:frontend/screens/patient_detail/patient_detail_screen.dart';
-import 'package:frontend/screens/patients/patients_screen.dart';
-import 'package:frontend/screens/patients_register/patient_register_screen.dart';
-import 'package:frontend/screens/sign_in/sign_in_screen.dart';
-import 'package:frontend/screens/sign_up/sign_up_screen.dart';
-import 'package:frontend/widgets/side_bar/side_bar_screen.dart';
+import 'package:frontend/main.router.dart';
+import 'package:frontend/screens/agenda/agenda.dart';
+import 'package:frontend/screens/new_appointment/new_appointment.dart';
+import 'package:frontend/screens/doctors/doctors.dart';
+import 'package:frontend/screens/home/home.dart';
+import 'package:frontend/screens/new_patient/new_patient.dart';
+import 'package:frontend/screens/patient_detail/patient_detail.dart';
+import 'package:frontend/screens/patients/patients.dart';
+import 'package:frontend/screens/sign_in/sign_in.dart';
+import 'package:frontend/screens/sign_up/sign_up.dart';
+import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-void main() async {
-  print("ZipCode: ${RegExp(r'^\d{4}-\d{3}$').hasMatch("1234-567")}");
-  print("NIF: ${RegExp(r'^\d{9}$').hasMatch("123456789")}");
+@appRoute
+final appRouter = AutoRouter(initialQuery: SignInPage.query());
+/*AppRouter(
+    initialPath: SignInPage.query.toString(),
+    pages: [
+      SignInPage.query,
+      SignUpPage.query,
+      HomePage.query,
+      PatientsPage.query,
+      AgendaPage.query,
+      DoctorsPage.query,
+      NewPatientPage.query,
+      PatientDetailPage.query,
+      NewAppointmentPage.query,
+    ]
+);*/
 
+void main() async {
   usePathUrlStrategy();
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     ScreenBreakpoints(desktop: 1100, tablet: 550, watch: 200),
@@ -38,7 +54,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => PatientsProvider()),
       ChangeNotifierProvider(create: (_) => AgendaProvider()),
       ChangeNotifierProvider(create: (_) => DoctorsProvider()),
-      ChangeNotifierProvider(create: (_) => PatientRegisterProvider()),
+      ChangeNotifierProvider(create: (_) => NewPatientProvider()),
       ChangeNotifierProvider(create: (_) => PatientDetailProvider()),
       ChangeNotifierProvider(create: (_) => NewAppointmentProvider()),
     ],
@@ -80,7 +96,7 @@ class MyAppState extends State<MyApp> {
           Locale('pt', 'BR'),
         ],
         debugShowCheckedModeBanner: false,
-        routerConfig: Routes().getRoutes(context),
+        routerConfig: appRouter
       );
     });
   }
