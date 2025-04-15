@@ -1,5 +1,5 @@
 # Etapa 1: Build do Flutter Web com Flutter 3.22.0
-FROM ghcr.io/cirruslabs/flutter:3.22.0 AS build
+FROM ghcr.io/cirruslabs/flutter:3.27.0 AS build
 
 WORKDIR /app
 
