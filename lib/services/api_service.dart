@@ -5,15 +5,12 @@ class ApiService {
   ApiService._singleton();
 
   static final ApiService instance = ApiService._singleton();
-
-  String get baseUrl {
-    return String.fromEnvironment("API_URL");
-  }
+  static const apiUrl = String.fromEnvironment("API_URL");
 
   Dio getDioWithAuth() {
     Dio dio = Dio()
       ..options = BaseOptions(
-        baseUrl: baseUrl,
+        baseUrl: apiUrl,
       )
       ..interceptors.add(InterceptorsWrapper(
         onRequest: (options, handler) async {
@@ -30,7 +27,7 @@ class ApiService {
 
   Dio getDio() {
     return Dio(BaseOptions(
-        baseUrl: baseUrl,
+        baseUrl: apiUrl,
         contentType: Headers.jsonContentType,
         headers: {
           "Access-Control-Allow-Origin": "*",
