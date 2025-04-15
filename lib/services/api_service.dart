@@ -7,11 +7,7 @@ class ApiService {
   static final ApiService instance = ApiService._singleton();
 
   String get baseUrl {
-    String local = 'http://localhost:8080/api';
-    String localIp = 'http://192.168.0.176:8080/api';
-    String prod = 'https://amplify-backend-production.up.railway.app/api';
-
-    return prod;
+    return String.fromEnvironment("API_URL");
   }
 
   Dio getDioWithAuth() {

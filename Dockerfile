@@ -6,7 +6,7 @@ WORKDIR /app
 COPY . .
 
 RUN flutter pub get && \
-    flutter build web
+    flutter build web --dart-define-from-file=lib/env/env.${FLUTTER_ENV}.json
 
 # Etapa 2: Servir com nginx
 FROM nginx:alpine
