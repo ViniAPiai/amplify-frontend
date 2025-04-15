@@ -1,21 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthNotifier extends ValueNotifier<bool> {
+class AuthNotifier extends ChangeNotifier {
   bool isLoading = true;
-
-  AuthNotifier() : super(false) {
-    _initialize();
-  }
-
-  Future<void> _initialize() async {
-    value = await isAuthenticated();
-    isLoading = false;
-    notifyListeners();
-  }
+  bool isLoggedIn = false;
 
   void login() {
-    value = true;
+    isLoggedIn = true;
     notifyListeners();
   }
 
@@ -25,30 +16,41 @@ class AuthNotifier extends ValueNotifier<bool> {
     await sharedPreferences.remove("token");
     await sharedPreferences.remove("expiresIn");
 
-    value = false;
+    isLoggedIn = false;
     notifyListeners();
   }
 
   Future<bool> isAuthenticated() async {
     try {
-      final SharedPreferences sharedPreferences =
-      await SharedPreferences.getInstance();
+      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
 
-      if (!sharedPreferences.containsKey("token") ||
-          !sharedPreferences.containsKey("expiresIn")) {
+      if (!sharedPreferences.containsKey("token") || !sharedPreferences.containsKey("expiresIn")) {
+        isLoggedIn = false;
+        notifyListeners();
         return false;
       }
 
       final String? expiresInString = sharedPreferences.getString("expiresIn");
       if (expiresInString == null) {
+        isLoggedIn = false;
+        notifyListeners();
         return false;
       }
 
       final DateTime expiresIn = DateTime.parse(expiresInString);
-      return DateTime.now().isBefore(expiresIn);
+      bool isExpired = DateTime.now().isBefore(expiresIn);
+      if (isExpired) {
+        isLoggedIn = false;
+        notifyListeners();
+        return false;
+      }
+      isLoggedIn = true;
+      notifyListeners();
+      return true;
     } catch (e) {
       print('Erro ao verificar autenticação: $e');
       return false;
     }
   }
+
 }

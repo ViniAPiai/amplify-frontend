@@ -17,25 +17,17 @@ class Routes {
 
   GoRouter getRoutes(BuildContext context) {
     return GoRouter(
-      navigatorKey: GlobalKey<NavigatorState>(),
       initialLocation: '/',
-      // initialLocation: '/patients',
-      refreshListenable: Provider.of<AuthNotifier>(context, listen: true),
       redirect: (BuildContext context, GoRouterState state) {
         final authNotifier = context.read<AuthNotifier>();
-        if (authNotifier.isLoading) {
-          return null;
-        }
-        final bool isAuthenticated = authNotifier.value;
-        final bool isInSignInScreen = state.fullPath == '/';
-        final bool isInSignUpScreen = state.fullPath == '/${SignUpScreen.routeName}';
-        if (!isAuthenticated) {
-          if(isInSignUpScreen) {
-            return null;
-          }
+        final isLoggedIn = authNotifier.isLoggedIn;
+        final loc = state.uri.toString();
+
+        final publicPaths = ['/', '/${SignUpScreen.routeName}', '/recovery_password'];
+        if (!isLoggedIn && !publicPaths.contains(loc)) {
           return '/';
         }
-        if (isAuthenticated && isInSignInScreen) {
+        if (isLoggedIn && (loc == '/' || loc == '/${SignUpScreen.routeName}' || loc == '/recovery_password')) {
           return '/${HomeScreen.routeName}';
         }
         return null;

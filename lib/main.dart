@@ -33,7 +33,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => SignInProvider()),
       ChangeNotifierProvider(create: (_) => SignUpProvider()),
       ChangeNotifierProvider(create: (_) => HomeProvider()),
-      ChangeNotifierProvider(create: (_) => AuthNotifier()),
+      ChangeNotifierProvider(create: (_) => AuthNotifier()..isAuthenticated()),
       ChangeNotifierProvider(create: (_) => LocaleProvider()),
       ChangeNotifierProvider(create: (_) => PatientsProvider()),
       ChangeNotifierProvider(create: (_) => AgendaProvider()),
