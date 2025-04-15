@@ -5,7 +5,7 @@ import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/extension/utils_extension.dart';
 import 'package:frontend/models/consultation/consultation_status_enum.dart';
-import 'package:frontend/screens/agenda/agenda_screen.dart';
+import 'package:frontend/screens/agenda/agenda.dart';
 import 'package:frontend/widgets/amplify_calendar/meeting.dart';
 import 'package:frontend/widgets/buttons/filter_button.dart';
 import 'package:frontend/widgets/buttons/printer_button.dart';

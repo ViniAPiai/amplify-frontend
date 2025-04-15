@@ -1,13 +1,21 @@
-# Etapa de build
-FROM cirrusci/flutter:latest AS build
-WORKDIR /app
-COPY . .
-RUN flutter pub get
-RUN flutter build web
+# Etapa 1: Build do Flutter Web com Flutter 3.22.0
+FROM ghcr.io/cirruslabs/flutter:3.27.0 AS build
 
-# Etapa de produção
-FROM node:18-alpine
 WORKDIR /app
-RUN npm install -g serve
-COPY --from=build /app/build/web ./web
-CMD ["serve", "-s", "web", "-l", "0.0.0.0:8085"]
+
+COPY . .
+
+RUN flutter pub get && \
+    flutter build web
+
+# Etapa 2: Servir com nginx
+FROM nginx:alpine
+
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY --from=build /app/build/web /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
