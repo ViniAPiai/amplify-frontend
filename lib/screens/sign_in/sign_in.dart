@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:frontend/configs/assets.dart';
 import 'package:frontend/configs/auth_notifier.dart';
+import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/models/auth/auth_request_model.dart';
 import 'package:frontend/screens/home/home.dart';
 import 'package:frontend/screens/sign_up/sign_up.dart';
@@ -26,7 +27,7 @@ part 'sign_in.tablet.dart';
 
 part 'sign_in.desktop.dart';
 
-@PagePath("/sign_in")
+@PagePath("/sign_in", redirect: [SignInRequiredRedirectQuery()])
 class SignInPage extends StatefulWidget {
   const SignInPage({super.key});
 

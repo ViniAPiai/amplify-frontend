@@ -80,7 +80,7 @@ class _$_NewPatientPageQuery extends RouteQuery {
   }
 
   @override
-  List<RedirectQuery> redirect() => const [];
+  List<RedirectQuery> redirect() => const [SignInRequiredRedirectQuery()];
 
   @override
   AppPageRoute<E> route<E>([TransitionQuery? query]) {

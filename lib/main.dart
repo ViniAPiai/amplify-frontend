@@ -22,20 +22,21 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @appRoute
-final appRouter = AutoRouter(initialQuery: SignInPage.query());
+final appRouter = AutoRouter(initialQuery: SignInPage.query(), );
 /*AppRouter(
-    initialPath: SignInPage.query.toString(),
-    pages: [
-      SignInPage.query,
-      SignUpPage.query,
-      HomePage.query,
-      PatientsPage.query,
-      AgendaPage.query,
-      DoctorsPage.query,
-      NewPatientPage.query,
+        initialQuery: SignInPage.query(),
+        pages: [
+          SignInPage.query,
+          SignUpPage.query,
+          HomePage.query,
+          PatientsPage.query,
+          AgendaPage.query,
+          DoctorsPage.query,
+          NewPatientPage.query,
       PatientDetailPage.query,
       NewAppointmentPage.query,
-    ]
+    ],
+
 );*/
 
 void main() async {
