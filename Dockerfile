@@ -5,6 +5,14 @@ WORKDIR /app
 
 COPY . .
 
+# Define argumento para uso em tempo de build
+ARG FLUTTER_ENV=dev
+ENV FLUTTER_ENV=${FLUTTER_ENV}
+
+# Debug: mostre qual config está sendo usada
+RUN echo "Usando config: lib/env/env.${FLUTTER_ENV}.json" && \
+    test -f lib/env/env.${FLUTTER_ENV}.json || (echo "❌ Arquivo de configuração não encontrado!" && exit 1)
+
 RUN flutter pub get && \
     flutter build web --dart-define-from-file=lib/env/env.${FLUTTER_ENV}.json
 
