@@ -178,17 +178,17 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
       weekNumberBuilder: (firstDayOfWeek) => Container(
         color: AppColors.gray,
       ),
-      onDateTap: (date) => provider.openAddConsultation(date: date),
+      onDateTap: (date) => Provider.of<NewAppointmentProvider>(context, listen: false).goToNewAppointment(context, date, true),
       onEventTap: (events, date) {
-        switch (ConsultationStatusEnum.fromColor(events.first.color)) {
-          case ConsultationStatusEnum.waitingForClinicConfirmation:
-            provider.confirmConsultation(context, events.first);
+        switch (AppointmentStatusEnum.fromColor(events.first.color)) {
+          case AppointmentStatusEnum.waitingForClinicConfirmation:
+            // provider.confirmConsultation(context, events.first);
             break;
-          case ConsultationStatusEnum.cancelled:
+          case AppointmentStatusEnum.cancelled:
             break;
-          case ConsultationStatusEnum.scheduled:
-          case ConsultationStatusEnum.patientInTheClinic:
-          case ConsultationStatusEnum.finished:
+          case AppointmentStatusEnum.scheduled:
+          case AppointmentStatusEnum.patientInTheClinic:
+          case AppointmentStatusEnum.finished:
             provider.openAddConsultation(date: date, event: events.first);
         }
       },

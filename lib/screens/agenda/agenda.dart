@@ -4,12 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/extension/message_extension.dart';
-import 'package:frontend/models/consultation/consultation_interval_enum.dart';
-import 'package:frontend/models/consultation/consultation_model.dart';
-import 'package:frontend/models/consultation/consultation_status_enum.dart';
+import 'package:frontend/main.router.dart';
+import 'package:frontend/models/consultation/appointment_interval_enum.dart';
+import 'package:frontend/models/consultation/appointment_model.dart';
+import 'package:frontend/models/consultation/appointment_status_enum.dart';
 import 'package:frontend/models/user/user_model.dart';
-import 'package:frontend/services/consultation_service.dart';
-import 'package:frontend/services/doctor_service.dart';
+import 'package:frontend/screens/new_appointment/new_appointment.dart';
+import 'package:frontend/services/appointment_service.dart';
+import 'package:frontend/services/dentist_service.dart';
 import 'package:frontend/services/nurse_service.dart';
 import 'package:frontend/widgets/amplify_calendar/amplify_calendar.dart';
 import 'package:frontend/widgets/dialogs/amplify_dialog.dart';
@@ -31,7 +33,7 @@ part 'agenda.mobile.dart';
 part 'agenda.tablet.dart';
 part 'agenda.desktop.dart';
 
-@PagePath("/agenda", redirect: [SignInRequiredRedirectQuery()])
+@PagePath("/agenda", /*redirect: [SignInRequiredRedirectQuery()]*/)
 class AgendaPage extends StatelessWidget {
 
   const AgendaPage({super.key});

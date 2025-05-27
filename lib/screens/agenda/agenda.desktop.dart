@@ -47,7 +47,7 @@ class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
                       ),
                       Expanded(child: SizedBox()),
                       OutlinedButton.icon(
-                          onPressed: () {},
+                          onPressed: () => Provider.of<NewAppointmentProvider>(context, listen: false).goToNewAppointment(context, DateTime.now(), false),
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(color: context.primaryColor, width: 2),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

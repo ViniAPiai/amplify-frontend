@@ -11,8 +11,10 @@ class _AmplifyCalendarDesktopScreen extends State<_$AmplifyCalendarMonth> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<AgendaProvider>(context, listen: false).loadEventsByDate(DateTime.now());
+    Future.delayed(const Duration(milliseconds: 10), () {
+      if (mounted) {
+        Provider.of<AgendaProvider>(context, listen: false).loadEventsByDate(DateTime.now());
+      }
     });
   }
 
@@ -20,6 +22,7 @@ class _AmplifyCalendarDesktopScreen extends State<_$AmplifyCalendarMonth> {
   Widget build(BuildContext context) {
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     AgendaProvider provider = Provider.of<AgendaProvider>(context);
+    NewAppointmentProvider newAppointmentProvider = Provider.of<NewAppointmentProvider>(context);
     return MonthView(
       key: provider.monthKey,
       controller: provider.controller,
@@ -99,29 +102,37 @@ class _AmplifyCalendarDesktopScreen extends State<_$AmplifyCalendarMonth> {
         return Column(
           children: [
             Container(
-              color: isToday ? AppColors.secondary : Colors.transparent,
-              width: 1000,
-              child: Column(
-                children: [
-                  Text(
-                    DateFormat.d(locale.getLocaleString()).format(date),
-                    style: GoogleFonts.inter(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
-                    textAlign: TextAlign.center,
-                  ),
-                  event.length > 4 ?
-                      SizedBox() :
-                      Column(
-                        children: event.map((e) {
-                          return Text(e.title);
-                        },).toList(),
-                      )
-                ],
-              )
-            ),
+                color: isToday ? AppColors.secondary : Colors.transparent,
+                width: 1000,
+                child: Column(
+                  children: [
+                    Text(
+                      DateFormat.d(locale.getLocaleString()).format(date),
+                      style: GoogleFonts.inter(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w400),
+                      textAlign: TextAlign.center,
+                    ),
+                    event.length > 4
+                        ? SizedBox()
+                        : Column(
+                            children: event.map(
+                              (e) {
+                                return Text(e.title);
+                              },
+                            ).toList(),
+                          )
+                  ],
+                )),
           ],
         );
       },
-      onCellTap: (events, date) => provider.openAddConsultation(date: date),
+      onCellTap: (events, date) {
+        /*Provider.of<NewAppointmentProvider>(context, listen: false).goToNewAppointment(context, date, false).then((value) {
+          if (value) {
+            provider.loadEventsByDate(date);
+          }
+        });*/
+        newAppointmentProvider.openOrCloseModal(context);
+      },
       onPageChange: (date, _) => provider.loadEventsByDate(date),
     );
   }
