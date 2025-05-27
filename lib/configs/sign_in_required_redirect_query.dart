@@ -13,7 +13,7 @@ class SignInRequiredRedirectQuery extends RedirectQuery {
   @override
   FutureOr<RouteQuery> redirect(BuildContext context, RouteQuery source) async {
     if (context.read<AuthNotifier>().isLoggedIn) {
-      if(source is! SignInPage || source is! SignUpPage) {
+      if(source is SignInPage || source is SignUpPage) {
         return HomePage.query();
       }
       return source;

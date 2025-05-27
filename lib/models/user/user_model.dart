@@ -13,8 +13,13 @@ class UserModel {
   late DateTime? createdAt;
   late DateTime? updatedAt;
   late String? roleName;
+  late String? languageCode;
 
-  UserModel({this.uuid, required this.fullName, this.email, this.documentNumber, this.createdAt, this.updatedAt, this.roleName});
+  UserModel({this.uuid, required this.fullName, this.email, this.documentNumber, this.createdAt, this.updatedAt, this.roleName, this.languageCode});
+
+  factory UserModel.empty() {
+    return UserModel(uuid: "", fullName: "");
+  }
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);

@@ -38,7 +38,7 @@ class PatientService {
     }
   }
 
-  static Future<List<UserModel>> names({String searchTerm = "", int page = 0}) async {
+  static Future<List<UserModel>> names({String searchTerm = "", int? page}) async {
     Response response = await ApiService.instance.getDioWithAuth().post('/erp/patient/names', data: {"searchTerm": searchTerm, "page": page});
     if (response.statusCode == 200) {
       return (response.data as List).map((e) => UserModel.fromJson(e)).toList();

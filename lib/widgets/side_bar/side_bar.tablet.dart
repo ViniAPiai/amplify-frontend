@@ -2,9 +2,10 @@ part of 'side_bar.dart';
 
 class _$SideBarTablet extends StatefulWidget {
   final PreferredSize? appBar;
+  final Widget? bottom;
   final Widget child;
 
-  const _$SideBarTablet({super.key, this.appBar, required this.child});
+  const _$SideBarTablet({super.key, this.appBar, required this.child, this.bottom});
 
   @override
   createState() => _SideBarTablet();
@@ -105,10 +106,11 @@ class _SideBarTablet extends State<_$SideBarTablet> {
            * Modal for adding a consultation to the calendar
            */
           agendaProvider.showConsultationModal
-              ? ConsultationModal()
+              ? NewAppointmentModal()
               : SizedBox()
         ],
       ),
+      bottomNavigationBar: widget.bottom,
     );
   }
 }

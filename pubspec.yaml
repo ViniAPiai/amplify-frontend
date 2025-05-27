@@ -22,6 +22,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   data_table_2: ^2.5.18
   dash_flags: ^0.1.1
+  datepicker_dropdown: ^0.1.7
   dio: ^5.7.0
   flutter_easy_dropdown: ^1.0.3
   flutter_svg: ^2.0.17
@@ -40,9 +41,11 @@ dependencies:
   provider: ^6.1.2
   responsive_builder: ^0.7.1
 #  syncfusion_flutter_calendar: ^28.2.7
+  searchable_listview: ^2.17.3
   syncfusion_flutter_datepicker: ^28.2.4
   shared_preferences: ^2.3.5
   smooth_page_indicator: ^1.2.0+3
+  toastification: ^3.0.2
   toggle_switch: ^2.3.0
 
 dependency_overrides:

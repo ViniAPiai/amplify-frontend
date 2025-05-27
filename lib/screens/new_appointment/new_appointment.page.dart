@@ -80,7 +80,7 @@ class _$_NewAppointmentPageQuery extends RouteQuery {
   }
 
   @override
-  List<RedirectQuery> redirect() => const [SignInRequiredRedirectQuery()];
+  List<RedirectQuery> redirect() => const [];
 
   @override
   AppPageRoute<E> route<E>([TransitionQuery? query]) {

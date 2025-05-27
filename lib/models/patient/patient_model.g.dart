@@ -29,7 +29,8 @@ PatientModel _$PatientModelFromJson(Map<String, dynamic> json) => PatientModel(
       ..updatedAt = json['updatedAt'] == null
           ? null
           : DateTime.parse(json['updatedAt'] as String)
-      ..roleName = json['roleName'] as String?;
+      ..roleName = json['roleName'] as String?
+      ..languageCode = json['languageCode'] as String?;
 
 Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
     <String, dynamic>{
@@ -42,6 +43,7 @@ Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
       if (instance.updatedAt?.toIso8601String() case final value?)
         'updatedAt': value,
       if (instance.roleName case final value?) 'roleName': value,
+      if (instance.languageCode case final value?) 'languageCode': value,
       'gender': instance.gender,
       'birthDate': instance.birthDate.toIso8601String(),
       'phoneNumber': instance.phoneNumber,

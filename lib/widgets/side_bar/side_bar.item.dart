@@ -28,6 +28,8 @@ class SideBarItem extends StatelessWidget {
         // selected: GoRouter.of(context).state?.path == path,
         selectedTileColor: AppColors.grayBlack,
         onTap: () {
+          print("Clicado");
+          print(query.path);
           context.router.push(query);
         },
       ),

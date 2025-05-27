@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';
-import 'package:frontend/widgets/tooth_eleven.dart';
 import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';

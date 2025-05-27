@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-enum ConsultationStatusEnum {
+enum AppointmentStatusEnum {
   @JsonValue("WAITING_FOR_CLINIC_CONFIRMATION")
   waitingForClinicConfirmation(
     "WAITING_FOR_CLINIC_CONFIRMATION",
@@ -20,39 +20,39 @@ enum ConsultationStatusEnum {
   final String name;
   final Color color;
 
-  const ConsultationStatusEnum(this.name, this.color);
+  const AppointmentStatusEnum(this.name, this.color);
 
-  static ConsultationStatusEnum fromString(String status) {
+  static AppointmentStatusEnum fromString(String status) {
     switch (status) {
       case "WAITING_FOR_CLINIC_CONFIRMATION":
-        return ConsultationStatusEnum.waitingForClinicConfirmation;
+        return AppointmentStatusEnum.waitingForClinicConfirmation;
       case "SCHEDULED":
-        return ConsultationStatusEnum.scheduled;
+        return AppointmentStatusEnum.scheduled;
       case "PATIENT_IN_THE_CLINIC":
-        return ConsultationStatusEnum.patientInTheClinic;
+        return AppointmentStatusEnum.patientInTheClinic;
       case "FINISHED":
-        return ConsultationStatusEnum.finished;
+        return AppointmentStatusEnum.finished;
       case "CANCELLED":
-        return ConsultationStatusEnum.cancelled;
+        return AppointmentStatusEnum.cancelled;
       default:
-        return ConsultationStatusEnum.waitingForClinicConfirmation;
+        return AppointmentStatusEnum.waitingForClinicConfirmation;
     }
   }
 
-  static ConsultationStatusEnum fromColor(Color color) {
+  static AppointmentStatusEnum fromColor(Color color) {
     switch (color) {
       case Colors.amber:
-        return ConsultationStatusEnum.waitingForClinicConfirmation;
+        return AppointmentStatusEnum.waitingForClinicConfirmation;
       case Colors.blue:
-        return ConsultationStatusEnum.scheduled;
+        return AppointmentStatusEnum.scheduled;
       case Colors.grey:
-        return ConsultationStatusEnum.patientInTheClinic;
+        return AppointmentStatusEnum.patientInTheClinic;
       case AppColors.secondary:
-        return ConsultationStatusEnum.finished;
+        return AppointmentStatusEnum.finished;
       case Colors.redAccent:
-        return ConsultationStatusEnum.cancelled;
+        return AppointmentStatusEnum.cancelled;
       default:
-        return ConsultationStatusEnum.waitingForClinicConfirmation;
+        return AppointmentStatusEnum.waitingForClinicConfirmation;
     }
   }
 
