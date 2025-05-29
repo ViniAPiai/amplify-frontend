@@ -17,7 +17,7 @@ class HeaderTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     return Row(
-      spacing: context.isTabletOrDesktop ? 16 : 8,
+      spacing: context.isTabletOrDesktop ? 0 : 8,
       children: [
         context.isDesktop ? const SizedBox() : Padding(
             padding: const EdgeInsets.only(bottom: 8),
@@ -38,7 +38,7 @@ class HeaderTitle extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 6),
+          padding: EdgeInsets.only(bottom: 6, left: context.isTabletOrDesktop ? 16 : 8),
           child: Text(
             title,
             style: GoogleFonts.inter(color: Colors.black, fontSize: context.isTabletOrDesktop ? 24 : 18, fontWeight: FontWeight.w700),

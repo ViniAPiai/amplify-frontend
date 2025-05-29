@@ -27,7 +27,7 @@ class NewConsultationButton extends StatelessWidget {
         size: 24,
       ),
       label: Text(
-        t.newConsultation,
+        t.newAppointment,
         style: GoogleFonts.inter(color: Colors.grey.shade700, fontSize: 16, fontWeight: FontWeight.w500),
       ),
     ) :

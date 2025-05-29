@@ -6,6 +6,6 @@ class _$HomeDesktopPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HomeProvider provider = Provider.of<HomeProvider>(context);
-    return SideBar(child: SizedBox(width: 100, height: 150, child: ToothEleven()),);
+    return SideBar(child: SizedBox());
   }
 }

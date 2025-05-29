@@ -6,8 +6,8 @@ import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/assets.dart';
 import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/main.router.dart';
-import 'package:frontend/screens/agenda/agenda.dart';
-import 'package:frontend/widgets/consultation/consultation_modal.dart';
+import 'package:frontend/widgets/new_appointment/new_appointment.provider.dart';
+import 'package:frontend/widgets/new_appointment/new_appointment_modal.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:katana_router/katana_router.dart';
@@ -27,9 +27,10 @@ part 'side_bar.item.dart';
 
 class SideBar extends StatefulWidget {
   final PreferredSize? appBar;
+  final Widget? bottom;
   final Widget child;
 
-  const SideBar({super.key, required this.child, this.appBar});
+  const SideBar({super.key, required this.child, this.appBar, this.bottom});
 
   @override
   createState() => _SideBar();
@@ -41,10 +42,12 @@ class _SideBar extends State<SideBar> {
     return ScreenTypeLayout.builder(
       mobile: (context) => _$SideBarMobile(
         appBar: widget.appBar,
+        bottom: widget.bottom,
         child: widget.child,
       ),
       tablet: (context) => _$SideBarTablet(
         appBar: widget.appBar,
+        bottom: widget.bottom,
         child: widget.child,
       ),
       desktop: (context) => _$SideBarDesktop(child: widget.child),

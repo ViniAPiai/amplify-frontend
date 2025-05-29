@@ -3,10 +3,8 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:frontend/configs/auth_notifier.dart';
 import 'package:frontend/configs/locale_provider.dart';
-import 'package:frontend/configs/routes.dart';
 import 'package:frontend/main.router.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
-import 'package:frontend/screens/new_appointment/new_appointment.dart';
 import 'package:frontend/screens/doctors/doctors.dart';
 import 'package:frontend/screens/home/home.dart';
 import 'package:frontend/screens/new_patient/new_patient.dart';
@@ -20,9 +18,13 @@ import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:toastification/toastification.dart';
 
 @appRoute
-final appRouter = AutoRouter(initialQuery: SignInPage.query(), );
+final appRouter = AutoRouter(
+  // initialQuery: NewAppointmentPage.query(date: DateTime.now()),
+  initialQuery: AgendaPage.query(),
+);
 /*AppRouter(
         initialQuery: SignInPage.query(),
         pages: [
@@ -57,7 +59,6 @@ void main() async {
       ChangeNotifierProvider(create: (_) => DoctorsProvider()),
       ChangeNotifierProvider(create: (_) => NewPatientProvider()),
       ChangeNotifierProvider(create: (_) => PatientDetailProvider()),
-      ChangeNotifierProvider(create: (_) => NewAppointmentProvider()),
     ],
     child: MyApp(),
   ));
@@ -75,29 +76,33 @@ class MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     LocaleProvider value = Provider.of<LocaleProvider>(context, listen: true);
     return ResponsiveApp(builder: (context) {
-      return MaterialApp.router(
-        title: 'Amplify',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff2b660b)),
-          primaryColor: Color(0xff73d53f),
-          useMaterial3: true,
-          textTheme: GoogleFonts.interTextTheme(),
-          canvasColor: Colors.white,
+      return ToastificationWrapper(
+        config: ToastificationConfig(
+          alignment: Alignment.topRight,
         ),
-        locale: value.locale,
-        localizationsDelegates: [
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          AppLocalizations.delegate,
-        ],
-        supportedLocales: [
-          Locale('en', 'US'),
-          Locale('pt', 'PT'),
-          Locale('pt', 'BR'),
-        ],
-        debugShowCheckedModeBanner: false,
-        routerConfig: appRouter
+        child: MaterialApp.router(
+            title: 'Amplify',
+            theme: ThemeData(
+              colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff2b660b)),
+              primaryColor: Color(0xff73d53f),
+              useMaterial3: true,
+              textTheme: GoogleFonts.interTextTheme(),
+              canvasColor: Colors.white,
+            ),
+            locale: value.locale,
+            localizationsDelegates: [
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              AppLocalizations.delegate,
+            ],
+            supportedLocales: [
+              Locale('en', 'US'),
+              Locale('pt', 'PT'),
+              Locale('pt', 'BR'),
+            ],
+            debugShowCheckedModeBanner: false,
+            routerConfig: appRouter),
       );
     });
   }

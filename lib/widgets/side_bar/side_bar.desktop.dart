@@ -12,7 +12,7 @@ class _$SideBarDesktop extends StatefulWidget {
 class _SideBarDesktop extends State<_$SideBarDesktop> {
   @override
   Widget build(BuildContext context) {
-    AgendaProvider agendaProvider = Provider.of<AgendaProvider>(context);
+    SideBarProvider provider = Provider.of<SideBarProvider>(context);
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return Scaffold(
@@ -94,18 +94,24 @@ class _SideBarDesktop extends State<_$SideBarDesktop> {
           /**
            * Barrier for any modal
            */
-          agendaProvider.showBarrier
+          provider.showBarrier
               ? ModalBarrier(
-                  dismissible: agendaProvider.showBarrier,
+                  dismissible: provider.showBarrier,
                   color: Colors.grey.shade300,
                 ).setOpacity(opacity: .6)
               : SizedBox(),
           /**
            * Modal for adding a consultation to the calendar
            */
-          agendaProvider.showConsultationModal
-              ? ConsultationModal()
-              : SizedBox()
+          if (provider.showNewAppointmentModal)
+            ChangeNotifierProvider(
+              create: (_) => NewAppointmentProvider(provider.selectedDate!),
+              child: AnimatedPositioned(
+                  right: 0,
+                  left: null,
+                  duration: Duration(milliseconds: 500),
+                  child: Container(height: context.height, width: 600, color: Colors.white, child: NewAppointmentModal())),
+            )
         ],
       ),
     );

@@ -21,6 +21,7 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
   Widget build(BuildContext context) {
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     AgendaProvider agendaProvider = Provider.of<AgendaProvider>(context);
+    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return Consumer<AgendaProvider>(builder: (context, provider, child) {
       return DayView(
@@ -152,17 +153,17 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
             ),
           );
         },
-        onDateTap: (date) => agendaProvider.openAddConsultation(date: date),
+        onDateTap: (date) => sideBarProvider.openOrCloseNewAppointmentModal(context: context, date: date),
         onEventTap: (events, date) {
-          switch (ConsultationStatusEnum.fromColor(events.first.color)) {
-            case ConsultationStatusEnum.waitingForClinicConfirmation:
-              provider.confirmConsultation(context, events.first);
+          switch (AppointmentStatusEnum.fromColor(events.first.color)) {
+            case AppointmentStatusEnum.waitingForClinicConfirmation:
+              // provider.confirmConsultation(context, events.first);
               break;
-            case ConsultationStatusEnum.cancelled:
+            case AppointmentStatusEnum.cancelled:
               break;
-            case ConsultationStatusEnum.scheduled:
-            case ConsultationStatusEnum.patientInTheClinic:
-            case ConsultationStatusEnum.finished:
+            case AppointmentStatusEnum.scheduled:
+            case AppointmentStatusEnum.patientInTheClinic:
+            case AppointmentStatusEnum.finished:
               provider.openAddConsultation(date: date, event: events.first);
           }
         },
