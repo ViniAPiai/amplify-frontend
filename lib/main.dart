@@ -1,4 +1,3 @@
-import 'package:dash_flags/dash_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
@@ -6,7 +5,6 @@ import 'package:frontend/configs/auth_notifier.dart';
 import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/main.router.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
-import 'package:frontend/screens/new_appointment/new_appointment.dart';
 import 'package:frontend/screens/doctors/doctors.dart';
 import 'package:frontend/screens/home/home.dart';
 import 'package:frontend/screens/new_patient/new_patient.dart';
@@ -25,7 +23,7 @@ import 'package:toastification/toastification.dart';
 @appRoute
 final appRouter = AutoRouter(
   // initialQuery: NewAppointmentPage.query(date: DateTime.now()),
-  initialQuery: SignInPage.query(),
+  initialQuery: AgendaPage.query(),
 );
 /*AppRouter(
         initialQuery: SignInPage.query(),
@@ -61,7 +59,6 @@ void main() async {
       ChangeNotifierProvider(create: (_) => DoctorsProvider()),
       ChangeNotifierProvider(create: (_) => NewPatientProvider()),
       ChangeNotifierProvider(create: (_) => PatientDetailProvider()),
-      ChangeNotifierProvider(create: (_) => NewAppointmentProvider()),
     ],
     child: MyApp(),
   ));

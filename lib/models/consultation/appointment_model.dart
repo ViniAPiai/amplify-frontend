@@ -49,11 +49,11 @@ class AppointmentModel {
       this.message,
       this.teeth});
 
-  factory AppointmentModel.empty() {
+  factory AppointmentModel.empty(DateTime date) {
     return AppointmentModel(
       uuid: "",
       notes: "",
-      date: DateTime.now(),
+      date: date,
       startTime: TimeOfDay(hour: 0, minute: 0),
       endTime: TimeOfDay(hour: 0, minute: 0),
       patient: UserModel.empty(),
