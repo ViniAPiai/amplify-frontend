@@ -22,7 +22,7 @@ class _AmplifyCalendarDesktopScreen extends State<_$AmplifyCalendarMonth> {
   Widget build(BuildContext context) {
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     AgendaProvider provider = Provider.of<AgendaProvider>(context);
-    NewAppointmentProvider newAppointmentProvider = Provider.of<NewAppointmentProvider>(context);
+    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     return MonthView(
       key: provider.monthKey,
       controller: provider.controller,
@@ -125,14 +125,7 @@ class _AmplifyCalendarDesktopScreen extends State<_$AmplifyCalendarMonth> {
           ],
         );
       },
-      onCellTap: (events, date) {
-        /*Provider.of<NewAppointmentProvider>(context, listen: false).goToNewAppointment(context, date, false).then((value) {
-          if (value) {
-            provider.loadEventsByDate(date);
-          }
-        });*/
-        newAppointmentProvider.openOrCloseModal(context);
-      },
+      onCellTap: (events, date) => sideBarProvider.openOrCloseNewAppointmentModal(context: context, date: date),
       onPageChange: (date, _) => provider.loadEventsByDate(date),
     );
   }

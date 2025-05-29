@@ -21,6 +21,7 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
   Widget build(BuildContext context) {
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     AgendaProvider agendaProvider = Provider.of<AgendaProvider>(context);
+    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return Consumer<AgendaProvider>(builder: (context, provider, child) {
       return DayView(
@@ -152,7 +153,7 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
             ),
           );
         },
-        onDateTap: (date) => Provider.of<NewAppointmentProvider>(context, listen: false).goToNewAppointment(context, date, true),
+        onDateTap: (date) => sideBarProvider.openOrCloseNewAppointmentModal(context: context, date: date),
         onEventTap: (events, date) {
           switch (AppointmentStatusEnum.fromColor(events.first.color)) {
             case AppointmentStatusEnum.waitingForClinicConfirmation:

@@ -6,8 +6,7 @@ import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/assets.dart';
 import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/main.router.dart';
-import 'package:frontend/screens/agenda/agenda.dart';
-import 'package:frontend/screens/new_appointment/new_appointment.dart';
+import 'package:frontend/widgets/new_appointment/new_appointment.provider.dart';
 import 'package:frontend/widgets/new_appointment/new_appointment_modal.dart';
 
 import 'package:google_fonts/google_fonts.dart';

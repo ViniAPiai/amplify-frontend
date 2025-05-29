@@ -15,10 +15,9 @@ class _SideBarTablet extends State<_$SideBarTablet> {
   @override
   Widget build(BuildContext context) {
     SideBarProvider provider = Provider.of<SideBarProvider>(context);
-    AgendaProvider agendaProvider = Provider.of<AgendaProvider>(context);
     return Scaffold(
       key: provider.key,
-      appBar: agendaProvider.showBarrier ? null : widget.appBar,
+      appBar: provider.showNewAppointmentModal ? null : widget.appBar,
       backgroundColor: AppColors.gray,
       drawer: Drawer(
         backgroundColor: AppColors.black,
@@ -31,7 +30,7 @@ class _SideBarTablet extends State<_$SideBarTablet> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             spacing: 16,
-            children:  [
+            children: [
               const SizedBox(
                 height: 32,
               ),
@@ -94,20 +93,16 @@ class _SideBarTablet extends State<_$SideBarTablet> {
         children: [
           widget.child,
           /**
-           * Barrier for any modal
+           * Modal for adding a appointment to the calendar
            */
-          agendaProvider.showBarrier
-              ? ModalBarrier(
-            dismissible: agendaProvider.showBarrier,
-            color: Colors.grey.shade300,
-          ).setOpacity(opacity: .6)
-              : SizedBox(),
-          /**
-           * Modal for adding a consultation to the calendar
-           */
-          agendaProvider.showConsultationModal
-              ? NewAppointmentModal()
-              : SizedBox()
+          if (provider.showNewAppointmentModal)
+            ChangeNotifierProvider(
+                create: (_) => NewAppointmentProvider(provider.selectedDate!),
+                child: AnimatedPositioned(
+                    bottom: 0,
+                    top: null,
+                    duration: Duration(milliseconds: 500),
+                    child: Container(height: context.height, width: context.width, color: Colors.white, child: NewAppointmentModal())))
         ],
       ),
       bottomNavigationBar: widget.bottom,

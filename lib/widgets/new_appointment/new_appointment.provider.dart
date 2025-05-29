@@ -1,15 +1,33 @@
-part of 'new_appointment.dart';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:frontend/configs/app_colors.dart';
+import 'package:frontend/enums/tooth_code.dart';
+import 'package:frontend/models/appointment_type/appointment_type.model.dart';
+import 'package:frontend/models/consultation/appointment_model.dart';
+import 'package:frontend/models/dentist_free_time/time_range.dart';
+import 'package:frontend/models/procedure_type/procedure_type.model.dart';
+import 'package:frontend/models/user/user_model.dart';
+import 'package:frontend/screens/agenda/agenda.dart';
+import 'package:frontend/services/appointment_service.dart';
+import 'package:frontend/services/appointment_type_service.dart';
+import 'package:frontend/services/dentist_service.dart';
+import 'package:frontend/services/nurse_service.dart';
+import 'package:frontend/services/patient_service.dart';
+import 'package:frontend/services/procedure_type_service.dart';
+import 'package:frontend/widgets/side_bar/side_bar.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:katana_router/katana_router.dart';
+import 'package:provider/provider.dart';
+import 'package:toastification/toastification.dart';
 
 class NewAppointmentProvider extends ChangeNotifier {
-  /// Modal attributes
-  bool showBarrier = false;
-  bool showNewAppointmentModel = false;
   /// Page Controller attributes
   PageController pageController = PageController(initialPage: 0);
   int page = 0;
   int maxPage = 8;
   double progress = 1 / 8;
-  late AppointmentModel model = AppointmentModel.empty();
+  late AppointmentModel model;
   bool isRegistering = false;
   TextEditingController tecNotes = TextEditingController();
   bool isFinished = false;
@@ -29,11 +47,18 @@ class NewAppointmentProvider extends ChangeNotifier {
   late List<AppointmentTypeModel> filteredAppointmentTypes = [];
   List<int> teethSelected = [];
 
-  NewAppointmentProvider() {
-    load();
+  NewAppointmentProvider(DateTime date) {
+    load(date);
   }
 
-  void load() {
+  @override
+  void dispose() {
+    super.dispose();
+    clear();
+  }
+
+  void load(DateTime date) {
+    model = AppointmentModel.empty(date);
     AppointmentTypeService.getAppointmentTypes().then((value) {
       appointmentTypes = value;
       filteredAppointmentTypes = value;
@@ -64,18 +89,6 @@ class NewAppointmentProvider extends ChangeNotifier {
     },);
   }
 
-  void openOrCloseModal(BuildContext context) {
-    showNewAppointmentModel = !showNewAppointmentModel;
-    showBarrier = !showBarrier;
-    if(showNewAppointmentModel) {
-      page = 0;
-      progress = 1 / 8;
-      notifyListeners();
-      pageController.jumpToPage(0);
-    }
-    notifyListeners();
-  }
-
   void addAppointment(BuildContext context) async {
     if (validate()) {
       isRegistering = true;
@@ -84,8 +97,6 @@ class NewAppointmentProvider extends ChangeNotifier {
         model = await AppointmentService.insert(model);
         notifyListeners();
         isRegistering = false;
-        showNewAppointmentModel = false;
-        showBarrier = false;
         notifyListeners();
         if (!context.mounted) return;
         toastification.show(
@@ -97,7 +108,8 @@ class NewAppointmentProvider extends ChangeNotifier {
           type: ToastificationType.success,
           primaryColor: AppColors.secondary,
         );
-        context.router.pop(true);
+        Provider.of<AgendaProvider>(context, listen: false).loadEventsByDate(model.date);
+        Provider.of<SideBarProvider>(context, listen: false).openOrCloseNewAppointmentModal(context: context);
       } catch (e) {
         isRegistering = false;
         notifyListeners();
@@ -127,8 +139,6 @@ class NewAppointmentProvider extends ChangeNotifier {
   void clear() {
     page = 0;
     progress = 1 / 8;
-    showNewAppointmentModel = false;
-    showBarrier = false;
     isRegistering = false;
     tecNotes.text = "";
     isLoadingPatients = true;
@@ -136,12 +146,8 @@ class NewAppointmentProvider extends ChangeNotifier {
     isLoadingNurses = true;
     isLoadingProcedureTypes = true;
     isLoadingAppointmentTypes = true;
-  }
-
-  Future<bool> goToNewAppointment(BuildContext context, DateTime date, bool putTime) async {
-    model.date = date;
+    model = AppointmentModel.empty(DateTime.now());
     notifyListeners();
-    return await context.router.push(NewAppointmentPage.query());
   }
 
   bool validate() {

@@ -11,7 +11,7 @@ class FilterButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AppLocalizations t = AppLocalizations.of(context)!;
-    return context.isTabletOrDesktop
+    return context.isDesktop
         ? OutlinedButton.icon(
             onPressed: onPressed ?? () {},
             style: OutlinedButton.styleFrom(

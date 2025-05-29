@@ -19,6 +19,7 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
   @override
   Widget build(BuildContext context) {
     AgendaProvider provider = Provider.of<AgendaProvider>(context);
+    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return WeekView(
@@ -27,8 +28,8 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
       backgroundColor: AppColors.gray,
       headerStyle: HeaderStyle(decoration: BoxDecoration(color: context.primaryColor)),
       weekPageHeaderBuilder: (startDate, endDate) {
-        String data = DateFormat.yMMMMd(locale.getLocaleString()).format(startDate);
-        String to = DateFormat.yMMMMd(locale.getLocaleString()).format(endDate);
+        String data = DateFormat.yMd(locale.getLocaleString()).format(startDate);
+        String to = DateFormat.yMd(locale.getLocaleString()).format(endDate);
         String finalDate = '${data.substring(0, 1).toUpperCase()}${data.substring(1)} ${t.to} ${to.substring(0, 1).toUpperCase()}${to.substring(1)}';
         return Padding(
           padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
@@ -71,7 +72,7 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
                       backgroundColor: Colors.white,
                       padding: EdgeInsets.zero,
-                      fixedSize: Size(420, 25)),
+                      fixedSize: Size(275, 25)),
                   child: Text(
                     finalDate,
                     style: GoogleFonts.inter(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
@@ -89,18 +90,6 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
                     size: 24,
                   )),
               Expanded(child: const SizedBox()),
-              PopupMenuButton(
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                color: Colors.white,
-                padding: EdgeInsets.zero,
-                icon: Icon(Icons.list, color: Colors.grey.shade700, size: 24),
-                itemBuilder: (context) => [
-                  PopupMenuItem(child: Text("dwadawdwad")),
-                  PopupMenuItem(child: Text("dwadawdwad")),
-                  PopupMenuItem(child: Text("dwadawdwad")),
-                  PopupMenuItem(child: Text("dwadawdwad")),
-                ],
-              ),
               OutlinedButton(
                   onPressed: () {},
                   style: OutlinedButton.styleFrom(
@@ -148,7 +137,7 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
         );
       },
       weekDayBuilder: (date) {
-        String day = DateFormat.EEEE(locale.getLocaleString()).format(date);
+        String day = DateFormat.E(locale.getLocaleString()).format(date);
         day = day.substring(0, 1).toUpperCase() + day.substring(1);
         return Container(
             padding: EdgeInsets.all(8),
@@ -157,7 +146,7 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
                 BoxDecoration(border: Border.all(color: Color(0xffe0e1e1)), color: date == DateTime.now() ? AppColors.secondary : AppColors.gray),
             child: RichText(
                 textAlign: TextAlign.center,
-                text: TextSpan(text: "$day\n", style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500), children: [
+                text: TextSpan(text: "$day ", style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500), children: [
                   TextSpan(
                       text: DateFormat.d(locale.getLocaleString()).format(date),
                       style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
@@ -178,7 +167,7 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
       weekNumberBuilder: (firstDayOfWeek) => Container(
         color: AppColors.gray,
       ),
-      onDateTap: (date) => Provider.of<NewAppointmentProvider>(context, listen: false).goToNewAppointment(context, date, true),
+      onDateTap: (date) => sideBarProvider.openOrCloseNewAppointmentModal(context: context, date: date),
       onEventTap: (events, date) {
         switch (AppointmentStatusEnum.fromColor(events.first.color)) {
           case AppointmentStatusEnum.waitingForClinicConfirmation:
@@ -208,6 +197,7 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
             : SizedBox.shrink();
       },
       onPageChange: (date, _) => provider.loadEventsByDate(date),
+      heightPerMinute: 2.5,
     );
   }
 }

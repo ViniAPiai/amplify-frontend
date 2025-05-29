@@ -5,10 +5,10 @@ import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/enums/tooth_code.dart';
 import 'package:frontend/extension/locale_extension.dart';
 import 'package:frontend/models/appointment_type/appointment_type.model.dart';
-import 'package:frontend/models/dentist_free_time/time_range.dart';
 import 'package:frontend/models/procedure_type/procedure_type.model.dart';
 import 'package:frontend/models/user/user_model.dart';
-import 'package:frontend/screens/new_appointment/new_appointment.dart';
+import 'package:frontend/widgets/new_appointment/new_appointment.provider.dart';
+import 'package:frontend/widgets/side_bar/side_bar.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -43,9 +43,10 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
 
   @override
   Widget build(BuildContext context) {
-    NewAppointmentProvider provider = Provider.of<NewAppointmentProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     DateFormat dateFormat = DateFormat.yMMMMd(context.locale.languageCode);
+    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
+    NewAppointmentProvider provider = Provider.of<NewAppointmentProvider>(context);
     return Column(
       spacing: 16,
       mainAxisAlignment: MainAxisAlignment.start,
@@ -53,7 +54,7 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
       children: [
         Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
           IconButton(
-              onPressed: () => provider.openOrCloseModal(context),
+              onPressed: () => sideBarProvider.openOrCloseNewAppointmentModal(context: context),
               icon: Icon(
                 Icons.close,
                 color: AppColors.grayBlack,
@@ -62,19 +63,17 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
             child: RichText(
               textAlign: TextAlign.center,
               text: TextSpan(
-                text: t.newAppointment,
-                style: GoogleFonts.montserrat(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-                children: [
-                  TextSpan(
-                    text: "\nPasso ${provider.page + 1} de ${provider.maxPage}",
-                    style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey.withBrightness(0.4)),
-
-                  )
-                ]
-              ),
+                  text: t.newAppointment,
+                  style: GoogleFonts.montserrat(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  children: [
+                    TextSpan(
+                      text: "\nPasso ${provider.page + 1} de ${provider.maxPage}",
+                      style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600, color: Colors.grey.withBrightness(0.4)),
+                    )
+                  ]),
             ),
           ).expanded()
         ]).paddingOnly(top: 16),
@@ -89,441 +88,410 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
               ).expanded()
             : PageView(controller: provider.pageController, allowImplicitScrolling: false, children: [
                 /// Patient selection
-                Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: context.width,
-                    height: context.height,
-                    child: Column(
-                      spacing: 16,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Selecione um paciente",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
+                Column(
+                  spacing: 16,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Selecione um paciente",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    TextFormField(
+                        onChanged: (value) => provider.filterPatients(value),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                            suffixIcon: Icon(
+                              FontAwesomeIcons.filter,
+                              color: AppColors.grayBlack,
+                            ))).paddingSymmetric(horizontal: 4),
+                    Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: context.width,
+                        height:
+                            provider.filteredPatients.length * 60 > context.height ? context.height - 320 : provider.filteredPatients.length * 60,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: provider.filteredPatients.length,
+                          itemBuilder: (context, index) {
+                            UserModel patient = provider.filteredPatients[index];
+                            return ListTile(
+                                title: Text(
+                                  patient.fullName,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                trailing:
+                                    provider.model.patient!.uuid == patient.uuid ? FaIcon(Icons.check_circle, color: AppColors.secondary) : null,
+                                onTap: () => provider.updatePatient(patient));
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider(
+                              color: AppColors.gray2,
+                              indent: 16,
+                              endIndent: 16,
+                            );
+                          },
                         ),
-                        TextFormField(
-                            onChanged: (value) => provider.filterPatients(value),
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
-                                suffixIcon: Icon(
-                                  FontAwesomeIcons.filter,
-                                  color: AppColors.grayBlack,
-                                ))).paddingSymmetric(horizontal: 4),
-                        Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                          color: Colors.white,
-                          child: SizedBox(
-                            width: context.width,
-                            height:
-                                provider.filteredPatients.length * 60 > context.height ? context.height - 320 : provider.filteredPatients.length * 60,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: provider.filteredPatients.length,
-                              itemBuilder: (context, index) {
-                                UserModel patient = provider.filteredPatients[index];
-                                return ListTile(
-                                    title: Text(
-                                      patient.fullName,
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    trailing: provider.model.patient!.uuid == patient.uuid ? FaIcon(Icons.check_circle, color: AppColors.secondary) : null,
-                                    onTap: () => provider.updatePatient(patient));
-                              },
-                              separatorBuilder: (BuildContext context, int index) {
-                                return Divider(
-                                  color: AppColors.gray2,
-                                  indent: 16,
-                                  endIndent: 16,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
+                      ),
+                    ),
+                  ],
+                ).paddingAll(16),
 
                 /// Appointment type selection
-                Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: context.width,
-                    height: context.height,
-                    child: Column(
-                      spacing: 16,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Selecione um tipo de consulta",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
+                Column(
+                  spacing: 16,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Selecione um tipo de consulta",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    TextFormField(
+                        onChanged: (value) => provider.filterAppointmentTypes(value),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                            suffixIcon: Icon(
+                              FontAwesomeIcons.filter,
+                              color: AppColors.grayBlack,
+                            ))).paddingSymmetric(horizontal: 4),
+                    Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: context.width,
+                        height: provider.filteredAppointmentTypes.length * 60 > context.height
+                            ? context.height - 320
+                            : provider.filteredAppointmentTypes.length * 60,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: provider.filteredAppointmentTypes.length,
+                          itemBuilder: (context, index) {
+                            AppointmentTypeModel appointmentType = provider.filteredAppointmentTypes[index];
+                            return ListTile(
+                                title: Text(
+                                  appointmentType.name,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                trailing: provider.model.appointmentType!.uuid == appointmentType.uuid
+                                    ? FaIcon(Icons.check_circle, color: AppColors.secondary)
+                                    : null,
+                                onTap: () => provider.updateAppointmentType(appointmentType));
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider(
+                              color: AppColors.gray2,
+                              indent: 16,
+                              endIndent: 16,
+                            );
+                          },
                         ),
-                        TextFormField(
-                            onChanged: (value) => provider.filterAppointmentTypes(value),
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
-                                suffixIcon: Icon(
-                                  FontAwesomeIcons.filter,
-                                  color: AppColors.grayBlack,
-                                ))).paddingSymmetric(horizontal: 4),
-                        Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                          color: Colors.white,
-                          child: SizedBox(
-                            width: context.width,
-                            height: provider.filteredAppointmentTypes.length * 60 > context.height
-                                ? context.height - 320
-                                : provider.filteredAppointmentTypes.length * 60,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: provider.filteredAppointmentTypes.length,
-                              itemBuilder: (context, index) {
-                                AppointmentTypeModel appointmentType = provider.filteredAppointmentTypes[index];
-                                return ListTile(
-                                    title: Text(
-                                      appointmentType.name,
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    trailing: provider.model.appointmentType!.uuid == appointmentType.uuid
-                                        ? FaIcon(Icons.check_circle, color: AppColors.secondary)
-                                        : null,
-                                    onTap: () => provider.updateAppointmentType(appointmentType));
-                              },
-                              separatorBuilder: (BuildContext context, int index) {
-                                return Divider(
-                                  color: AppColors.gray2,
-                                  indent: 16,
-                                  endIndent: 16,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
+                      ),
+                    ),
+                  ],
+                ).paddingAll(16),
 
                 /// Procedure type selection
-                Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: context.width,
-                    height: context.height,
-                    child: Column(
-                      spacing: 16,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Selecione um ou mais procedimentos a serem realizados",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
+                Column(
+                  spacing: 16,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Selecione um ou mais procedimentos a serem realizados",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    TextFormField(
+                        onChanged: (value) => provider.filterProcedureTypes(value),
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                            suffixIcon: Icon(
+                              FontAwesomeIcons.filter,
+                              color: AppColors.grayBlack,
+                            ))).paddingSymmetric(horizontal: 4),
+                    Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: context.width,
+                        height: provider.filteredProcedureTypes.length * 50 > context.height
+                            ? context.height - 450
+                            : provider.filteredProcedureTypes.length * 50,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: provider.filteredProcedureTypes.length,
+                          itemBuilder: (context, index) {
+                            ProcedureTypeModel procedureType = provider.filteredProcedureTypes[index];
+                            return ListTile(
+                                title: Text(
+                                  procedureType.name,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                trailing: provider.model.procedureTypes.contains(procedureType)
+                                    ? FaIcon(Icons.check_circle, color: AppColors.secondary)
+                                    : null,
+                                onTap: () {
+                                  if (provider.model.procedureTypes.contains(procedureType)) {
+                                    provider.removeProcedureType(procedureType);
+                                  } else {
+                                    provider.addProcedureType(procedureType);
+                                  }
+                                });
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider(
+                              color: AppColors.gray2,
+                              indent: 16,
+                              endIndent: 16,
+                            );
+                          },
                         ),
-                        TextFormField(
-                            onChanged: (value) => provider.filterProcedureTypes(value),
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
-                                suffixIcon: Icon(
-                                  FontAwesomeIcons.filter,
-                                  color: AppColors.grayBlack,
-                                ))).paddingSymmetric(horizontal: 4),
-                        Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                          color: Colors.white,
-                          child: SizedBox(
-                            width: context.width,
-                            height: provider.filteredProcedureTypes.length * 50 > context.height
-                                ? context.height - 450
-                                : provider.filteredProcedureTypes.length * 50,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: provider.filteredProcedureTypes.length,
-                              itemBuilder: (context, index) {
-                                ProcedureTypeModel procedureType = provider.filteredProcedureTypes[index];
-                                return ListTile(
-                                    title: Text(
-                                      procedureType.name,
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    trailing: provider.model.procedureTypes.contains(procedureType)
-                                        ? FaIcon(Icons.check_circle, color: AppColors.secondary)
-                                        : null,
-                                    onTap: () {
-                                      if (provider.model.procedureTypes.contains(procedureType)) {
-                                        provider.removeProcedureType(procedureType);
-                                      } else {
-                                        provider.addProcedureType(procedureType);
-                                      }
-                                    });
-                              },
-                              separatorBuilder: (BuildContext context, int index) {
-                                return Divider(
-                                  color: AppColors.gray2,
-                                  indent: 16,
-                                  endIndent: 16,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
+                      ),
+                    ),
+                  ],
+                ).paddingAll(16),
 
                 /// Dentist selection
-                Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: context.width,
-                    height: context.height,
-                    child: Column(
-                      spacing: 16,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Selecione um dentista",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
+                Column(
+                  spacing: 16,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Selecione um dentista",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: context.width,
+                        height: provider.doctors.length * 50 > context.height ? context.height - 320 : provider.doctors.length * 50,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: provider.doctors.length,
+                          itemBuilder: (context, index) {
+                            UserModel doctor = provider.doctors[index];
+                            return ListTile(
+                                title: Text(
+                                  doctor.fullName,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                trailing: provider.model.doctor == doctor ? FaIcon(Icons.check_circle, color: AppColors.secondary) : null,
+                                onTap: () => provider.updateDoctor(doctor));
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider(
+                              color: AppColors.gray2,
+                              indent: 16,
+                              endIndent: 16,
+                            );
+                          },
                         ),
-                        Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                          color: Colors.white,
-                          child: SizedBox(
-                            width: context.width,
-                            height: provider.doctors.length * 50 > context.height ? context.height - 320 : provider.doctors.length * 50,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: provider.doctors.length,
-                              itemBuilder: (context, index) {
-                                UserModel doctor = provider.doctors[index];
-                                return ListTile(
-                                    title: Text(
-                                      doctor.fullName,
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    trailing: provider.model.doctor == doctor ? FaIcon(Icons.check_circle, color: AppColors.secondary) : null,
-                                    onTap: () => provider.updateDoctor(doctor));
-                              },
-                              separatorBuilder: (BuildContext context, int index) {
-                                return Divider(
-                                  color: AppColors.gray2,
-                                  indent: 16,
-                                  endIndent: 16,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
+                      ),
+                    ),
+                  ],
+                ).paddingAll(16),
 
                 /// Nurse selection
-                Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: context.width,
-                    height: context.height,
-                    child: Column(
-                      spacing: 16,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Selecione uma enfermeira (opcional)",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
+                Column(
+                  spacing: 16,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Selecione uma enfermeira (opcional)",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    Card(
+                      elevation: 2,
+                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                      color: Colors.white,
+                      child: SizedBox(
+                        width: context.width,
+                        height: provider.nurses.length * 50 > context.height ? context.height - 320 : provider.nurses.length * 50,
+                        child: ListView.separated(
+                          shrinkWrap: true,
+                          itemCount: provider.nurses.length,
+                          itemBuilder: (context, index) {
+                            UserModel nurse = provider.nurses[index];
+                            return ListTile(
+                                title: Text(
+                                  nurse.fullName,
+                                  style: GoogleFonts.montserrat(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                trailing: provider.model.nurse == nurse ? FaIcon(Icons.check_circle, color: AppColors.secondary) : null,
+                                onTap: () => provider.updateNurse(nurse));
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return Divider(
+                              color: AppColors.gray2,
+                              indent: 16,
+                              endIndent: 16,
+                            );
+                          },
                         ),
-                        Card(
-                          elevation: 2,
-                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                          color: Colors.white,
-                          child: SizedBox(
-                            width: context.width,
-                            height: provider.nurses.length * 50 > context.height ? context.height - 320 : provider.nurses.length * 50,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              itemCount: provider.nurses.length,
-                              itemBuilder: (context, index) {
-                                UserModel nurse = provider.nurses[index];
-                                return ListTile(
-                                    title: Text(
-                                      nurse.fullName,
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 18,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                    trailing: provider.model.nurse == nurse ? FaIcon(Icons.check_circle, color: AppColors.secondary) : null,
-                                    onTap: () => provider.updateNurse(nurse));
-                              },
-                              separatorBuilder: (BuildContext context, int index) {
-                                return Divider(
-                                  color: AppColors.gray2,
-                                  indent: 16,
-                                  endIndent: 16,
-                                );
-                              },
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
+                      ),
+                    ),
+                  ],
+                ).paddingAll(16),
 
                 /// Date e hour selection
-                Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: context.width,
-                    height: context.height,
-                    child: Column(
-                      spacing: 16,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Selecione uma data e um horário",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        TextFormField(
-                            controller: TextEditingController(text: dateFormat.format(provider.model.date)),
-                            onChanged: (value) => provider.filterPatients(value),
-                            readOnly: true,
-                            decoration: InputDecoration(
-                                border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
-                                suffixIcon: IconButton(
-                                    onPressed: () async {
-                                      DateTime? date = await showDatePicker(
-                                        context: context,
-                                        firstDate: DateTime(2025, 1, 1),
-                                        lastDate: DateTime(2100, 12, 31),
-                                        locale: context.locale,
-                                        currentDate: provider.model.date,
-                                        initialDate: provider.model.date,
-                                        initialDatePickerMode: DatePickerMode.day,
-                                        initialEntryMode: DatePickerEntryMode.calendarOnly,
-                                      );
-                                      if (date != null) {
-                                        provider.updateDate(date);
-                                      }
-                                    },
-                                    icon: Icon(
-                                      FontAwesomeIcons.calendar,
-                                      color: AppColors.grayBlack,
-                                    )))).paddingSymmetric(horizontal: 4),
-                        Card(
-                            elevation: 2,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-                            color: Colors.white,
-                            child: SingleChildScrollView(
-                                child: Wrap(
-                              children: provider.timeRanges.map(
-                                (e) {
-                                  return ChoiceChip(
-                                      label: Text(e.toString()),
-                                      selected: provider.model.startTime == e.startTime && provider.model.endTime == e.endTime,
-                                      onSelected: (value) {
-                                        provider.selectTimeRange(e);
-                                      }).paddingAll(4);
+                Column(
+                  spacing: 16,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Selecione uma data e um horário",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    TextFormField(
+                        controller: TextEditingController(text: dateFormat.format(provider.model.date)),
+                        onChanged: (value) => provider.filterPatients(value),
+                        readOnly: true,
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(6)),
+                            suffixIcon: IconButton(
+                                onPressed: () async {
+                                  DateTime? date = await showDatePicker(
+                                    context: context,
+                                    firstDate: DateTime(2025, 1, 1),
+                                    lastDate: DateTime(2100, 12, 31),
+                                    locale: context.locale,
+                                    currentDate: provider.model.date,
+                                    initialDate: provider.model.date,
+                                    initialDatePickerMode: DatePickerMode.day,
+                                    initialEntryMode: DatePickerEntryMode.calendarOnly,
+                                  );
+                                  if (date != null) {
+                                    provider.updateDate(date);
+                                  }
                                 },
-                              ).toList(),
-                            )).paddingAll(16)),
-                      ],
-                    )),
+                                icon: Icon(
+                                  FontAwesomeIcons.calendar,
+                                  color: AppColors.grayBlack,
+                                )))).paddingSymmetric(horizontal: 4),
+                    Card(
+                        elevation: 2,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+                        color: Colors.white,
+                        child: SingleChildScrollView(
+                            child: Wrap(
+                          children: provider.timeRanges.map(
+                            (e) {
+                              return ChoiceChip(
+                                  label: Text(e.toString()),
+                                  selected: provider.model.startTime == e.startTime && provider.model.endTime == e.endTime,
+                                  onSelected: (value) {
+                                    provider.selectTimeRange(e);
+                                  }).paddingAll(4);
+                            },
+                          ).toList(),
+                        )).paddingAll(16)),
+                  ],
+                ).paddingAll(16),
 
                 /// Teeth selection
-                Container(
-              padding: const EdgeInsets.all(16.0),
-              width: context.width,
-              height: context.height,
-              child: Column(
-                spacing: 16,
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Selecione os dentes a serem tratatos (opcional)",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
+                Column(
+                  spacing: 16,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Selecione os dentes a serem tratatos (opcional)",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
-                  ),
-                  Wrap(
-                    spacing: 8,
-                    runSpacing: 8,
-                    runAlignment: WrapAlignment.start,
-                    crossAxisAlignment: WrapCrossAlignment.start,
-                    direction: Axis.horizontal,
-                    alignment: WrapAlignment.start,
-                    children: ToothCode.values.map(
-                          (e) {
-                            int code = e.toInt();
-                        return ChoiceChip(
-                            label: Text((e.toInt()).toString()),
-                            selected: provider.model.teeth.contains(e),
-                            padding: code < 20 ? EdgeInsets.symmetric(horizontal: 9.2, vertical: 8) : EdgeInsets.all(8),
-                            // padding: EdgeInsets.all(8),
-                            onSelected: (value) {
-                              if (value) {
-                                provider.addTeeth(e);
-                              } else {
-                                provider.removeTeeth(e);
-                              }
-                            });
-                      },
-                    ).toList(),
-                  ),
-                ],
-              )),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 8,
+                      runAlignment: WrapAlignment.start,
+                      crossAxisAlignment: WrapCrossAlignment.start,
+                      direction: Axis.horizontal,
+                      alignment: WrapAlignment.start,
+                      children: ToothCode.values.map(
+                        (e) {
+                          int code = e.toInt();
+                          return ChoiceChip(
+                              label: Text((e.toInt()).toString()),
+                              selected: provider.model.teeth.contains(e),
+                              padding: code < 20 ? EdgeInsets.symmetric(horizontal: 9.2, vertical: 8) : EdgeInsets.all(8),
+                              // padding: EdgeInsets.all(8),
+                              onSelected: (value) {
+                                if (value) {
+                                  provider.addTeeth(e);
+                                } else {
+                                  provider.removeTeeth(e);
+                                }
+                              });
+                        },
+                      ).toList(),
+                    ),
+                  ],
+                ).paddingAll(16),
 
                 /// Notes
-                Container(
-                    padding: const EdgeInsets.all(16.0),
-                    width: context.width,
-                    height: context.height,
-                    child: Column(
-                      spacing: 16,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Notas",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        TextFormField(
-                          controller: provider.tecNotes,
-                          maxLines: 10,
-                          decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(6))),
-                        ).paddingSymmetric(horizontal: 4),
-                      ],
-                    )),
+                Column(
+                  spacing: 16,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Notas",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    TextFormField(
+                      controller: provider.tecNotes,
+                      maxLines: 10,
+                      decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(6))),
+                    ).paddingSymmetric(horizontal: 4),
+                  ],
+                ).paddingAll(16),
               ]).expanded(),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
