@@ -32,7 +32,7 @@ class ApiService {
       headers: {
         "Access-Control-Allow-Origin": "*",
         "Access-Control-Allow-Header": "*",
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIuc2VjcmV0YXJ5QGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4MzczMDQ0LCJleHAiOjE3NDg0ODEwNDR9.wQqxXjtFn8es7mFoF3JHbiL2xsQBiW-eYTN9L1NLu80"
+        "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIuc2VjcmV0YXJ5QGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NDg3MjY0LCJleHAiOjE3NDg1OTUyNjR9.Jrt_EE-Z_7bwM9PpsmF_iRYf_H13K0oYm0ILaUnzHV8"
       }
     );
   }

@@ -10,6 +10,7 @@ class _$AgendaDesktopScreen extends StatefulWidget {
 class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
   @override
   Widget build(BuildContext context) {
+    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return SideBar(child: Consumer<AgendaProvider>(builder: (context, provider, child) {
       return Stack(
@@ -47,7 +48,7 @@ class _AgendaDesktopScreen extends State<_$AgendaDesktopScreen> {
                       ),
                       Expanded(child: SizedBox()),
                       OutlinedButton.icon(
-                          onPressed: () => Provider.of<NewAppointmentProvider>(context, listen: false).goToNewAppointment(context, DateTime.now(), false),
+                          onPressed: () => sideBarProvider.openOrCloseNewAppointmentModal(context: context),
                           style: OutlinedButton.styleFrom(
                             side: BorderSide(color: context.primaryColor, width: 2),
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),

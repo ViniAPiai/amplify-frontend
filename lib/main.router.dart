@@ -13,16 +13,13 @@ import 'package:katana_router/katana_router.dart';
 import 'package:frontend/screens/agenda/agenda.dart' as _$1;
 import 'package:frontend/screens/doctors/doctors.dart' as _$2;
 import 'package:frontend/screens/home/home.dart' as _$3;
-import 'package:frontend/screens/new_appointment/new_appointment.dart' as _$4;
-import 'package:frontend/screens/new_patient/new_patient.dart' as _$5;
-import 'package:frontend/screens/patient_detail/patient_detail.dart' as _$7;
-import 'package:frontend/screens/patients/patients.dart' as _$6;
-import 'package:frontend/screens/sign_in/sign_in.dart' as _$8;
+import 'package:frontend/screens/new_patient/new_patient.dart' as _$4;
+import 'package:frontend/screens/patient_detail/patient_detail.dart' as _$6;
+import 'package:frontend/screens/patients/patients.dart' as _$5;
+import 'package:frontend/screens/sign_in/sign_in.dart' as _$7;
 export 'package:frontend/screens/agenda/agenda.dart' show AgendaPage;
 export 'package:frontend/screens/doctors/doctors.dart' show DoctorsPage;
 export 'package:frontend/screens/home/home.dart' show HomePage;
-export 'package:frontend/screens/new_appointment/new_appointment.dart'
-    show NewAppointmentPage;
 export 'package:frontend/screens/new_patient/new_patient.dart'
     show NewPatientPage;
 export 'package:frontend/screens/patient_detail/patient_detail.dart'
@@ -49,26 +46,23 @@ class AutoRouter extends AppRouter {
   }) : super(
           pages: pages ??
               [
-                _$8.SignInPage.query,
-                _$5.NewPatientPage.query,
-                _$7.PatientDetailPage.query,
-                _$6.PatientsPage.query,
-                _$4.NewAppointmentPage.query,
+                _$7.SignInPage.query,
+                _$4.NewPatientPage.query,
+                _$6.PatientDetailPage.query,
+                _$5.PatientsPage.query,
                 _$3.HomePage.query,
                 _$2.DoctorsPage.query,
                 _$1.AgendaPage.query,
               ],
         );
 
-  static const signInPage = _$8.SignInPage.query;
+  static const signInPage = _$7.SignInPage.query;
 
-  static const newPatientPage = _$5.NewPatientPage.query;
+  static const newPatientPage = _$4.NewPatientPage.query;
 
-  static const patientDetailPage = _$7.PatientDetailPage.query;
+  static const patientDetailPage = _$6.PatientDetailPage.query;
 
-  static const patientsPage = _$6.PatientsPage.query;
-
-  static const newAppointmentPage = _$4.NewAppointmentPage.query;
+  static const patientsPage = _$5.PatientsPage.query;
 
   static const homePage = _$3.HomePage.query;
 
@@ -77,11 +71,10 @@ class AutoRouter extends AppRouter {
   static const agendaPage = _$1.AgendaPage.query;
 
   Map<RouteQueryBuilder, String> queryMap = {
-    _$8.SignInPage.query: "/sign_in",
-    _$5.NewPatientPage.query: "/patients/new",
-    _$7.PatientDetailPage.query: "/patients/detail/:uuid",
-    _$6.PatientsPage.query: "/patients",
-    _$4.NewAppointmentPage.query: "/new_appointment",
+    _$7.SignInPage.query: "/sign_in",
+    _$4.NewPatientPage.query: "/patients/new",
+    _$6.PatientDetailPage.query: "/patients/detail/:uuid",
+    _$5.PatientsPage.query: "/patients",
     _$3.HomePage.query: "/home",
     _$2.DoctorsPage.query: "/doctors",
     _$1.AgendaPage.query: "/agenda",
