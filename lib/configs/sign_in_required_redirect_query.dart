@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/configs/auth_notifier.dart';
-import 'package:frontend/main.router.dart';
+import 'package:frontend/screens/home/home.dart';
+import 'package:frontend/screens/sign_in/sign_in.dart';
 import 'package:frontend/screens/sign_up/sign_up.dart';
 import 'package:katana_router/katana_router.dart';
 import 'dart:async';
@@ -12,7 +13,7 @@ class SignInRequiredRedirectQuery extends RedirectQuery {
 
   @override
   FutureOr<RouteQuery> redirect(BuildContext context, RouteQuery source) async {
-    if (context.read<AuthNotifier>().isLoggedIn) {
+    if (Provider.of<AuthNotifier>(context, listen: false).isLoggedIn) {
       if(source is SignInPage || source is SignUpPage) {
         return HomePage.query();
       }

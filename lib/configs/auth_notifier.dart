@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthNotifier extends ChangeNotifier {
+  static final instance = AuthNotifier();
+
+  AuthNotifier();
+
+
   bool isLoading = true;
   bool isLoggedIn = false;
 
@@ -48,7 +53,6 @@ class AuthNotifier extends ChangeNotifier {
       notifyListeners();
       return true;
     } catch (e) {
-      print('Erro ao verificar autenticação: $e');
       return false;
     }
   }

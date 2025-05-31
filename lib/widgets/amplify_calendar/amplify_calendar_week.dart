@@ -178,7 +178,7 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
           case AppointmentStatusEnum.scheduled:
           case AppointmentStatusEnum.patientInTheClinic:
           case AppointmentStatusEnum.finished:
-            provider.openAddConsultation(date: date, event: events.first);
+            sideBarProvider.openOrCloseNewAppointmentModal(context: context);
         }
       },
       eventTileBuilder: (date, events, boundary, startDuration, endDuration) {

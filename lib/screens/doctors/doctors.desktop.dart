@@ -52,7 +52,7 @@ class _DoctorsDesktop extends StatelessWidget {
                             ),
                           ),
                           FaIcon(
-                            FontAwesomeIcons.search,
+                            FontAwesomeIcons.magnifyingGlass,
                             color: Colors.white,
                             size: 16,
                           )

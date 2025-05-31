@@ -9,8 +9,9 @@ class _PatientDetailTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     PatientDetailProvider provider = Provider.of<PatientDetailProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
-    return FutureBuilder<PatientModel>(
-        future: PatientService().findById(patientUuid),
+    return Container();
+    /*return FutureBuilder<PatientModel>(
+        future: (await ApiService.create()).client.findById(patientUuid),
         builder: (context, snapshot) {
           if (snapshot.isLoading) {
             return const Center(child: CircularProgressIndicator(color: AppColors.secondary));
@@ -29,7 +30,7 @@ class _PatientDetailTablet extends StatelessWidget {
                     spacing: 16,
                     children: [
                       HeaderTitle(icon: Icons.person_outlined, title: patient.fullName.split(" ").first),
-                      /*ToggleSwitch(
+                      *//*ToggleSwitch(
                             minWidth: 185,
                             minHeight: 50,
                             initialLabelIndex: provider.selectedIndex,
@@ -42,7 +43,7 @@ class _PatientDetailTablet extends StatelessWidget {
                             customTextStyles: [GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500)],
                             onToggle: (index) => provider.toggle(index!),
                             cornerRadius: 12,
-                          ),*/
+                          ),*//*
                       SizedBox().expanded(),
                       NewButton(onPressed: () => context.router.push(NewPatientPage.query())),
                     ],
@@ -82,7 +83,7 @@ class _PatientDetailTablet extends StatelessWidget {
               ),
             ),
           );
-        });
+        });*/
   }
 
   Widget _patientInfo(BuildContext context, PatientDetailProvider provider, PatientModel patient, AppLocalizations t) {

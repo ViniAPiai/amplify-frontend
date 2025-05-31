@@ -6,16 +6,18 @@ import 'package:frontend/configs/assets.dart';
 import 'package:frontend/configs/auth_notifier.dart';
 import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/models/auth/auth_request_model.dart';
+import 'package:frontend/models/auth/auth_response_model.dart';
 import 'package:frontend/screens/home/home.dart';
 import 'package:frontend/screens/sign_up/sign_up.dart';
-import 'package:frontend/services/auth_service.dart';
+import 'package:frontend/services/api_service.dart';
 import 'package:frontend/widgets/form/label.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:katana_router/katana_router.dart';
-import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:toastification/toastification.dart';
 
 part 'sign_in.page.dart';
 
@@ -43,22 +45,27 @@ class _SignInPage extends State<SignInPage> {
     final currentContext = context;
     try {
       bool authenticated = await provider.signIn(currentContext);
+      if (!mounted) return;
       if (authenticated) {
-        if (mounted) {
-          Provider.of<AuthNotifier>(context, listen: false).login();
-          context.router.push(HomePage.query());
-        }
+        Provider.of<AuthNotifier>(context, listen: false).login();
+        context.router.push(HomePage.query());
       } else {
         Provider.of<AuthNotifier>(context, listen: false).logout();
-        PanaraInfoDialog.show(context, message: "E-mail e/ou senha incorretos", buttonText: "Ok", onTapDismiss: () {
-          Navigator.pop(context);
-        }, panaraDialogType: PanaraDialogType.warning);
+        toastification.show(
+          title: Text("Erro ao entrar"),
+          description: Text("E-mail e/ou senha incorretos"),
+          style: ToastificationStyle.minimal,
+          type: ToastificationType.error,
+        );
       }
     } catch (e) {
       Provider.of<AuthNotifier>(context, listen: false).logout();
-      PanaraInfoDialog.show(context, message: "Um erro ocorreu no servidor", buttonText: "Ok", onTapDismiss: () {
-        Navigator.pop(context);
-      }, barrierDismissible: false, panaraDialogType: PanaraDialogType.error);
+      toastification.show(
+        title: Text("Erro ao entrar"),
+        description: Text("E-mail e/ou senha incorretos"),
+        style: ToastificationStyle.minimal,
+        type: ToastificationType.error,
+      );
     }
   }
 

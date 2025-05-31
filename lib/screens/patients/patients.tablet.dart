@@ -7,6 +7,7 @@ class _$PatientsTablet extends StatelessWidget {
   Widget build(BuildContext context) {
     PatientsProvider provider = Provider.of<PatientsProvider>(context);
     AgendaProvider agendaProvider = Provider.of<AgendaProvider>(context);
+    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return SideBar(
         appBar: PreferredSize(
@@ -194,7 +195,7 @@ class _$PatientsTablet extends StatelessWidget {
                                                 size: 32,
                                               ),
                                               IconButton(
-                                                onPressed: () => agendaProvider.openAddConsultation(),
+                                                onPressed: () => sideBarProvider.openOrCloseNewAppointmentModal(context: context),
                                                 icon: Icon(
                                                   Icons.edit_calendar,
                                                   color: AppColors.secondary,

@@ -3,7 +3,7 @@ part of 'patients.dart';
 class PatientsProvider extends ChangeNotifier {
 
   TextEditingController tecSearch = TextEditingController(text: "");
-  late PagePatientResponseModel patients;
+  late PageResponseModel<PatientModel> patients;
   late bool isLoading = true;
   late int selectedPage = 1;
 
@@ -24,7 +24,7 @@ class PatientsProvider extends ChangeNotifier {
   }
 
   void loadPatients() async {
-    patients = await PatientService().pagination(searchTerm: tecSearch.text, page: selectedPage - 1);
+    patients = await (await ApiService.create()).client.patientSecretaryPagination(PageRequestModel(searchTerm: tecSearch.text, page: selectedPage - 1));
     isLoading = false;
     notifyListeners();
   }

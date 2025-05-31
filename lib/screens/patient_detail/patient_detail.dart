@@ -6,8 +6,8 @@ import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/main.router.dart';
 import 'package:frontend/models/medical_history/medical_history_model.dart';
 import 'package:frontend/models/patient/patient_model.dart';
+import 'package:frontend/services/api_service.dart';
 import 'package:frontend/services/medical_history_service.dart';
-import 'package:frontend/services/patient_service.dart';
 import 'package:frontend/widgets/buttons/new_button.dart';
 import 'package:frontend/widgets/buttons/new_consultation_button.dart';
 import 'package:frontend/widgets/buttons/printer_button.dart';
@@ -17,7 +17,6 @@ import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:frontend/widgets/text/info_shower.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';

@@ -1,20 +1,15 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/enums/tooth_code.dart';
 import 'package:frontend/models/appointment_type/appointment_type.model.dart';
 import 'package:frontend/models/consultation/appointment_model.dart';
 import 'package:frontend/models/dentist_free_time/time_range.dart';
+import 'package:frontend/models/dentist_free_time_request.dart';
+import 'package:frontend/models/page_request_model.dart';
 import 'package:frontend/models/procedure_type/procedure_type.model.dart';
 import 'package:frontend/models/user/user_model.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
-import 'package:frontend/services/appointment_service.dart';
-import 'package:frontend/services/appointment_type_service.dart';
-import 'package:frontend/services/dentist_service.dart';
-import 'package:frontend/services/nurse_service.dart';
-import 'package:frontend/services/patient_service.dart';
-import 'package:frontend/services/procedure_type_service.dart';
+import 'package:frontend/services/api_service.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:katana_router/katana_router.dart';
@@ -57,36 +52,38 @@ class NewAppointmentProvider extends ChangeNotifier {
     clear();
   }
 
-  void load(DateTime date) {
+  void load(DateTime date) async{
     model = AppointmentModel.empty(date);
-    AppointmentTypeService.getAppointmentTypes().then((value) {
+    (await ApiService.create()).client.getAppointmentTypes().then((value) {
       appointmentTypes = value;
       filteredAppointmentTypes = value;
       isLoadingAppointmentTypes = false;
       notifyListeners();
     });
-    ProcedureTypeService.getProcedureTypes().then((value) {
+    (await ApiService.create()).client.getProcedureTypes().then((value) {
       isLoadingProcedureTypes = false;
       procedureTypes = value;
       filteredProcedureTypes = value;
       notifyListeners();
     });
-    DentistService.names().then((value) {
+    (await ApiService.create()).client.dentistNames().then((value) {
       isLoadingDoctors = false;
       doctors = value;
       notifyListeners();
     });
-    PatientService.names().then((value) {
+    (await ApiService.create()).client.patientNames(PageRequestModel()).then((value) {
       isLoadingPatients = false;
       patients = value;
       filteredPatients = value;
       notifyListeners();
     });
-    NurseService.names().then((value) {
-      isLoadingNurses = false;
-      nurses = value;
-      notifyListeners();
-    },);
+    (await ApiService.create()).client.nurseNames().then(
+      (value) {
+        isLoadingNurses = false;
+        nurses = value;
+        notifyListeners();
+      },
+    );
   }
 
   void addAppointment(BuildContext context) async {
@@ -94,7 +91,7 @@ class NewAppointmentProvider extends ChangeNotifier {
       isRegistering = true;
       notifyListeners();
       try {
-        model = await AppointmentService.insert(model);
+        model = await (await ApiService.create()).client.insertAppointment(model);
         notifyListeners();
         isRegistering = false;
         notifyListeners();
@@ -153,25 +150,28 @@ class NewAppointmentProvider extends ChangeNotifier {
   bool validate() {
     bool isValidated = true;
     String message = "";
-    if(page == 0 && (model.patient!.fullName.isEmpty || model.patient!.uuid.isEmpty)) {
+    if (page == 0 && (model.patient!.fullName.isEmpty || model.patient!.uuid.isEmpty)) {
       isValidated = false;
       message = "É necessário selecionar um paciente";
-    } else if(page == 1 && model.appointmentType!.uuid.isEmpty) {
+    } else if (page == 1 && model.appointmentType!.uuid.isEmpty) {
       isValidated = false;
       message = "É necessário selecionar um tipo de consulta";
-    } else if(page == 2 && model.procedureTypes.isEmpty) {
+    } else if (page == 2 && model.procedureTypes.isEmpty) {
       isValidated = false;
       message = "É necessário selecionar ao menos um procedimento";
-    } else if(page == 3 && model.doctor!.uuid.isEmpty) {
+    } else if (page == 3 && model.doctor!.uuid.isEmpty) {
       isValidated = false;
       message = "É necessário selecionar um dentista";
-    } else if(page == 5 && model.startTime.hour == 0 && model.startTime.minute == 0 && model.endTime.hour == 0 && model.endTime.minute == 0) {
+    } else if (page == 5 && model.startTime.hour == 0 && model.startTime.minute == 0 && model.endTime.hour == 0 && model.endTime.minute == 0) {
       isValidated = false;
       message = "É necessário selecionar um horário";
     }
-    if(!isValidated) {
+    if (!isValidated) {
       toastification.show(
-        title: Text(message, style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600),),
+        title: Text(
+          message,
+          style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w600),
+        ),
         primaryColor: AppColors.warning,
         style: ToastificationStyle.minimal,
         type: ToastificationType.warning,
@@ -190,7 +190,7 @@ class NewAppointmentProvider extends ChangeNotifier {
   }
 
   void nextPage() {
-    if(!validate()){
+    if (!validate()) {
       return;
     }
     page++;
@@ -214,13 +214,17 @@ class NewAppointmentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void getFreeTime() {
-    if(model.doctor!.uuid != null && model.doctor!.uuid.isNotEmpty && model.procedureTypes.isNotEmpty) {
-      DentistService.freeTime(model.doctor!.uuid!, model.date, model.procedureTypes!.map((e) => e.uuid).toList())
-          .then((value) {
-        timeRanges = value.timeRanges;
-        notifyListeners();
-      },);
+  void getFreeTime() async{
+    if (model.doctor!.uuid != null && model.doctor!.uuid.isNotEmpty && model.procedureTypes.isNotEmpty) {
+      (await ApiService.create()).client
+          .freeTime(
+              model.doctor!.uuid!, DentistFreeTimeRequest(date: model.date, procedureTypeUuids: model.procedureTypes!.map((e) => e.uuid).toList()))
+          .then(
+        (value) {
+          timeRanges = value.timeRanges;
+          notifyListeners();
+        },
+      );
     }
   }
 
@@ -232,7 +236,7 @@ class NewAppointmentProvider extends ChangeNotifier {
 
   void removeProcedureType(ProcedureTypeModel model) {
     this.model.procedureTypes!.remove(model);
-    if(this.model.procedureTypes.isEmpty) {
+    if (this.model.procedureTypes.isEmpty) {
       timeRanges = [];
     }
     notifyListeners();
@@ -287,5 +291,4 @@ class NewAppointmentProvider extends ChangeNotifier {
     model.endTime = timeRange.endTime;
     notifyListeners();
   }
-
 }

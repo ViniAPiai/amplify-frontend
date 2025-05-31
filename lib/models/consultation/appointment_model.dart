@@ -29,7 +29,6 @@ class AppointmentModel {
   late AppointmentTypeModel? appointmentType;
   @JsonKey(toJson: _procedureTypeToUuidList, fromJson: _procedureTypeFromJson)
   late List<ProcedureTypeModel>? procedureTypes;
-  @JsonKey(fromJson: _fromJsonTeeth)
   late List<ToothCode>? teeth;
   @JsonKey(includeToJson: false)
   late String? message;
@@ -90,6 +89,8 @@ class AppointmentModel {
 
   static List<ToothCode> _fromJsonTeeth(dynamic json) =>
       (json as List<dynamic>).map((e) => ToothCode.fromString(e)).toList();
+
+  static List<String> _toJsonTeeth(List<ToothCode> teeth) => teeth.map((e) => e.toUpperCase()).toList();
 
   static List<ProcedureTypeModel>? _procedureTypeFromJson(List<Map<String, dynamic>>? procedureTypes) {
     if (procedureTypes == null) return null;

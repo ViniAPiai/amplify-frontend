@@ -164,7 +164,7 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
             case AppointmentStatusEnum.scheduled:
             case AppointmentStatusEnum.patientInTheClinic:
             case AppointmentStatusEnum.finished:
-              provider.openAddConsultation(date: date, event: events.first);
+              sideBarProvider.openOrCloseNewAppointmentModal(context: context);
           }
         },
         onPageChange: (date, _) => provider.loadEventsByDate(date),

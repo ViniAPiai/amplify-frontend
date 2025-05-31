@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_dropdown/flutter_easy_dropdown.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/models/page_request_model.dart';
 import 'package:frontend/models/user/user_model.dart';
-import 'package:frontend/services/patient_service.dart';
+import 'package:frontend/services/api_service.dart';
 
 import '../label.dart';
 
@@ -41,7 +41,7 @@ class PatientSelectionFormField extends StatelessWidget {
         ),
         popupBackgroundColor: Colors.white,
         onLoadMore: (text, offset) async {
-          List<UserModel> patients = await PatientService.names(searchTerm: text, page: offset);
+          List<UserModel> patients = await (await ApiService.create()).client.patientNames(PageRequestModel(searchTerm: text, page: offset));
           if(patients.contains(model)) {
             return patients;
           }
