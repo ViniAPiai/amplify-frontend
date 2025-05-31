@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
+import 'package:frontend/configs/app_boot.dart';
 import 'package:frontend/configs/auth_notifier.dart';
 import 'package:frontend/configs/locale_provider.dart';
-import 'package:frontend/main.router.dart';
+import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
 import 'package:frontend/screens/doctors/doctors.dart';
 import 'package:frontend/screens/home/home.dart';
@@ -20,28 +21,17 @@ import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:toastification/toastification.dart';
 
+import 'main.router.dart';
+
 @appRoute
 final appRouter = AutoRouter(
-  // initialQuery: NewAppointmentPage.query(date: DateTime.now()),
-  initialQuery: AgendaPage.query(),
+  initialQuery: SignInPage.query(),
+  boot: AppBoot()
 );
-/*AppRouter(
-        initialQuery: SignInPage.query(),
-        pages: [
-          SignInPage.query,
-          SignUpPage.query,
-          HomePage.query,
-          PatientsPage.query,
-          AgendaPage.query,
-          DoctorsPage.query,
-          NewPatientPage.query,
-      PatientDetailPage.query,
-      NewAppointmentPage.query,
-    ],
-
-);*/
 
 void main() async {
+  const apiUrl = String.fromEnvironment("API_URL");
+  print("API_URL em tempo de execução: $apiUrl");
   usePathUrlStrategy();
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     ScreenBreakpoints(desktop: 1100, tablet: 550, watch: 200),
@@ -52,7 +42,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => SignInProvider()),
       ChangeNotifierProvider(create: (_) => SignUpProvider()),
       ChangeNotifierProvider(create: (_) => HomeProvider()),
-      ChangeNotifierProvider(create: (_) => AuthNotifier()..isAuthenticated()),
+      ChangeNotifierProvider(create: (_) => AuthNotifier()),
       ChangeNotifierProvider(create: (_) => LocaleProvider()),
       ChangeNotifierProvider(create: (_) => PatientsProvider()),
       ChangeNotifierProvider(create: (_) => AgendaProvider()),

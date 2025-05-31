@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/models/user/user_model.dart';
-import 'package:frontend/services/user_service.dart';
+import 'package:frontend/services/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LocaleProvider with ChangeNotifier {
@@ -29,18 +29,16 @@ class LocaleProvider with ChangeNotifier {
   }
 
   Future<void> _loadSavedLocale() async {
-    UserModel user = await UserService.me();
-    final code = user.languageCode ?? 'pt';
-    final parts = code.split('_');
-    _locale = Locale(parts[0], parts.length > 1 ? parts[1] : null);
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    String? token = preferences.getString('token');
+    if(token != null) {
+      UserModel user = await (await ApiService.create()).client.me();
+      final code = user.languageCode ?? 'pt';
+      final parts = code.split('_');
+      _locale = Locale(parts[0], parts.length > 1 ? parts[1] : null);
+    } else {
+      _locale = const Locale('pt', 'PT');
+    }
     notifyListeners();
-    /*final prefs = await SharedPreferences.getInstance();
-    String? languageCode = prefs.getString('language_code');
-    String? countryCode = prefs.getString('country_code');
-
-    if (languageCode != null) {
-      _locale = Locale(languageCode, countryCode?.isNotEmpty == true ? countryCode : null);
-      notifyListeners();
-    }*/
   }
 }

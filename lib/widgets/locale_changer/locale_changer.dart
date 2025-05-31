@@ -1,9 +1,7 @@
 import 'package:dash_flags/dash_flags.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/configs/locale_provider.dart';
-import 'package:frontend/models/language/language.model.dart';
-import 'package:frontend/services/language_service.dart';
-import 'package:frontend/services/user_service.dart';
+import 'package:frontend/services/api_service.dart';
 import 'package:provider/provider.dart';
 
 class LocaleChanger extends StatelessWidget {
@@ -26,23 +24,23 @@ class LocaleChanger extends StatelessWidget {
               switch (language) {
                 case Language.pt_br:
                   provider.setLocale(Locale('pt', 'BR'));
-                  await UserService.updateLanguage(Language.pt_br.name);
+                  await (await ApiService.create()).client.updateLanguage(Language.pt_br.name);
                   break;
                 case Language.en_us:
                   provider.setLocale(Locale('en', 'US'));
-                  await UserService.updateLanguage(Language.en_us.name);
+                  await (await ApiService.create()).client.updateLanguage(Language.en_us.name);
                   break;
                 case Language.pt:
                   provider.setLocale(Locale('pt', 'PT'));
-                  await UserService.updateLanguage(Language.pt.name);
+                  await (await ApiService.create()).client.updateLanguage(Language.pt.name);
                   break;
                 case Language.es:
                   provider.setLocale(Locale('es', 'ES'));
-                  await UserService.updateLanguage(Language.es.name);
+                  await (await ApiService.create()).client.updateLanguage(Language.es.name);
                   break;
                 default:
                   provider.setLocale(Locale('pt', 'PT'));
-                  await UserService.updateLanguage(Language.pt_br.name);
+                  await (await ApiService.create()).client.updateLanguage(Language.pt_br.name);
               }
             }));
   }

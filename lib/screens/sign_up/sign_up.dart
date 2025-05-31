@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:frontend/configs/assets.dart';
+import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/main.router.dart';
 import 'package:frontend/widgets/form/register_patient/birthday_date_form_field.dart';
 import 'package:frontend/widgets/form/register_patient/city_form_field.dart';
@@ -40,7 +41,7 @@ part 'sign_up.mobile.dart';
 part 'sign_up.tablet.dart';
 part 'sign_up.desktop.dart';
 
-@PagePath("/sign_up")
+@PagePath("/sign_up", redirect: [SignInRequiredRedirectQuery()])
 class SignUpPage extends StatefulWidget {
 
   static const query = _$SignUpPageQuery();

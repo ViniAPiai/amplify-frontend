@@ -15,24 +15,12 @@ class AgendaProvider extends ChangeNotifier {
   bool isEditing = false;
   bool isFinished = false;
   DateTime? lastLoadedMonth;
-  List<UserModel> doctors = [];
-  List<UserModel> nurses = [];
-
-  String? uuid;
-  TextEditingController tecConsultationDescription = TextEditingController();
-  DateTime consultationDate = DateTime.now();
-  TimeOfDay consultationStartTime = TimeOfDay(hour: 12, minute: 0);
-  TimeOfDay consultationEndTime = TimeOfDay(hour: 13, minute: 0);
-  UserModel? patient;
-  UserModel? doctor;
-  UserModel? nurse;
 
   AgendaProvider() {
     SharedPreferences.getInstance().then((prefs) {
       selectedIndex = prefs.getInt("agenda_selected_type") ?? 2;
       notifyListeners();
     });
-    loadUsers();
   }
 
   void toggle(int index) async {
@@ -54,10 +42,12 @@ class AgendaProvider extends ChangeNotifier {
   }
 
   Future<void> loadEventsByDate(DateTime date) async {
-    if(lastLoadedMonth != null && lastLoadedMonth!.day == date.day && lastLoadedMonth!.month == date.month && lastLoadedMonth!.year == date.year){
+    if (lastLoadedMonth != null && lastLoadedMonth!.day == date.day && lastLoadedMonth!.month == date.month && lastLoadedMonth!.year == date.year) {
       return;
     }
-    controller.removeWhere((event) => true,);
+    controller.removeWhere(
+      (event) => true,
+    );
     List<CalendarEventData> events = await getEvents(date);
     controller.addAll(events);
     isLoadingConsultation = false;
@@ -67,7 +57,8 @@ class AgendaProvider extends ChangeNotifier {
 
   Future<List<CalendarEventData>> getEvents(DateTime date) async {
     AppointmentIntervalEnum interval = AppointmentIntervalEnum.values[selectedIndex];
-    List<AppointmentModel> consultations = await AppointmentService.secretaryAgenda(interval, date);
+    List<AppointmentModel> consultations =
+        await (await ApiService.create()).client.secretaryAgenda(AgendaRequestModel(interval: interval, day: date));
     List<CalendarEventData> events = consultations
         .map(
           (e) => CalendarEventData(
@@ -84,71 +75,8 @@ class AgendaProvider extends ChangeNotifier {
     return events;
   }
 
-  void openAddConsultation({DateTime? date, CalendarEventData? event}) async {
-    if (event != null) {
-      AppointmentModel consultation = await AppointmentService.findByUuid(event.event as String);
-      tecConsultationDescription.text = consultation.notes!;
-      consultationDate = event.date;
-      consultationStartTime = TimeOfDay(hour: event.startTime!.hour, minute: event.startTime!.minute);
-      consultationEndTime = TimeOfDay(hour: event.endTime!.hour, minute: event.endTime!.minute);
-      patient = consultation.patient!;
-      doctor = consultation.doctor!;
-      isEditing = true;
-      isFinished = consultation.status == AppointmentStatusEnum.finished;
-      uuid = event.event! as String;
-      currentEvent = event;
-      notifyListeners();
-    } else {
-      consultationDate = date ?? DateTime.now();
-      consultationStartTime = date != null ? TimeOfDay(hour: date.hour, minute: date.minute) : TimeOfDay(hour: 12, minute: 0);
-      consultationEndTime = date != null ? TimeOfDay(hour: date.hour + 1, minute: date.minute) : TimeOfDay(hour: 13, minute: 0);
-      tecConsultationDescription.text = "";
-      isEditing = false;
-      notifyListeners();
-    }
-    showBarrier = !showBarrier;
-    showConsultationModal = !showConsultationModal;
-    notifyListeners();
-  }
-
-  /*Future<AppointmentModel> addConsultation(BuildContext context) async {
-    AppointmentModel model = AppointmentModel(
-        description: tecConsultationDescription.text,
-        startTime:
-            DateTime(consultationDate.year, consultationDate.month, consultationDate.day, consultationStartTime.hour, consultationStartTime.minute),
-        endTime: DateTime(consultationDate.year, consultationDate.month, consultationDate.day, consultationEndTime.hour, consultationEndTime.minute),
-        patient: patient,
-        doctor: doctor,
-        nurse: nurse);
-    try {
-      model = await AppointmentService.insert(model);
-      CalendarEventData event = CalendarEventData(
-          title: model.patient!.fullName,
-          date: model.startTime,
-          startTime: model.startTime,
-          endTime: model.endTime,
-          endDate: model.endTime,
-          color: model.status!.color,
-          description: model.description,
-          event: model.uuid);
-      controller.add(event);
-      showBarrier = !showBarrier;
-      showConsultationModal = !showConsultationModal;
-      notifyListeners();
-      return model;
-    } catch (e) {
-      rethrow;
-    }
-  }*/
-
   void updateEvent(CalendarEventData currentEvent, CalendarEventData newEvent) {
     controller.update(currentEvent, newEvent);
-    notifyListeners();
-  }
-
-  void loadUsers() {
-    DentistService.names().then((value) => doctors.addAll(value));
-    NurseService.names().then((value) => nurses.addAll(value));
     notifyListeners();
   }
 
@@ -186,35 +114,5 @@ class AgendaProvider extends ChangeNotifier {
 
   void setDay(DateTime day) {
     dayKey.currentState!.animateToDate(day);
-  }
-
-  void updatePatient(UserModel model) {
-    patient = model;
-    notifyListeners();
-  }
-
-  void updateDoctor(UserModel model) {
-    doctor = model;
-    notifyListeners();
-  }
-
-  void updateNurse(UserModel model) {
-    nurse = model;
-    notifyListeners();
-  }
-
-  void updateConsultationDate(DateTime date) {
-    consultationDate = date;
-    notifyListeners();
-  }
-
-  void updateConsultationStartTime(TimeOfDay time) {
-    consultationStartTime = time;
-    notifyListeners();
-  }
-
-  void updateConsultationEndTime(TimeOfDay time) {
-    consultationEndTime = time;
-    notifyListeners();
   }
 }

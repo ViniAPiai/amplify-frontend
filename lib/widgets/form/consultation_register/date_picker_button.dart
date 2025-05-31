@@ -22,7 +22,7 @@ class DatePickerButton extends StatelessWidget {
     return OutlinedButton.icon(
       onPressed: () async {
         DateTime? date = await showDatePicker(
-            context: context, currentDate: agendaProvider.consultationDate, firstDate: DateTime(2025, 1, 1), lastDate: DateTime(2030, 1, 1));
+            context: context, currentDate: DateTime.now(), firstDate: DateTime(2025, 1, 1), lastDate: DateTime(2030, 1, 1));
         if (date != null) {
           onChanged(date);
         }

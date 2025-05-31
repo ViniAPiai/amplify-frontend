@@ -1,35 +1,27 @@
 part of 'sign_in.dart';
 
 class SignInProvider extends ChangeNotifier {
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController tecEmail = TextEditingController(text: "tester.secretary@example.com");
   TextEditingController tecPassword = TextEditingController(text: "T&ste1");
   bool isLoading = false;
 
   Future<bool> signIn(BuildContext context) async {
-    if(formKey.currentState!.validate()) {
-      AuthRequestModel model = AuthRequestModel(
-          tecEmail.text, tecPassword.text);
+    if (formKey.currentState!.validate()) {
       isLoading = true;
       notifyListeners();
-      try {
-        bool authenticated = await AuthService.signIn(model, context);
+      AuthResponseModel response =
+          await (await ApiService.create(withAuth: false)).client.signIn(AuthRequestModel(email: tecEmail.text, password: tecPassword.text));
+      if (response.token.isNotEmpty) {
+        SharedPreferences shared = await SharedPreferences.getInstance();
+        shared.setString("token", response.token);
+        shared.setString("expiresIn", response.expiresIn.toIso8601String());
         isLoading = false;
         notifyListeners();
-        return authenticated;
-      } catch (e) {
-        isLoading = false;
-        notifyListeners();
-        throw Exception("An error occur during the authentication");
+        return true;
       }
+      return false;
     }
-    isLoading = false;
-    notifyListeners();
     return false;
   }
-
-
-  
-
 }

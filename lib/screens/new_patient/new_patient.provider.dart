@@ -37,12 +37,13 @@ class NewPatientProvider extends ChangeNotifier {
   }
 
   void init() async {
-    String resp = await ClinicService.getCountry();
-    print(resp);
-    tecCountry = resp;
-    loadStates();
-    isLoading = false;
-    notifyListeners();
+    (await ApiService.create()).client.getCountry()
+    .then((value) {
+      tecCountry = value.country;
+      loadStates();
+      isLoading = false;
+      notifyListeners();
+    },);
   }
 
   void loadStates() async {
@@ -96,7 +97,7 @@ class NewPatientProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void validateForm(BuildContext context) {
+  void validateForm(BuildContext context) async {
     if (formKey.currentState!.validate()) {
       DateFormat format = DateFormat("dd/MM/yyyy");
       PatientModel patientModel = PatientModel(
@@ -119,7 +120,7 @@ class NewPatientProvider extends ChangeNotifier {
               city: tecCity!,
               state: tecState!,
               country: tecCountry));
-      PatientService().insertByClinic(patientModel).then(
+      (await ApiService.create()).client.insertByClinic(patientModel).then(
         (value) {
           PanaraInfoDialog.show(context,
               message: context.getMessage(value),

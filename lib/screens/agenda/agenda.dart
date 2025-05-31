@@ -2,15 +2,11 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:frontend/configs/app_colors.dart';
+import 'package:frontend/models/agenda_request.model.dart';
 import 'package:frontend/models/consultation/appointment_interval_enum.dart';
 import 'package:frontend/models/consultation/appointment_model.dart';
-import 'package:frontend/models/consultation/appointment_status_enum.dart';
-import 'package:frontend/models/user/user_model.dart';
-import 'package:frontend/services/appointment_service.dart';
-import 'package:frontend/services/dentist_service.dart';
-import 'package:frontend/services/nurse_service.dart';
+import 'package:frontend/services/api_service.dart';
 import 'package:frontend/widgets/amplify_calendar/amplify_calendar.dart';
-import 'package:frontend/widgets/new_appointment/new_appointment.provider.dart';
 import 'package:frontend/widgets/text/header_title.dart';
 import 'package:frontend/widgets/locale_changer/locale_changer.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';
@@ -28,7 +24,7 @@ part 'agenda.mobile.dart';
 part 'agenda.tablet.dart';
 part 'agenda.desktop.dart';
 
-@PagePath("/agenda", /*redirect: [SignInRequiredRedirectQuery()]*/)
+@PagePath("/agenda")
 class AgendaPage extends StatelessWidget {
 
   const AgendaPage({super.key});
