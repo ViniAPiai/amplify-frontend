@@ -19,7 +19,7 @@ RUN cp .env.${ENV} .env
 RUN flutter build web --dart-define=ENV=${ENV} --release
 
 # Etapa 2: nginx para servir o app web
-FROM nginx:alpine
+FROM public.ecr.aws/nginx/nginx:alpine
 
 # Limpa o conteúdo default do nginx
 RUN rm -rf /usr/share/nginx/html/*
