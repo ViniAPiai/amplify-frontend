@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
 import 'package:frontend/configs/app_boot.dart';
@@ -30,8 +31,9 @@ final appRouter = AutoRouter(
 );
 
 void main() async {
-  const apiUrl = String.fromEnvironment("API_URL");
-  print("API_URL em tempo de execução: $apiUrl");
+  const env = String.fromEnvironment('ENV', defaultValue: 'dev');
+  print(env);
+  await dotenv.load(fileName: '.env.$env');
   usePathUrlStrategy();
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     ScreenBreakpoints(desktop: 1100, tablet: 550, watch: 200),

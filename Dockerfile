@@ -1,29 +1,33 @@
 # Etapa 1: Build do Flutter Web com Flutter 3.22.0
 FROM ghcr.io/cirruslabs/flutter:3.27.0 AS build
 
+# Recebe o ambiente (dev, prod, etc)
+ARG ENV=dev
+
 WORKDIR /app
 
+# Copia todos os arquivos do projeto
 COPY . .
 
-# Define argumento para uso em tempo de build
-ARG FLUTTER_ENV=dev
-ENV FLUTTER_ENV=${FLUTTER_ENV}
+# Instala dependências
+RUN flutter pub get
 
-# Debug: mostre qual config está sendo usada
-RUN echo "Usando config: lib/env/env.${FLUTTER_ENV}.json" && \
-    test -f lib/env/env.${FLUTTER_ENV}.json || (echo "❌ Arquivo de configuração não encontrado!" && exit 1)
+# Copia o .env específico para uso com flutter_dotenv
+RUN cp .env.${ENV} .env
 
-RUN flutter pub get && \
-    flutter build web --dart-define-from-file=lib/env/env.${FLUTTER_ENV}.json
+# Faz o build da aplicação, passando o ENV via dart-define
+RUN flutter build web --dart-define=ENV=${ENV} --release
 
-# Etapa 2: Servir com nginx
+# Etapa 2: nginx para servir o app web
 FROM nginx:alpine
 
+# Limpa o conteúdo default do nginx
 RUN rm -rf /usr/share/nginx/html/*
 
-COPY --from=build /app/build/web /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/nginx.conf
+# Copia o build final do Flutter Web
+COPY --from=builder /app/build/web /usr/share/nginx/html
 
+# Expõe porta padrão
 EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]

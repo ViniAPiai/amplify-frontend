@@ -1,5 +1,6 @@
 
 import 'package:dio/dio.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/models/agenda_request.model.dart';
 import 'package:frontend/models/appointment_type/appointment_type.model.dart';
 import 'package:frontend/models/auth/auth_request_model.dart';
@@ -19,7 +20,7 @@ import 'package:retrofit/http.dart';
 
 part 'api_client.g.dart';
 
-@RestApi(baseUrl: "http://localhost:8080/api")
+@RestApi()
 abstract class ApiClient {
 
     factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;

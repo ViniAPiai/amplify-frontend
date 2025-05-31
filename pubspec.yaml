@@ -24,6 +24,7 @@ dependencies:
   dash_flags: ^0.1.1
   datepicker_dropdown: ^0.1.7
   dio: ^5.4.0
+  flutter_dotenv: ^5.2.1
   flutter_easy_dropdown: ^1.0.3
   flutter_svg: ^2.0.17
   font_awesome_flutter: ^10.8.0
@@ -73,6 +74,8 @@ flutter:
   generate: true
 
   assets:
+    - assets/.env.dev
+    - assets/.env.local
     - assets/GetItOnGooglePlayPtBr.png
     - assets/countries_states_and_cities/portugal.json
     - assets/countries_states_and_cities/brazil.json
