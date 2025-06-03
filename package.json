@@ -1,0 +1,27 @@
+{
+  "scripts": {
+    "start": "node server.js"
+  },
+  "name": "frontend",
+  "version": "1.0.0",
+  "description": "An ERP a an CRM to dental clinics",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ViniAPiai/amplify-frontend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ViniAPiai/amplify-frontend/issues"
+  },
+  "homepage": "https://github.com/ViniAPiai/amplify-frontend#readme",
+  "dependencies": {
+    "express": "^5.1.0"
+  }
+}
