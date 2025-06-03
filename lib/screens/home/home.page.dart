@@ -80,7 +80,7 @@ class _$_HomePageQuery extends RouteQuery {
   }
 
   @override
-  List<RedirectQuery> redirect() => const [SignInRequiredRedirectQuery()];
+  List<RedirectQuery> redirect() => const [];
 
   @override
   AppPageRoute<E> route<E>([TransitionQuery? query]) {

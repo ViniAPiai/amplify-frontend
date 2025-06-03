@@ -11,7 +11,7 @@ part 'home.mobile.dart';
 part 'home.tablet.dart';
 part 'home.desktop.dart';
 
-@PagePath("/home", redirect: [SignInRequiredRedirectQuery()])
+@PagePath("/home")
 class HomePage extends StatelessWidget {
 
   const HomePage({super.key});
