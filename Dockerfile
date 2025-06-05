@@ -1,7 +1,7 @@
 # Etapa 1: Build do Flutter Web com Flutter 3.22.0
 FROM ghcr.io/cirruslabs/flutter:3.27.0 AS build
 
-ARG ENV=dev
+ARG ENV=.dev
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ COPY . .
 
 RUN flutter pub get
 RUN cp assets/.env.${ENV} .env
-RUN flutter build web --dart-define=ENV=${ENV} --release
+RUN flutter build web --dart-define=ENV=.env${ENV} --release
 
 # Etapa 2: servir com NGINX
 FROM nginx:1.25-alpine
