@@ -8,7 +8,7 @@ WORKDIR /app
 COPY . .
 
 RUN flutter pub get
-RUN cp ${ENV} assets/.env
+RUN cp assets/${ENV} assets/.env
 RUN flutter build web --dart-define=ENV=assets/.env --release
 
 # Etapa 2: servir com NGINX
