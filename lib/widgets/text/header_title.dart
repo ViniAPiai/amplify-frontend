@@ -1,6 +1,6 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/extension/utils_extension.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';

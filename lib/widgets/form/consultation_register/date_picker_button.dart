@@ -6,7 +6,7 @@ import 'package:frontend/widgets/form/label.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 
 class DatePickerButton extends StatelessWidget {
   const DatePickerButton({super.key, required this.enabled, required this.onChanged, required this.date});

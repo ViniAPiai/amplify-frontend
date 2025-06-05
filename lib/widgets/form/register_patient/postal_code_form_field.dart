@@ -4,7 +4,7 @@ import 'package:frontend/extension/hint_extension.dart';
 import 'package:frontend/extension/mask_formatter_extension.dart';
 import 'package:frontend/extension/validator_extension.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 import '../label.dart';
 
 class ZipCodeFormField extends StatelessWidget {

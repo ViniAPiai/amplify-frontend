@@ -85,7 +85,7 @@ class _SignInTabletScreen extends State<_$SignInTablet> {
                                   style: GoogleFonts.inter(fontWeight: FontWeight.w600, fontSize: 16, color: Colors.white),
                                 )),
                       TextButton(
-                          onPressed: () => context.router.push(SignUpPage.query()),
+                          onPressed: () => context.go(SignUpPage.route),
                           child: RichText(
                             text: TextSpan(
                                 text: t.doNotHaveAccount,

@@ -1,7 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:frontend/services/api_client.dart';
 import 'package:frontend/services/api_service_factory.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ApiService {
 
