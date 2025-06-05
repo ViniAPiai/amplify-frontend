@@ -75,6 +75,7 @@ flutter:
   generate: true
 
   assets:
+    - assets/.env
     - assets/.env.dev
     - assets/.env.local
     - assets/GetItOnGooglePlayPtBr.png

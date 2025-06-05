@@ -27,9 +27,9 @@ final appRouter = AutoRouter(
 );*/
 
 void main() async {
-  print(SignInPage.route);
-  const env = String.fromEnvironment('ENV', defaultValue: 'dev');
-  await dotenv.load(fileName: '.env.$env');
+  const envFile = String.fromEnvironment('ENV', defaultValue: 'assets/.env');
+  print(envFile);
+  await dotenv.load(fileName: envFile);
   usePathUrlStrategy();
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
     ScreenBreakpoints(desktop: 1100, tablet: 550, watch: 200),
