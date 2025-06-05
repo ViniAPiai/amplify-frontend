@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easy_dropdown/flutter_easy_dropdown.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 import 'package:frontend/models/page_request_model.dart';
 import 'package:frontend/models/user/user_model.dart';
 import 'package:frontend/services/api_service.dart';

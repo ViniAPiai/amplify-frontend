@@ -15,7 +15,7 @@ class _SignUpDesktop extends State<_$SignUpDesktop> {
         elevation: 0,
         backgroundColor: Colors.white,
         leading: Center(
-            child: IconButton(onPressed: () => context.router.push(SignInPage.query()), icon: FaIcon(FontAwesomeIcons.arrowLeft))),
+            child: IconButton(onPressed: () => context.go(SignUpPage.route), icon: FaIcon(FontAwesomeIcons.arrowLeft))),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),

@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_web_plugins/flutter_web_plugins.dart';
-import 'package:frontend/configs/app_boot.dart';
 import 'package:frontend/configs/auth_notifier.dart';
 import 'package:frontend/configs/locale_provider.dart';
-import 'package:frontend/configs/sign_in_required_redirect_query.dart';
+import 'package:frontend/configs/routes.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
 import 'package:frontend/screens/doctors/doctors.dart';
 import 'package:frontend/screens/home/home.dart';
@@ -16,23 +15,20 @@ import 'package:frontend/screens/sign_in/sign_in.dart';
 import 'package:frontend/screens/sign_up/sign_up.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 import 'package:toastification/toastification.dart';
 
-import 'main.router.dart';
 
-@appRoute
+/*@appRoute
 final appRouter = AutoRouter(
   initialQuery: SignInPage.query(),
-  boot: AppBoot()
-);
+);*/
 
 void main() async {
+  print(SignInPage.route);
   const env = String.fromEnvironment('ENV', defaultValue: 'dev');
-  print(env);
   await dotenv.load(fileName: '.env.$env');
   usePathUrlStrategy();
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
@@ -44,7 +40,7 @@ void main() async {
       ChangeNotifierProvider(create: (_) => SignInProvider()),
       ChangeNotifierProvider(create: (_) => SignUpProvider()),
       ChangeNotifierProvider(create: (_) => HomeProvider()),
-      ChangeNotifierProvider(create: (_) => AuthNotifier()),
+      ChangeNotifierProvider(create: (_) => AuthNotifier()..init()),
       ChangeNotifierProvider(create: (_) => LocaleProvider()),
       ChangeNotifierProvider(create: (_) => PatientsProvider()),
       ChangeNotifierProvider(create: (_) => AgendaProvider()),
@@ -94,7 +90,7 @@ class MyAppState extends State<MyApp> {
               Locale('pt', 'BR'),
             ],
             debugShowCheckedModeBanner: false,
-            routerConfig: appRouter),
+            routerConfig: Routes.getRoutes(context),),
       );
     });
   }

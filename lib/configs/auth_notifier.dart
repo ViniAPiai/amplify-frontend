@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthNotifier extends ChangeNotifier {
-  static final instance = AuthNotifier();
 
-  AuthNotifier();
-
+  AuthNotifier() {
+    init();
+  }
 
   bool isLoading = true;
   bool isLoggedIn = false;
@@ -16,8 +16,7 @@ class AuthNotifier extends ChangeNotifier {
   }
 
   Future<void> logout() async {
-    final SharedPreferences sharedPreferences =
-    await SharedPreferences.getInstance();
+    final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     await sharedPreferences.remove("token");
     await sharedPreferences.remove("expiresIn");
 
@@ -25,36 +24,22 @@ class AuthNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<bool> isAuthenticated() async {
-    try {
-      final SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-      if (!sharedPreferences.containsKey("token") || !sharedPreferences.containsKey("expiresIn")) {
-        isLoggedIn = false;
-        notifyListeners();
-        return false;
-      }
-
-      final String? expiresInString = sharedPreferences.getString("expiresIn");
-      if (expiresInString == null) {
-        isLoggedIn = false;
-        notifyListeners();
-        return false;
-      }
-
+  Future<bool> init() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    final String? expiresInString = sharedPreferences.getString("expiresIn");
+    if (!sharedPreferences.containsKey("token") || !sharedPreferences.containsKey("expiresIn")) {
+      isLoggedIn = false;
+      notifyListeners();
+    } else if(expiresInString == null) {
+      isLoggedIn = false;
+      notifyListeners();
+    } else {
       final DateTime expiresIn = DateTime.parse(expiresInString);
       bool isExpired = DateTime.now().isBefore(expiresIn);
-      if (isExpired) {
-        isLoggedIn = false;
-        notifyListeners();
-        return false;
-      }
-      isLoggedIn = true;
+      isLoggedIn = !isExpired;
       notifyListeners();
-      return true;
-    } catch (e) {
-      return false;
     }
+    return isLoggedIn;
   }
 
 }

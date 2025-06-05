@@ -4,7 +4,7 @@ class SideBarItem extends StatelessWidget {
 
   final String title;
   final IconData icon;
-  final RouteQuery query;
+  final String query;
 
   const SideBarItem({super.key, required this.title, required this.icon, required this.query});
 
@@ -17,7 +17,7 @@ class SideBarItem extends StatelessWidget {
           title,
           style: GoogleFonts.inter(
             fontSize: 16,
-            color: context.router.currentQuery == query ? context.primaryColor : Colors.white,
+            color: GoRouter.of(context).state.path == query ? context.primaryColor : Colors.white,
             fontWeight: FontWeight.w500,
           ),
         ),
@@ -28,9 +28,7 @@ class SideBarItem extends StatelessWidget {
         // selected: GoRouter.of(context).state?.path == path,
         selectedTileColor: AppColors.grayBlack,
         onTap: () {
-          print("Clicado");
-          print(query.path);
-          context.router.push(query);
+          context.go(query);
         },
       ),
     );

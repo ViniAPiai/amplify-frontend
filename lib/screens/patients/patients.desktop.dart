@@ -57,7 +57,7 @@ class _$PatientsDesktop extends StatelessWidget {
                     ),
                   ),
                   OutlinedButton.icon(
-                      onPressed: () => context.router.push(NewPatientPage.query()),
+                      onPressed: () => context.go(NewPatientPage.route),
                     style: OutlinedButton.styleFrom(
                         backgroundColor: Colors.white,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: context.primaryColor)),
@@ -199,7 +199,7 @@ class _$PatientsDesktop extends StatelessWidget {
                                         )),
                                         DataCell(Row(spacing: 16, children: [
                                           IconButton(
-                                            onPressed: () => context.router.push(PatientDetailPage.query(uuid: p.uuid!)),
+                                            onPressed: () => context.go(PatientDetailPage.route, extra: p.uuid!),
                                             icon: Icon(
                                               Icons.info,
                                               color: AppColors.secondary,

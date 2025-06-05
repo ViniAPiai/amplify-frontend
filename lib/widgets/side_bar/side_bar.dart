@@ -5,15 +5,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/assets.dart';
 import 'package:frontend/configs/locale_provider.dart';
-import 'package:frontend/main.router.dart';
+import 'package:frontend/screens/agenda/agenda.dart';
+import 'package:frontend/screens/doctors/doctors.dart';
+import 'package:frontend/screens/patients/patients.dart';
 import 'package:frontend/widgets/new_appointment/new_appointment.provider.dart';
-import 'package:frontend/widgets/new_appointment/new_appointment_modal.dart';
+import 'package:frontend/widgets/new_appointment/new_appointment.modal.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 
 part 'side_bar.provider.dart';
 

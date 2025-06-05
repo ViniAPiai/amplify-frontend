@@ -4,22 +4,20 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:frontend/configs/assets.dart';
 import 'package:frontend/configs/auth_notifier.dart';
-import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/models/auth/auth_request_model.dart';
 import 'package:frontend/models/auth/auth_response_model.dart';
 import 'package:frontend/screens/home/home.dart';
 import 'package:frontend/screens/sign_up/sign_up.dart';
 import 'package:frontend/services/api_service.dart';
 import 'package:frontend/widgets/form/label.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:toastification/toastification.dart';
-
-part 'sign_in.page.dart';
 
 part 'sign_in.provider.dart';
 
@@ -29,18 +27,18 @@ part 'sign_in.tablet.dart';
 
 part 'sign_in.desktop.dart';
 
-@PagePath("/sign_in", redirect: [SignInRequiredRedirectQuery()])
 class SignInPage extends StatefulWidget {
+
+  static const String routeName = 'sign_in';
+  static const String route = '/$routeName';
+
   const SignInPage({super.key});
 
-  @pageRouteQuery
-  static const query = _$SignInPageQuery();
-
   @override
-  createState() => _SignInPage();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignInPage extends State<SignInPage> {
+class _SignInPageState extends State<SignInPage> {
   void signIn(SignInProvider provider) async {
     final currentContext = context;
     try {
@@ -48,7 +46,7 @@ class _SignInPage extends State<SignInPage> {
       if (!mounted) return;
       if (authenticated) {
         Provider.of<AuthNotifier>(context, listen: false).login();
-        context.router.push(HomePage.query());
+        context.go(HomePage.route);
       } else {
         Provider.of<AuthNotifier>(context, listen: false).logout();
         toastification.show(

@@ -14,7 +14,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 
 class NewAppointmentModal extends StatefulWidget {
   const NewAppointmentModal({super.key});
@@ -39,6 +39,12 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
       begin: AppColors.secondary,
       end: AppColors.secondary,
     ).animate(_controller);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override

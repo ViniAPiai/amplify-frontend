@@ -2,7 +2,6 @@ import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:frontend/configs/app_colors.dart';
-import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/widgets/buttons/filter_button.dart';
 import 'package:frontend/widgets/buttons/printer_button.dart';
 import 'package:frontend/widgets/form/label.dart';
@@ -14,21 +13,19 @@ import 'package:katana_router/katana_router.dart';
 import 'package:number_pagination/number_pagination.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 
-part 'doctors.page.dart';
 part 'doctors.provider.dart';
 part 'doctors.mobile.dart';
 part 'doctors.tablet.dart';
 part 'doctors.desktop.dart';
 
-@PagePath("/doctors", redirect: [SignInRequiredRedirectQuery()])
 class DoctorsPage extends StatelessWidget {
 
-  const DoctorsPage({super.key});
+  static const String routeName = 'doctors';
+  static const String route = '/$routeName';
 
-  @pageRouteQuery
-  static const query = _$DoctorsPageQuery();
+  const DoctorsPage({super.key});
 
   @override
   Widget build(BuildContext context) {

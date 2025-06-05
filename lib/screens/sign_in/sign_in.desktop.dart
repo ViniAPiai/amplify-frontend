@@ -97,7 +97,7 @@ class _SignInDesktopScreen extends State<_$SignInDesktop> {
                                               color: Colors.white),
                                         )),
                               TextButton(
-                                  onPressed: () => context.router.push(SignUpPage.query()),
+                                  onPressed: () => context.go(SignUpPage.route),
                                   child: RichText(
                                     text: TextSpan(
                                         text: "Não tem uma conta? ",

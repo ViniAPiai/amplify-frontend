@@ -41,27 +41,27 @@ class _SideBarDesktop extends State<_$SideBarDesktop> {
                       ),
                       SideBarItem(
                         title: "Dashboard",
-                        query: AgendaPage.query(),
+                        query: AgendaPage.route,
                         icon: FontAwesomeIcons.chartColumn,
                       ),
                       SideBarItem(
                         title: "Agenda",
-                        query: AgendaPage.query(),
+                        query: AgendaPage.route,
                         icon: Icons.calendar_month,
                       ),
                       SideBarItem(
                         title: "Médicos",
-                        query: DoctorsPage.query(),
+                        query: DoctorsPage.route,
                         icon: FontAwesomeIcons.userDoctor,
                       ),
                       SideBarItem(
                         title: "Enfermeiras",
-                        query: AgendaPage.query(),
+                        query: AgendaPage.route,
                         icon: FontAwesomeIcons.userNurse,
                       ),
                       SideBarItem(
                         title: "Pacientes",
-                        query: PatientsPage.query(),
+                        query: PatientsPage.route,
                         icon: FontAwesomeIcons.hospitalUser,
                       ),
                       Expanded(child: Container()),
@@ -83,7 +83,7 @@ class _SideBarDesktop extends State<_$SideBarDesktop> {
                       ),
                       SideBarItem(
                         title: "Sair",
-                        query: AgendaPage.query(),
+                        query: AgendaPage.route,
                         icon: FontAwesomeIcons.doorOpen,
                       ),
                     ],

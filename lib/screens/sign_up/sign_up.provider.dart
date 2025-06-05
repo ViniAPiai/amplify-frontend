@@ -93,7 +93,7 @@ class SignUpProvider extends ChangeNotifier {
   }
 
   void updatePage(int page) {
-    this.currentStep = page;
+    currentStep = page;
     notifyListeners();
   }
 

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:frontend/configs/sign_in_required_redirect_query.dart';
 import 'package:frontend/extension/message_extension.dart';
 import 'package:frontend/models/address/address_model.dart';
 import 'package:frontend/models/patient/patient_model.dart';
@@ -33,21 +32,19 @@ import 'package:katana_router/katana_router.dart';
 import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 
-part 'new_patient.page.dart';
 part 'new_patient.provider.dart';
 part 'new_patient.mobile.dart';
 part 'new_patient.tablet.dart';
 part 'new_patient.desktop.dart';
 
-@PagePath('/patients/new', redirect: [SignInRequiredRedirectQuery()])
 class NewPatientPage extends StatelessWidget {
 
-  const NewPatientPage({super.key});
+  static const String routeName = 'new';
+  static const String route = '/$routeName';
 
-  @pageRouteQuery
-  static const query = _$NewPatientPageQuery();
+  const NewPatientPage({super.key});
 
   @override
   Widget build(BuildContext context) {
