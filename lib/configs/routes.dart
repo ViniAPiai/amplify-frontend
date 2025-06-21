@@ -42,7 +42,7 @@ class Routes {
         }
 
         if (isLoggedIn && isPublic) {
-          return HomePage.route;
+          return AgendaPage.route;
         }
 
         return null;

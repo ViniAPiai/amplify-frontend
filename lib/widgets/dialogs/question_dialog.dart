@@ -59,7 +59,7 @@ class _QuestionDialog extends StatelessWidget {
                         Text(cancelButtonText ?? t.cancel, style: GoogleFonts.inter(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w500))),
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: AppColors.secondary,
+                      backgroundColor: AppColors.primary,
                       padding: EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                       fixedSize: Size(154, 50),

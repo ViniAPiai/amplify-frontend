@@ -1,7 +1,16 @@
+import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/configs/app_colors.dart';
+import 'package:frontend/configs/locale_provider.dart';
+import 'package:frontend/enums/tooth_code.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';
+import 'package:frontend/widgets/teeth/dental_arch_painter.dart';
+import 'package:frontend/widgets/teeth/teeth_paths.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
+
 
 part 'home.provider.dart';
 part 'home.mobile.dart';

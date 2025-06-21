@@ -4,18 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/extension/utils_extension.dart';
-import 'package:frontend/models/consultation/appointment_status_enum.dart';
+import 'package:frontend/models/appointment/appointment_model.dart';
+import 'package:frontend/models/appointment/enum/appointment_status_enum.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
 import 'package:frontend/widgets/amplify_calendar/meeting.dart';
 import 'package:frontend/widgets/buttons/filter_button.dart';
 import 'package:frontend/widgets/buttons/printer_button.dart';
 import 'package:frontend/widgets/buttons/refresh_button.dart';
-import 'package:frontend/widgets/new_appointment/new_appointment.provider.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:frontend/l10n/app_localizations.dart';
+import 'package:responsive_builder/responsive_builder.dart';
 
 part 'amplify_calendar_day.dart';
 

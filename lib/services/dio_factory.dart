@@ -18,7 +18,6 @@ class DioFactory {
       final token = prefs.getString('token');
       if (token != null) {
         dio.options.headers['Authorization'] = 'Bearer $token';
-        // dio.options.headers['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0ZXIuc2VjcmV0YXJ5QGV4YW1wbGUuY29tIiwiaWF0IjoxNzQ4NTM3NzQ2LCJleHAiOjE3NDg2NDU3NDZ9.hvkt1evplt31gMOUwNfIb4sY4KhBNPBESU6mslfjbQQ';
       }
     }
 

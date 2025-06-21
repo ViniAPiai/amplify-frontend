@@ -102,7 +102,7 @@ class _AmplifyCalendarDesktopScreen extends State<_$AmplifyCalendarMonth> {
         return Column(
           children: [
             Container(
-                color: isToday ? AppColors.secondary : Colors.transparent,
+                color: isToday ? AppColors.primary : Colors.transparent,
                 width: 1000,
                 child: Column(
                   children: [

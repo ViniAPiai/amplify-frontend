@@ -105,7 +105,7 @@ class _$PatientsMobile extends StatelessWidget {
                         contentPadding: EdgeInsets.all(8),
                         minVerticalPadding: 2,
                         leading: CircleAvatar(
-                            backgroundColor: AppColors.secondary,
+                            backgroundColor: AppColors.primary,
                             child: Center(
                               child: Text(p.fullName[0].toUpperCase()),
                             )),
@@ -136,7 +136,7 @@ class _$PatientsMobile extends StatelessWidget {
               currentPage: provider.selectedPage,
               visiblePagesCount: 3,
               fontFamily: GoogleFonts.interTextTheme().toString(),
-              controlButtonColor: AppColors.secondary,
+              controlButtonColor: AppColors.primary,
             ) : const SizedBox()
           ],
         )

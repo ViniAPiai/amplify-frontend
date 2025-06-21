@@ -23,7 +23,7 @@ AppointmentModel _$AppointmentModelFromJson(Map<String, dynamic> json) =>
           $enumDecodeNullable(_$AppointmentStatusEnumEnumMap, json['status']),
       patient: json['patient'] == null
           ? null
-          : UserModel.fromJson(json['patient'] as Map<String, dynamic>),
+          : PatientModel.fromJson(json['patient'] as Map<String, dynamic>),
       doctor: json['doctor'] == null
           ? null
           : UserModel.fromJson(json['doctor'] as Map<String, dynamic>),
@@ -31,12 +31,13 @@ AppointmentModel _$AppointmentModelFromJson(Map<String, dynamic> json) =>
           ? null
           : UserModel.fromJson(json['nurse'] as Map<String, dynamic>),
       procedureTypes: AppointmentModel._procedureTypeFromJson(
-          json['procedureTypes'] as List<Map<String, dynamic>>?),
-      message: json['message'] as String?,
+          json['procedureTypes'] as List?),
       teeth: (json['teeth'] as List<dynamic>?)
           ?.map((e) => $enumDecode(_$ToothCodeEnumMap, e))
           .toList(),
-    );
+      clinicalExam: AppointmentModel._clinicalExamFromJson(
+          json['clinicalExam'] as Map<String, dynamic>?),
+    )..message = json['message'] as String?;
 
 Map<String, dynamic> _$AppointmentModelToJson(AppointmentModel instance) =>
     <String, dynamic>{
@@ -60,7 +61,8 @@ const _$AppointmentStatusEnumEnumMap = {
   AppointmentStatusEnum.waitingForClinicConfirmation:
       'WAITING_FOR_CLINIC_CONFIRMATION',
   AppointmentStatusEnum.scheduled: 'SCHEDULED',
-  AppointmentStatusEnum.patientInTheClinic: 'PATIENT_IN_THE_CLINIC',
+  AppointmentStatusEnum.arrived: 'ARRIVED',
+  AppointmentStatusEnum.inProgress: 'IN_PROGRESS',
   AppointmentStatusEnum.finished: 'FINISHED',
   AppointmentStatusEnum.cancelled: 'CANCELLED',
 };
@@ -98,4 +100,24 @@ const _$ToothCodeEnumMap = {
   ToothCode.T_46: 'T_46',
   ToothCode.T_47: 'T_47',
   ToothCode.T_48: 'T_48',
+  ToothCode.T_51: 'T_51',
+  ToothCode.T_52: 'T_52',
+  ToothCode.T_53: 'T_53',
+  ToothCode.T_54: 'T_54',
+  ToothCode.T_55: 'T_55',
+  ToothCode.T_61: 'T_61',
+  ToothCode.T_62: 'T_62',
+  ToothCode.T_63: 'T_63',
+  ToothCode.T_64: 'T_64',
+  ToothCode.T_65: 'T_65',
+  ToothCode.T_71: 'T_71',
+  ToothCode.T_72: 'T_72',
+  ToothCode.T_73: 'T_73',
+  ToothCode.T_74: 'T_74',
+  ToothCode.T_75: 'T_75',
+  ToothCode.T_81: 'T_81',
+  ToothCode.T_82: 'T_82',
+  ToothCode.T_83: 'T_83',
+  ToothCode.T_84: 'T_84',
+  ToothCode.T_85: 'T_85',
 };

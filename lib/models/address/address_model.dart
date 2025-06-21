@@ -17,6 +17,17 @@ class AddressModel {
   AddressModel({this.uuid, required this.street, required this.number, required this.neighborhood, required this.city,
     required this.state, required this.country});
 
+  factory AddressModel.empty() {
+    return AddressModel(
+      street: "",
+      number: "",
+      neighborhood: "",
+      city: "",
+      state: "",
+      country: "",
+    );
+  }
+
   Map<String, dynamic> toJson() => _$AddressModelToJson(this);
 
   factory AddressModel.fromJson(Map<String, dynamic> json) => _$AddressModelFromJson(json);

@@ -69,7 +69,7 @@ class AgendaProvider extends ChangeNotifier {
               endDate: e.date,
               color: e.status!.color,
               description: e.notes,
-              event: e.uuid),
+              event: e),
         )
         .toList();
     return events;

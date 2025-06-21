@@ -106,7 +106,7 @@ class _DoctorsMobile extends StatelessWidget {
                           contentPadding: EdgeInsets.all(8),
                           minVerticalPadding: 2,
                           leading: CircleAvatar(
-                              backgroundColor: AppColors.secondary,
+                              backgroundColor: AppColors.primary,
                               child: Center(
                                 child: Text("IG"),
                               )),
@@ -139,7 +139,7 @@ class _DoctorsMobile extends StatelessWidget {
                 currentPage: 1,
                 visiblePagesCount: 3,
                 fontFamily: GoogleFonts.interTextTheme().toString(),
-                controlButtonColor: AppColors.secondary,
+                controlButtonColor: AppColors.primary,
               )
             ],
           )

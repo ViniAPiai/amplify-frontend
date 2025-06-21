@@ -32,7 +32,7 @@ class _SuccessDialog extends StatelessWidget {
           children: [
             Icon(
               Icons.check_circle_outline_outlined,
-              color: AppColors.secondary,
+              color: AppColors.primary,
               size: 64,
             ),
             SizedBox(
@@ -45,7 +45,7 @@ class _SuccessDialog extends StatelessWidget {
             ).alignAtCenter().expanded(),
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: AppColors.secondary,
+                  backgroundColor: AppColors.primary,
                   padding: EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
                   fixedSize: Size(308, 50),
