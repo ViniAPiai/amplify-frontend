@@ -9,7 +9,8 @@ import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:frontend/widgets/text/info_shower.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:katana_router/katana_router.dart';
+import 'package:intl/intl.dart';
+
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:frontend/l10n/app_localizations.dart';
@@ -24,7 +25,7 @@ class PatientDetailPage extends StatelessWidget {
   static const String routeName = 'details';
   static const String route = '/$routeName';
 
-  const PatientDetailPage({super.key, @PageParam("uuid") required this.uuid});
+  const PatientDetailPage({super.key, required this.uuid});
 
   final String uuid;
 

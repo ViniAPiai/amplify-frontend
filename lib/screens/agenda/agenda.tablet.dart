@@ -97,7 +97,7 @@ class _AgendaTabletScreen extends State<_$AgendaTabletScreen> {
                     width: 250,
                     height: 250,
                     child: CircularProgressIndicator(
-                      color: AppColors.secondary,
+                      color: AppColors.primary,
                     )).toCenter(),
               ).setOpacity(opacity: 0.5),
           ],

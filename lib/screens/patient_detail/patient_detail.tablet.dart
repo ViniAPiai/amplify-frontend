@@ -105,7 +105,7 @@ class _PatientDetailTablet extends StatelessWidget {
                 width: 120,
                 height: 120,
                 child: CircleAvatar(
-                  backgroundColor: AppColors.secondary,
+                  backgroundColor: AppColors.primary,
                 )),
             RichText(
               textAlign: TextAlign.center,
@@ -168,7 +168,7 @@ class _PatientDetailTablet extends StatelessWidget {
             future: MedicalHistoryService().findByPatientUuid('12391239123'),
             builder: (context, snapshot) {
               if (!snapshot.hasData) {
-                return const Center(child: CircularProgressIndicator(color: AppColors.secondary));
+                return const Center(child: CircularProgressIndicator(color: AppColors.primary));
               }
               MedicalHistoryModel medicalHistory = snapshot.data!;
               return Column(

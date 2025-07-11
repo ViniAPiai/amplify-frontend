@@ -77,7 +77,7 @@ class _$PatientsTablet extends StatelessWidget {
           child: provider.isLoading
               ? Center(
                   child: CircularProgressIndicator(
-                    color: AppColors.secondary,
+                    color: AppColors.primary,
                   ),
                 ).expanded()
               : provider.hasContent()
@@ -158,7 +158,7 @@ class _$PatientsTablet extends StatelessWidget {
                                           cells: [
                                             DataCell(ListTile(
                                               leading: CircleAvatar(
-                                                  backgroundColor: AppColors.secondary,
+                                                  backgroundColor: AppColors.primary,
                                                   child: Center(
                                                     child: Text(p.fullName[0].toUpperCase()),
                                                   )),
@@ -191,14 +191,14 @@ class _$PatientsTablet extends StatelessWidget {
                                             DataCell(Row(spacing: 16, children: [
                                               Icon(
                                                 Icons.info,
-                                                color: AppColors.secondary,
+                                                color: AppColors.primary,
                                                 size: 32,
                                               ),
                                               IconButton(
                                                 onPressed: () => sideBarProvider.openOrCloseNewAppointmentModal(context: context),
                                                 icon: Icon(
                                                   Icons.edit_calendar,
-                                                  color: AppColors.secondary,
+                                                  color: AppColors.primary,
                                                   size: 32,
                                                 ),
                                               )
@@ -213,7 +213,7 @@ class _$PatientsTablet extends StatelessWidget {
                                 totalPages: provider.patients.totalPages,
                                 currentPage: provider.selectedPage,
                                 fontFamily: GoogleFonts.interTextTheme().toString(),
-                                controlButtonColor: AppColors.secondary,
+                                controlButtonColor: AppColors.primary,
                               ).paddingLTRB(16, 8, 16, 16)
                       ],
                     )

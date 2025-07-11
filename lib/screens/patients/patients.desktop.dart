@@ -82,7 +82,7 @@ class _$PatientsDesktop extends StatelessWidget {
             provider.isLoading
                 ? Center(
                     child: CircularProgressIndicator(
-                      color: AppColors.secondary,
+                      color: AppColors.primary,
                     ),
                   ).expanded()
                 : provider.hasContent()
@@ -163,7 +163,7 @@ class _$PatientsDesktop extends StatelessWidget {
                                       cells: [
                                         DataCell(ListTile(
                                           leading: CircleAvatar(
-                                              backgroundColor: AppColors.secondary,
+                                              backgroundColor: AppColors.primary,
                                               child: Center(
                                                 child: Text(p.fullName[0].toUpperCase()),
                                               )),
@@ -202,7 +202,7 @@ class _$PatientsDesktop extends StatelessWidget {
                                             onPressed: () => context.go(PatientDetailPage.route, extra: p.uuid!),
                                             icon: Icon(
                                               Icons.info,
-                                              color: AppColors.secondary,
+                                              color: AppColors.primary,
                                               size: 32,
                                             ),
                                           ),
@@ -210,7 +210,7 @@ class _$PatientsDesktop extends StatelessWidget {
                                             onPressed: () => sideBarProvider.openOrCloseNewAppointmentModal(context: context),
                                             icon: Icon(
                                               Icons.edit_calendar,
-                                              color: AppColors.secondary,
+                                              color: AppColors.primary,
                                               size: 32,
                                             ),
                                           )
@@ -225,7 +225,7 @@ class _$PatientsDesktop extends StatelessWidget {
                           totalPages: provider.patients.totalPages,
                           currentPage: provider.selectedPage,
                           fontFamily: GoogleFonts.interTextTheme().toString(),
-                          controlButtonColor: AppColors.secondary,
+                          controlButtonColor: AppColors.primary,
                         ).paddingOnly(bottom: 16)
                       ]).expanded()
                     : Center(

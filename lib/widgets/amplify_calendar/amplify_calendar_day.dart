@@ -8,7 +8,6 @@ class _$AmplifyCalendarDay extends StatefulWidget {
 }
 
 class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
-
   @override
   void initState() {
     super.initState();
@@ -29,13 +28,15 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
         controller: provider.controller,
         backgroundColor: AppColors.gray,
         dayTitleBuilder: (date) {
-          String finalDate = DateFormat.yMMMMd(locale.getLocaleString()).format(date);
+          String finalDate = context.isTabletOrDesktop
+              ? DateFormat.yMMMMd(locale.getLocaleString()).format(date)
+              : DateFormat.yMd(locale.getLocaleString()).format(date);
           return Container(
             width: context.width,
-            padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+            padding: EdgeInsets.fromLTRB(context.isTabletOrDesktop ? 16 : 8, 0, context.isTabletOrDesktop ? 16 : 8, 8),
             color: AppColors.gray,
             child: Row(
-              spacing: 16,
+              spacing: context.isTabletOrDesktop ? 16 : 8,
               children: [
                 OutlinedButton(
                     onPressed: () => provider.previousDay(),
@@ -43,11 +44,11 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.zero,
-                        fixedSize: Size(25, 25)),
+                        fixedSize: Size(context.isTabletOrDesktop ? 25 : 15, context.isTabletOrDesktop ? 25 : 15)),
                     child: Icon(
                       Icons.arrow_back_ios_new_outlined,
                       color: Colors.grey.shade700,
-                      size: 24,
+                      size: context.isTabletOrDesktop ? 24 : 16,
                     )),
                 OutlinedButton(
                     onPressed: () async {
@@ -59,7 +60,7 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
                         builder: (context, child) {
                           return Theme(
                             data: ThemeData(
-                              colorScheme: ColorScheme.fromSeed(seedColor: AppColors.secondary),
+                              colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
                             ),
                             child: child!,
                           );
@@ -73,7 +74,7 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.zero,
-                        fixedSize: Size(220, 25)),
+                        fixedSize: Size(context.isTabletOrDesktop ? 220 : context.width - 160, 25)),
                     child: Text(
                       finalDate,
                       style: GoogleFonts.inter(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
@@ -84,11 +85,11 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
                         backgroundColor: Colors.white,
                         padding: EdgeInsets.zero,
-                        fixedSize: Size(25, 25)),
+                        fixedSize: Size(context.isTabletOrDesktop ? 25 : 15, context.isTabletOrDesktop ? 25 : 15)),
                     child: Icon(
                       Icons.arrow_forward_ios_outlined,
                       color: Colors.grey.shade700,
-                      size: 24,
+                      size: context.isTabletOrDesktop ? 24 : 16,
                     )),
                 Expanded(child: const SizedBox()),
                 context.isTabletOrDesktop
@@ -162,9 +163,12 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
             case AppointmentStatusEnum.cancelled:
               break;
             case AppointmentStatusEnum.scheduled:
-            case AppointmentStatusEnum.patientInTheClinic:
+              sideBarProvider.openOrCloseAppointmentDetailsModal(context: context, uuid: (events.first.event as AppointmentModel).uuid!);
+            case AppointmentStatusEnum.arrived:
             case AppointmentStatusEnum.finished:
               sideBarProvider.openOrCloseNewAppointmentModal(context: context);
+            case AppointmentStatusEnum.inProgress:
+              sideBarProvider.openOrCloseAppointmentDetailsModal(context: context, uuid: (events.first.event as AppointmentModel).uuid!);
           }
         },
         onPageChange: (date, _) => provider.loadEventsByDate(date),

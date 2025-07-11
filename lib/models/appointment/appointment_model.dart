@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/enums/tooth_code.dart';
+import 'package:frontend/models/appointment/clinical_exam/clinical_exam.model.dart';
 import 'package:frontend/models/appointment_type/appointment_type.model.dart';
-import 'package:frontend/models/consultation/appointment_status_enum.dart';
-import 'package:frontend/models/dentist_free_time/time_range.dart';
+import 'package:frontend/models/patient/patient_model.dart';
 import 'package:frontend/models/procedure_type/procedure_type.model.dart';
 import 'package:frontend/models/user/user_model.dart';
 import 'package:json_annotation/json_annotation.dart';
+
+import 'enum/appointment_status_enum.dart';
 
 part 'appointment_model.g.dart';
 
@@ -20,7 +22,7 @@ class AppointmentModel {
   late TimeOfDay endTime;
   late AppointmentStatusEnum? status;
   @JsonKey(toJson: _userToUuid)
-  late UserModel? patient;
+  late PatientModel? patient;
   @JsonKey(toJson: _userToUuid)
   late UserModel? doctor;
   @JsonKey(toJson: _userToUuid)
@@ -30,6 +32,8 @@ class AppointmentModel {
   @JsonKey(toJson: _procedureTypeToUuidList, fromJson: _procedureTypeFromJson)
   late List<ProcedureTypeModel>? procedureTypes;
   late List<ToothCode>? teeth;
+  @JsonKey(fromJson: _clinicalExamFromJson, includeToJson: false)
+  late ClinicalExamModel? clinicalExam;
   @JsonKey(includeToJson: false)
   late String? message;
 
@@ -45,26 +49,30 @@ class AppointmentModel {
       this.doctor,
       this.nurse,
       this.procedureTypes,
-      this.message,
-      this.teeth});
+      this.teeth,
+      this.clinicalExam});
 
-  factory AppointmentModel.empty(DateTime date) {
+  factory AppointmentModel.empty({DateTime? date}) {
     return AppointmentModel(
       uuid: "",
       notes: "",
-      date: date,
+      date: date ?? DateTime.now(),
       startTime: TimeOfDay(hour: 0, minute: 0),
       endTime: TimeOfDay(hour: 0, minute: 0),
-      patient: UserModel.empty(),
+      patient: PatientModel.empty(),
       doctor: UserModel.empty(),
       nurse: UserModel.empty(),
       appointmentType: AppointmentTypeModel.empty(),
       procedureTypes: [],
       teeth: [],
+      clinicalExam: ClinicalExamModel.empty(),
     );
   }
 
-  factory AppointmentModel.fromJson(Map<String, dynamic> json) => _$AppointmentModelFromJson(json);
+  factory AppointmentModel.fromJson(Map<String, dynamic> json) {
+    print(json["procedureTypes"]);
+    return _$AppointmentModelFromJson(json);
+  }
 
   Map<String, dynamic> toJson() => _$AppointmentModelToJson(this);
 
@@ -87,14 +95,18 @@ class AppointmentModel {
 
   static String _timeOfDayToString(TimeOfDay time) => "${time.hour.toString().padLeft(2, "0")}:${time.minute.toString().padLeft(2, "0")}";
 
-  static List<ToothCode> _fromJsonTeeth(dynamic json) =>
-      (json as List<dynamic>).map((e) => ToothCode.fromString(e)).toList();
-
-  static List<String> _toJsonTeeth(List<ToothCode> teeth) => teeth.map((e) => e.toUpperCase()).toList();
-
-  static List<ProcedureTypeModel>? _procedureTypeFromJson(List<Map<String, dynamic>>? procedureTypes) {
+  static List<ProcedureTypeModel>? _procedureTypeFromJson(List<dynamic>? procedureTypes) {
     if (procedureTypes == null) return null;
     return procedureTypes.map((e) => ProcedureTypeModel.fromJson(e)).toList();
   }
 
+  static ClinicalExamModel? _clinicalExamFromJson(Map<String, dynamic>? json) {
+    if (json == null) return ClinicalExamModel.empty();
+    return ClinicalExamModel.fromJson(json);
+  }
+
+  @override
+  String toString() {
+    return 'AppointmentModel{uuid: $uuid, notes: $notes, date: $date, startTime: $startTime, endTime: $endTime, status: $status, patient: $patient, doctor: $doctor, nurse: $nurse, appointmentType: $appointmentType, procedureTypes: $procedureTypes, teeth: $teeth, clinicalExam: $clinicalExam, message: $message}';
+  }
 }

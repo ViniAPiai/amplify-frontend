@@ -10,10 +10,12 @@ enum AppointmentStatusEnum {
   ),
   @JsonValue("SCHEDULED")
   scheduled("SCHEDULED", Colors.blue),
-  @JsonValue("PATIENT_IN_THE_CLINIC")
-  patientInTheClinic("PATIENT_IN_THE_CLINIC", Colors.grey),
+  @JsonValue("ARRIVED")
+  arrived("ARRIVED", AppColors.primary),
+  @JsonValue("IN_PROGRESS")
+  inProgress("IN_PROGRESS", Colors.deepPurpleAccent),
   @JsonValue("FINISHED")
-  finished("FINISHED", AppColors.secondary),
+  finished("FINISHED", AppColors.gray2),
   @JsonValue("CANCELLED")
   cancelled("CANCELLED", Colors.redAccent);
 
@@ -29,7 +31,7 @@ enum AppointmentStatusEnum {
       case "SCHEDULED":
         return AppointmentStatusEnum.scheduled;
       case "PATIENT_IN_THE_CLINIC":
-        return AppointmentStatusEnum.patientInTheClinic;
+        return AppointmentStatusEnum.arrived;
       case "FINISHED":
         return AppointmentStatusEnum.finished;
       case "CANCELLED":
@@ -45,12 +47,14 @@ enum AppointmentStatusEnum {
         return AppointmentStatusEnum.waitingForClinicConfirmation;
       case Colors.blue:
         return AppointmentStatusEnum.scheduled;
-      case Colors.grey:
-        return AppointmentStatusEnum.patientInTheClinic;
-      case AppColors.secondary:
+      case AppColors.primary:
+        return AppointmentStatusEnum.arrived;
+      case AppColors.gray2:
         return AppointmentStatusEnum.finished;
       case Colors.redAccent:
         return AppointmentStatusEnum.cancelled;
+      case Colors.deepPurpleAccent:
+        return AppointmentStatusEnum.inProgress;
       default:
         return AppointmentStatusEnum.waitingForClinicConfirmation;
     }

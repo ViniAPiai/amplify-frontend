@@ -58,7 +58,7 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
                       builder: (context, child) {
                         return Theme(
                           data: ThemeData(
-                            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.secondary),
+                            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
                           ),
                           child: child!,
                         );
@@ -143,7 +143,7 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
             padding: EdgeInsets.all(8),
             height: 70,
             decoration:
-                BoxDecoration(border: Border.all(color: Color(0xffe0e1e1)), color: date == DateTime.now() ? AppColors.secondary : AppColors.gray),
+                BoxDecoration(border: Border.all(color: Color(0xffe0e1e1)), color: date == DateTime.now() ? AppColors.primary : AppColors.gray),
             child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(text: "$day ", style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500), children: [
@@ -169,16 +169,23 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
       ),
       onDateTap: (date) => sideBarProvider.openOrCloseNewAppointmentModal(context: context, date: date),
       onEventTap: (events, date) {
+        print(events.first.color);
         switch (AppointmentStatusEnum.fromColor(events.first.color)) {
           case AppointmentStatusEnum.waitingForClinicConfirmation:
-            // provider.confirmConsultation(context, events.first);
             break;
           case AppointmentStatusEnum.cancelled:
             break;
           case AppointmentStatusEnum.scheduled:
-          case AppointmentStatusEnum.patientInTheClinic:
+            sideBarProvider.openOrCloseAppointmentDetailsModal(context: context, uuid: (events.first.event as AppointmentModel).uuid!);
+            break;
+          case AppointmentStatusEnum.arrived:
+            sideBarProvider.openOrCloseAppointmentDetailsModal(context: context, uuid: (events.first.event as AppointmentModel).uuid!);
+            break;
           case AppointmentStatusEnum.finished:
             sideBarProvider.openOrCloseNewAppointmentModal(context: context);
+            break;
+          case AppointmentStatusEnum.inProgress:
+            sideBarProvider.openOrCloseAppointmentDetailsModal(context: context, uuid: (events.first.event as AppointmentModel).uuid!);
         }
       },
       eventTileBuilder: (date, events, boundary, startDuration, endDuration) {

@@ -2,11 +2,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/models/agenda_request.model.dart';
+import 'package:frontend/models/appointment/clinical_exam/clinical_exam.model.dart';
 import 'package:frontend/models/appointment_type/appointment_type.model.dart';
 import 'package:frontend/models/auth/auth_request_model.dart';
 import 'package:frontend/models/auth/auth_response_model.dart';
 import 'package:frontend/models/clinic/clinic_country.dart';
-import 'package:frontend/models/consultation/appointment_model.dart';
+import 'package:frontend/models/appointment/appointment_model.dart';
 import 'package:frontend/models/dentist_free_time/dentist_free_time_response.dart';
 import 'package:frontend/models/dentist_free_time_request.dart';
 import 'package:frontend/models/language/language.model.dart';
@@ -40,7 +41,7 @@ abstract class ApiClient {
     /// Appointment endpoints
 
     @POST("/erp/appointment/clinic")
-    Future<AppointmentModel> insertAppointment(@Body() AppointmentModel data);
+    Future<AppointmentModel> insertAppointment(@Body() Map<String, dynamic> data);
 
     @GET('/erp/appointment/type/all')
     Future<List<AppointmentTypeModel>> getAppointmentTypes();
@@ -50,6 +51,24 @@ abstract class ApiClient {
 
     @GET('/erp/procedure/type/all')
     Future<List<ProcedureTypeModel>> getProcedureTypes();
+
+    @GET('/erp/appointment/{uuid}')
+    Future<AppointmentModel> findAppointmentByUuid(@Path("uuid") String uuid);
+    
+    @PATCH('/erp/appointment/clinic/in_progress/{uuid}')
+    Future<AppointmentModel> inProgressAppointmentByClinic(@Path("uuid") String uuid);
+
+    @PATCH('/erp/appointment/clinic/patient_arrived/{uuid}')
+    Future<AppointmentModel> patientArrivedAppointmentByClinic(@Path("uuid") String uuid);
+
+    @PATCH('/erp/appointment/clinic/finish/{uuid}')
+    Future<AppointmentModel> finishAppointmentByClinic(@Path("uuid") String uuid);
+
+    @PATCH('/erp/appointment/clinic/cancel/{uuid}')
+    Future<AppointmentModel> cancelAppointmentByClinic(@Path("uuid") String uuid);
+
+    @PATCH('/erp/appointment/patient/cancel/{uuid}')
+    Future<AppointmentModel> cancelAppointmentByPatient(@Path("uuid") String uuid);
 
     /// Dentist endpoints
 
@@ -81,5 +100,10 @@ abstract class ApiClient {
 
     @GET('/erp/clinic/country')
     Future<ClinicCountry> getCountry();
+
+    /// Clinical exam endpoints
+
+    @POST('/erp/clinical_exam/{uuid}')
+    Future<ClinicalExamModel> insertOrUpdateClinicalExam(@Body() ClinicalExamModel data, @Path("uuid") String uuid);
 
 }

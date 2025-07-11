@@ -34,24 +34,21 @@ PatientModel _$PatientModelFromJson(Map<String, dynamic> json) => PatientModel(
 
 Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
     <String, dynamic>{
-      if (instance.uuid case final value?) 'uuid': value,
+      'uuid': instance.uuid,
       'fullName': instance.fullName,
-      if (instance.email case final value?) 'email': value,
-      if (instance.documentNumber case final value?) 'documentNumber': value,
-      if (instance.createdAt?.toIso8601String() case final value?)
-        'createdAt': value,
-      if (instance.updatedAt?.toIso8601String() case final value?)
-        'updatedAt': value,
-      if (instance.roleName case final value?) 'roleName': value,
-      if (instance.languageCode case final value?) 'languageCode': value,
+      'email': instance.email,
+      'documentNumber': instance.documentNumber,
+      'createdAt': instance.createdAt?.toIso8601String(),
+      'updatedAt': instance.updatedAt?.toIso8601String(),
+      'roleName': instance.roleName,
+      'languageCode': instance.languageCode,
       'gender': instance.gender,
       'birthDate': instance.birthDate.toIso8601String(),
       'phoneNumber': instance.phoneNumber,
       'healthNumber': instance.healthNumber,
       'nationalRegistry': instance.nationalRegistry,
-      if (instance.nationalRegistryExpirationDate?.toIso8601String()
-          case final value?)
-        'nationalRegistryExpirationDate': value,
+      'nationalRegistryExpirationDate':
+          instance.nationalRegistryExpirationDate?.toIso8601String(),
       'occupation': instance.occupation,
       'address': instance.address,
     };

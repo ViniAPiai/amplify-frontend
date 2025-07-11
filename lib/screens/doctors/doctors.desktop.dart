@@ -166,7 +166,7 @@ class _DoctorsDesktop extends StatelessWidget {
                             cells: [
                               DataCell(ListTile(
                                 leading: CircleAvatar(
-                                    backgroundColor: AppColors.secondary,
+                                    backgroundColor: AppColors.primary,
                                     child: Center(
                                       child: Text("IG"),
                                     )),
@@ -220,7 +220,7 @@ class _DoctorsDesktop extends StatelessWidget {
               totalPages: 10,
               currentPage: 1,
               fontFamily: GoogleFonts.interTextTheme().toString(),
-              controlButtonColor: AppColors.secondary,
+              controlButtonColor: AppColors.primary,
             )
           ],
         ),

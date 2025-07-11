@@ -10,12 +10,27 @@ AppointmentTypeModel _$AppointmentTypeModelFromJson(
         Map<String, dynamic> json) =>
     AppointmentTypeModel(
       uuid: json['uuid'] as String,
-      name: json['name'] as String,
+      name: $enumDecode(_$AppointmentTypeEnumEnumMap, json['name']),
     );
 
 Map<String, dynamic> _$AppointmentTypeModelToJson(
         AppointmentTypeModel instance) =>
     <String, dynamic>{
       'uuid': instance.uuid,
-      'name': instance.name,
+      'name': _$AppointmentTypeEnumEnumMap[instance.name]!,
     };
+
+const _$AppointmentTypeEnumEnumMap = {
+  AppointmentTypeEnum.generalConsult: 'generalConsult',
+  AppointmentTypeEnum.routineCheckup: 'routineCheckup',
+  AppointmentTypeEnum.emergency: 'emergency',
+  AppointmentTypeEnum.followUp: 'followUp',
+  AppointmentTypeEnum.evaluation: 'evaluation',
+  AppointmentTypeEnum.treatment: 'treatment',
+  AppointmentTypeEnum.procedure: 'procedure',
+  AppointmentTypeEnum.teleconsultation: 'teleconsultation',
+  AppointmentTypeEnum.preSurgeryConsult: 'preSurgeryConsult',
+  AppointmentTypeEnum.postSurgeryCheck: 'postSurgeryCheck',
+  AppointmentTypeEnum.pediatricCheckup: 'pediatricCheckup',
+  AppointmentTypeEnum.secondOpinion: 'secondOpinion',
+};

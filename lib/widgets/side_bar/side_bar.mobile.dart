@@ -17,7 +17,7 @@ class _SideBarMobile extends State<_$SideBarMobile> {
     SideBarProvider provider = Provider.of<SideBarProvider>(context);
     return Scaffold(
       key: provider.key,
-      appBar: provider.showNewAppointmentModal ? null : widget.appBar,
+      appBar: provider.showNewAppointmentModal || provider.showAppointmentDetailsModal ? null : widget.appBar,
       backgroundColor: AppColors.gray,
       drawer: Drawer(
         backgroundColor: AppColors.black,
@@ -97,12 +97,27 @@ class _SideBarMobile extends State<_$SideBarMobile> {
            */
           if (provider.showNewAppointmentModal)
             ChangeNotifierProvider(
-                create: (_) => NewAppointmentProvider(provider.selectedDate!),
+                create: (_) => NewAppointmentProvider(date: provider.selectedDate!, uuid: provider.uuid),
                 child: AnimatedPositioned(
                     bottom: 0,
                     top: null,
                     duration: Duration(milliseconds: 500),
-                    child: Container(height: context.height, width: context.width, color: Colors.white, child: NewAppointmentModal())))
+                    child: Container(height: context.height, width: context.width, color: Colors.white, child: NewAppointmentModal()))),
+
+          /**
+           * Modal for viewing consultation details
+           */
+          if (provider.showAppointmentDetailsModal)
+            ChangeNotifierProvider(
+              create: (_) => AppointmentDetailsProvider(provider.appointment),
+              child: AnimatedPositioned(
+                  duration: Duration(milliseconds: 500),
+                  child: Container(
+                      height: context.height,
+                      width: context.width,
+                      decoration: BoxDecoration(color: AppColors.gray, borderRadius: BorderRadius.circular(6)),
+                      child: provider.showClinicalExamModal ? AppointmentClinicalExamModal() : AppointmentDetailsModal(width: context.width,))),
+            ),
         ],
       ),
       bottomNavigationBar: widget.bottom,

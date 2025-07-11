@@ -1,4 +1,5 @@
 
+import 'package:frontend/models/procedure_type/procedure_type.enum.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'procedure_type.model.g.dart';
@@ -7,9 +8,11 @@ part 'procedure_type.model.g.dart';
 class ProcedureTypeModel {
 
   late String uuid;
-  late String name;
+  late ProcedureTypeEnum name;
+  late double basePrice;
+  late int time;
 
-  ProcedureTypeModel({required this.uuid, required this.name});
+  ProcedureTypeModel(this.uuid, this.name, this.basePrice, this.time);
 
   factory ProcedureTypeModel.fromJson(Map<String, dynamic> json) =>
       _$ProcedureTypeModelFromJson(json);

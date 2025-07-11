@@ -105,13 +105,76 @@ class _SideBarDesktop extends State<_$SideBarDesktop> {
            */
           if (provider.showNewAppointmentModal)
             ChangeNotifierProvider(
-              create: (_) => NewAppointmentProvider(provider.selectedDate!),
+              create: (_) => NewAppointmentProvider(date: provider.selectedDate!, uuid: provider.uuid),
               child: AnimatedPositioned(
-                  right: 0,
-                  left: null,
+                  right: 16,
+                  bottom: 16,
+                  top: 16,
                   duration: Duration(milliseconds: 500),
-                  child: Container(height: context.height, width: 600, color: Colors.white, child: NewAppointmentModal())),
-            )
+                  child: Container(
+                      height: context.height,
+                      width: 600,
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6)),
+                      child: NewAppointmentModal())),
+            ),
+
+          /**
+           * Modal for viewing clinical exam
+           */
+          if (provider.showAppointmentDetailsModal)
+            ChangeNotifierProvider(
+                create: (_) => AppointmentDetailsProvider(provider.appointment),
+                child: AnimatedPositioned(
+                    right: provider.showClinicalExamModal
+                        ? provider.appointmentDetailsModalRightPosition * (-1) + 16
+                        : provider.appointmentDetailsModalRightPosition,
+                    bottom: 16,
+                    top: 16,
+                    duration: Duration(milliseconds: 500),
+                    child: Container(
+                        height: context.height,
+                        width: 700,
+                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6)),
+                        child: AppointmentClinicalExamModal()))),
+
+          /**
+           * Modal for viewing tooth selection
+           */
+          /*if (provider.showAppointmentDetailsModal)
+            ChangeNotifierProvider(
+                create: (_) => AppointmentDetailsProvider(provider.appointment),
+                child: AnimatedPositioned(
+                    right: provider.showToothSelectionModal
+                        ? provider.appointmentDetailsModalRightPosition * (-1) + 16
+                        : provider.showClinicalExamModal
+                            ? provider.appointmentDetailsModalRightPosition - 16
+                            : 16,
+                    bottom: 16,
+                    top: 16,
+                    duration: Duration(milliseconds: 500),
+                    child: Container(
+                        height: context.height,
+                        width: 700,
+                        decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(6)),
+                        child: AppointmentToothSelectedModal(width: 700)))),*/
+
+          /**
+           * Modal for viewing consultation details
+           */
+          if (provider.showAppointmentDetailsModal)
+            ChangeNotifierProvider(
+              create: (_) => AppointmentDetailsProvider(provider.appointment),
+              child: AnimatedPositioned(
+                  right: provider.appointmentDetailsModalRightPosition,
+                  bottom: 16,
+                  top: 16,
+                  duration: Duration(milliseconds: 500),
+                  child: Container(
+                      height: context.height,
+                      width: 700,
+                      decoration: BoxDecoration(color: AppColors.gray, borderRadius: BorderRadius.circular(6)),
+                      child: AppointmentDetailsModal(width: 700,))),
+            ),
         ],
       ),
     );

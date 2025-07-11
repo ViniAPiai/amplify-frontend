@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/enums/tooth_code.dart';
 import 'package:frontend/models/appointment_type/appointment_type.model.dart';
-import 'package:frontend/models/consultation/appointment_model.dart';
+import 'package:frontend/models/appointment/appointment_model.dart';
 import 'package:frontend/models/dentist_free_time/time_range.dart';
 import 'package:frontend/models/dentist_free_time_request.dart';
 import 'package:frontend/models/page_request_model.dart';
+import 'package:frontend/models/patient/patient_model.dart';
 import 'package:frontend/models/procedure_type/procedure_type.model.dart';
 import 'package:frontend/models/user/user_model.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
 import 'package:frontend/services/api_service.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
@@ -42,8 +42,8 @@ class NewAppointmentProvider extends ChangeNotifier {
   late List<AppointmentTypeModel> filteredAppointmentTypes = [];
   List<int> teethSelected = [];
 
-  NewAppointmentProvider(DateTime date) {
-    load(date);
+  NewAppointmentProvider({required DateTime date, required String uuid}) {
+    load(date, uuid);
   }
 
   @override
@@ -52,8 +52,12 @@ class NewAppointmentProvider extends ChangeNotifier {
     clear();
   }
 
-  void load(DateTime date) async{
-    model = AppointmentModel.empty(date);
+  void load(DateTime date, String uuid) async{
+    if(uuid.isEmpty){
+      model = AppointmentModel.empty(date: date);
+    } else {
+      model = await (await ApiService.create()).client.findAppointmentByUuid(uuid);
+    }
     (await ApiService.create()).client.getAppointmentTypes().then((value) {
       appointmentTypes = value;
       filteredAppointmentTypes = value;
@@ -91,7 +95,7 @@ class NewAppointmentProvider extends ChangeNotifier {
       isRegistering = true;
       notifyListeners();
       try {
-        model = await (await ApiService.create()).client.insertAppointment(model);
+        model = await (await ApiService.create()).client.insertAppointment(model.toJsonForInsert());
         notifyListeners();
         isRegistering = false;
         notifyListeners();
@@ -103,11 +107,13 @@ class NewAppointmentProvider extends ChangeNotifier {
           showProgressBar: true,
           style: ToastificationStyle.minimal,
           type: ToastificationType.success,
-          primaryColor: AppColors.secondary,
+          primaryColor: AppColors.primary,
         );
-        Provider.of<AgendaProvider>(context, listen: false).loadEventsByDate(model.date);
+        context.read<AgendaProvider>().loadEventsByDate(model.date);
         Provider.of<SideBarProvider>(context, listen: false).openOrCloseNewAppointmentModal(context: context);
       } catch (e) {
+        print(e);
+
         isRegistering = false;
         notifyListeners();
         toastification.show(
@@ -143,23 +149,23 @@ class NewAppointmentProvider extends ChangeNotifier {
     isLoadingNurses = true;
     isLoadingProcedureTypes = true;
     isLoadingAppointmentTypes = true;
-    model = AppointmentModel.empty(DateTime.now());
+    model = AppointmentModel.empty();
     notifyListeners();
   }
 
   bool validate() {
     bool isValidated = true;
     String message = "";
-    if (page == 0 && (model.patient!.fullName.isEmpty || model.patient!.uuid.isEmpty)) {
+    if (page == 0 && (model.patient!.fullName.isEmpty || model.patient!.uuid!.isEmpty)) {
       isValidated = false;
       message = "É necessário selecionar um paciente";
     } else if (page == 1 && model.appointmentType!.uuid.isEmpty) {
       isValidated = false;
       message = "É necessário selecionar um tipo de consulta";
-    } else if (page == 2 && model.procedureTypes.isEmpty) {
+    } else if (page == 2 && model.procedureTypes!.isEmpty) {
       isValidated = false;
       message = "É necessário selecionar ao menos um procedimento";
-    } else if (page == 3 && model.doctor!.uuid.isEmpty) {
+    } else if (page == 3 && model.doctor!.uuid!.isEmpty) {
       isValidated = false;
       message = "É necessário selecionar um dentista";
     } else if (page == 5 && model.startTime.hour == 0 && model.startTime.minute == 0 && model.endTime.hour == 0 && model.endTime.minute == 0) {
@@ -205,17 +211,17 @@ class NewAppointmentProvider extends ChangeNotifier {
   }
 
   void filterProcedureTypes(String searchTerm) {
-    filteredProcedureTypes = procedureTypes.where((element) => element.name.toLowerCase().contains(searchTerm.toLowerCase())).toList();
+    filteredProcedureTypes = procedureTypes.where((element) => element.name.name.toLowerCase().contains(searchTerm.toLowerCase())).toList();
     notifyListeners();
   }
 
   void filterAppointmentTypes(String searchTerm) {
-    filteredAppointmentTypes = appointmentTypes.where((element) => element.name.toLowerCase().contains(searchTerm.toLowerCase())).toList();
+    filteredAppointmentTypes = appointmentTypes.where((element) => element.name.name.toLowerCase().contains(searchTerm.toLowerCase())).toList();
     notifyListeners();
   }
 
   void getFreeTime() async{
-    if (model.doctor!.uuid != null && model.doctor!.uuid.isNotEmpty && model.procedureTypes.isNotEmpty) {
+    if (model.doctor!.uuid != null && model.doctor!.uuid!.isNotEmpty && model.procedureTypes!.isNotEmpty) {
       (await ApiService.create()).client
           .freeTime(
               model.doctor!.uuid!, DentistFreeTimeRequest(date: model.date, procedureTypeUuids: model.procedureTypes!.map((e) => e.uuid).toList()))
@@ -236,14 +242,14 @@ class NewAppointmentProvider extends ChangeNotifier {
 
   void removeProcedureType(ProcedureTypeModel model) {
     this.model.procedureTypes!.remove(model);
-    if (this.model.procedureTypes.isEmpty) {
+    if (this.model.procedureTypes!.isEmpty) {
       timeRanges = [];
     }
     notifyListeners();
   }
 
   void updatePatient(UserModel model) {
-    this.model.patient = model;
+    this.model.patient = PatientModel.fromUserModel(model);
     notifyListeners();
   }
 
@@ -276,13 +282,13 @@ class NewAppointmentProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void addTeeth(ToothCode tooth) {
+  void addTooth(ToothCode tooth) {
     model.teeth!.add(tooth);
     notifyListeners();
   }
 
-  void removeTeeth(ToothCode tooth) {
-    model.teeth!.add(tooth);
+  void removeTooth(ToothCode tooth) {
+    model.teeth!.remove(tooth);
     notifyListeners();
   }
 

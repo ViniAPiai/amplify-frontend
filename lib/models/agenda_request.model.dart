@@ -1,5 +1,5 @@
 
-import 'package:frontend/models/consultation/appointment_interval_enum.dart';
+import 'package:frontend/models/appointment/enum/appointment_interval_enum.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'agenda_request.model.g.dart';

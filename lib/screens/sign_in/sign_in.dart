@@ -12,7 +12,7 @@ import 'package:frontend/services/api_service.dart';
 import 'package:frontend/widgets/form/label.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:katana_router/katana_router.dart';
+
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:frontend/l10n/app_localizations.dart';

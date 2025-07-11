@@ -21,14 +21,8 @@ import 'package:frontend/l10n/app_localizations.dart';
 import 'package:toastification/toastification.dart';
 
 
-/*@appRoute
-final appRouter = AutoRouter(
-  initialQuery: SignInPage.query(),
-);*/
-
 void main() async {
   const envFile = String.fromEnvironment('ENV', defaultValue: 'assets/.env');
-  print(envFile);
   await dotenv.load(fileName: envFile);
   usePathUrlStrategy();
   ResponsiveSizingConfig.instance.setCustomBreakpoints(
@@ -74,7 +68,7 @@ class MyAppState extends State<MyApp> {
               colorScheme: ColorScheme.fromSeed(seedColor: Color(0xff2b660b)),
               primaryColor: Color(0xff73d53f),
               useMaterial3: true,
-              textTheme: GoogleFonts.interTextTheme(),
+              textTheme: GoogleFonts.montserratTextTheme(),
               canvasColor: Colors.white,
             ),
             locale: value.locale,

@@ -1,12 +1,19 @@
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:toastification/toastification.dart';
 
 class DioErrorInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     switch (err.type) {
       case DioExceptionType.connectionTimeout:
-        print("Erro: Conexão expirada");
+        toastification.show(
+          style: ToastificationStyle.minimal,
+          type: ToastificationType.error,
+          title: Text("Erro"),
+          description: Text("Erro de conexão"),
+        );
         break;
       case DioExceptionType.sendTimeout:
         print("Erro: Timeout no envio");
