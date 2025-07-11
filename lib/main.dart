@@ -21,14 +21,8 @@ import 'package:frontend/l10n/app_localizations.dart';
 import 'package:toastification/toastification.dart';
 
 
-/*@appRoute
-final appRouter = AutoRouter(
-  initialQuery: SignInPage.query(),
-);*/
-
 void main() async {
   const envFile = String.fromEnvironment('ENV', defaultValue: 'assets/.env');
-  print(envFile);
   await dotenv.load(fileName: envFile);
   usePathUrlStrategy();
   ResponsiveSizingConfig.instance.setCustomBreakpoints(

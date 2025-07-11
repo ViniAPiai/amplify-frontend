@@ -13,7 +13,7 @@ import 'package:frontend/widgets/teeth/dental_arch_painter.dart';
 import 'package:frontend/widgets/teeth/teeth_paths.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:katana_router/katana_router.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:frontend/l10n/app_localizations.dart';
 
@@ -296,9 +296,9 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      trailing: provider.model.procedureTypes.contains(procedureType) ? FaIcon(Icons.check_circle, color: AppColors.primary) : null,
+                      trailing: provider.model.procedureTypes!.contains(procedureType) ? FaIcon(Icons.check_circle, color: AppColors.primary) : null,
                       onTap: () {
-                        if (provider.model.procedureTypes.contains(procedureType)) {
+                        if (provider.model.procedureTypes!.contains(procedureType)) {
                           provider.removeProcedureType(procedureType);
                         } else {
                           provider.addProcedureType(procedureType);
@@ -505,7 +505,7 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
                 final paths = entry.value;
                 if (paths.any((path) => path.contains(touchPosition))) {
                   setState(() {
-                    if (provider.model.teeth.contains(entry.key)) {
+                    if (provider.model.teeth!.contains(entry.key)) {
                       provider.removeTooth(entry.key);
                     } else {
                       provider.addTooth(entry.key);

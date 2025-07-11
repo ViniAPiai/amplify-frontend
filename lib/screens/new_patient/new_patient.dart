@@ -28,7 +28,7 @@ import 'package:frontend/widgets/text/header_title.dart';
 import 'package:frontend/widgets/locale_changer/locale_changer.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:intl/intl.dart';
-import 'package:katana_router/katana_router.dart';
+
 import 'package:panara_dialogs/panara_dialogs.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';

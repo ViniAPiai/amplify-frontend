@@ -28,7 +28,7 @@ import 'package:frontend/widgets/locale_changer/locale_changer.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:google_fonts/google_fonts.dart';
-import 'package:katana_router/katana_router.dart';
+
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';

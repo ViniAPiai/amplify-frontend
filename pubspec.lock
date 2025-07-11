@@ -30,14 +30,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.6.0"
-  asn1lib:
-    dependency: transitive
-    description:
-      name: asn1lib
-      sha256: "1c296cd268f486cabcc3930e9b93a8133169305f18d722916e675959a88f6d2c"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.5.9"
   async:
     dependency: transitive
     description:
@@ -58,10 +50,10 @@ packages:
     dependency: transitive
     description:
       name: bloc
-      sha256: "6f1b87b6eca9041d5672b6e29273cd1594db48ebb66fd2471066e9f3c3a516bd"
+      sha256: "52c10575f4445c61dd9e0cafcc6356fdd827c4c64dd7945ef3c4105f6b6ac189"
       url: "https://pub.dev"
     source: hosted
-    version: "7.2.1"
+    version: "9.0.0"
   boolean_selector:
     dependency: transitive
     description:
@@ -254,14 +246,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.4.0"
-  encrypt:
-    dependency: transitive
-    description:
-      name: encrypt
-      sha256: "62d9aa4670cc2a8798bab89b39fc71b6dfbacf615de6cf5001fb39f7e4a996a2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "5.0.3"
   equatable:
     dependency: transitive
     description:
@@ -308,13 +292,13 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_bloc:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: flutter_bloc
-      sha256: cdd1351ced09eeb46cfa7946e095b7679344af927415ca9cd972928fa6d5b23f
+      sha256: cf51747952201a455a1c840f8171d273be009b932c75093020f9af64f2123e38
       url: "https://pub.dev"
     source: hosted
-    version: "7.3.3"
+    version: "9.1.1"
   flutter_dotenv:
     dependency: "direct main"
     description:
@@ -323,14 +307,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.2.1"
-  flutter_easy_dropdown:
-    dependency: "direct main"
-    description:
-      name: flutter_easy_dropdown
-      sha256: "33d3575cbd59bcbcf44f50e12aff4efa19da2363910866fc2452302940154ebb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.3"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -498,54 +474,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "6.9.3"
-  katana:
-    dependency: transitive
-    description:
-      name: katana
-      sha256: "80b630dc9b4cdeb08dc16b2a41d668c7056acc26663b36b8550c4780c3d27de9"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.18.1"
-  katana_builder:
-    dependency: transitive
-    description:
-      name: katana_builder
-      sha256: "2564e7e3783896bdedee4eb85ceba5954fd557f18239330fd6bb343f942b93dc"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.2"
-  katana_logger:
-    dependency: transitive
-    description:
-      name: katana_logger
-      sha256: "7f7298cc6d76c2b5bcb30b4b75e0a662cafe4b7b5c0de7d1cfabde83879d26f8"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.5.1"
-  katana_router:
-    dependency: "direct main"
-    description:
-      name: katana_router
-      sha256: "94c77d532c54064af86a0405db0ca51e56d1109f3473ebb4b1fe28a80c088bfb"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.6.2"
-  katana_router_annotation:
-    dependency: transitive
-    description:
-      name: katana_router_annotation
-      sha256: "1938688e247f1d1a9f36eb44b1e7b3177b52abfc70b9aac2593c715cf67c3c90"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.1.17"
-  katana_router_builder:
-    dependency: "direct main"
-    description:
-      name: katana_router_builder
-      sha256: "3a40cada0559c261b04395a718e170f9342837067d55e8aacd43264c0199dd42"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.10"
   leak_tracker:
     dependency: transitive
     description:
@@ -666,14 +594,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  pagination_view:
-    dependency: transitive
-    description:
-      name: pagination_view
-      sha256: a769bae5879ff7063ac7a97c52cc4d2092472663c7561f41bb0889d5a9f663a2
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.0"
   panara_dialogs:
     dependency: "direct main"
     description:
@@ -778,14 +698,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.8"
-  pointycastle:
-    dependency: transitive
-    description:
-      name: pointycastle
-      sha256: "4be0097fcf3fd3e8449e53730c631200ebc7b88016acecab2b0da2f0149222fe"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.9.1"
   pool:
     dependency: transitive
     description:
@@ -826,14 +738,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.0"
-  recase:
-    dependency: transitive
-    description:
-      name: recase
-      sha256: e4eb4ec2dcdee52dcf99cb4ceabaffc631d7424ee55e56f280bc039737f89213
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.1.0"
   responsive_builder:
     dependency: "direct main"
     description:

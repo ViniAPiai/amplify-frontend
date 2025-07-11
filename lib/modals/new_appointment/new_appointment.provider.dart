@@ -13,7 +13,6 @@ import 'package:frontend/screens/agenda/agenda.dart';
 import 'package:frontend/services/api_service.dart';
 import 'package:frontend/widgets/side_bar/side_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:katana_router/katana_router.dart';
 import 'package:provider/provider.dart';
 import 'package:toastification/toastification.dart';
 
@@ -157,16 +156,16 @@ class NewAppointmentProvider extends ChangeNotifier {
   bool validate() {
     bool isValidated = true;
     String message = "";
-    if (page == 0 && (model.patient!.fullName.isEmpty || model.patient!.uuid.isEmpty)) {
+    if (page == 0 && (model.patient!.fullName.isEmpty || model.patient!.uuid!.isEmpty)) {
       isValidated = false;
       message = "É necessário selecionar um paciente";
     } else if (page == 1 && model.appointmentType!.uuid.isEmpty) {
       isValidated = false;
       message = "É necessário selecionar um tipo de consulta";
-    } else if (page == 2 && model.procedureTypes.isEmpty) {
+    } else if (page == 2 && model.procedureTypes!.isEmpty) {
       isValidated = false;
       message = "É necessário selecionar ao menos um procedimento";
-    } else if (page == 3 && model.doctor!.uuid.isEmpty) {
+    } else if (page == 3 && model.doctor!.uuid!.isEmpty) {
       isValidated = false;
       message = "É necessário selecionar um dentista";
     } else if (page == 5 && model.startTime.hour == 0 && model.startTime.minute == 0 && model.endTime.hour == 0 && model.endTime.minute == 0) {
@@ -222,7 +221,7 @@ class NewAppointmentProvider extends ChangeNotifier {
   }
 
   void getFreeTime() async{
-    if (model.doctor!.uuid != null && model.doctor!.uuid.isNotEmpty && model.procedureTypes.isNotEmpty) {
+    if (model.doctor!.uuid != null && model.doctor!.uuid!.isNotEmpty && model.procedureTypes!.isNotEmpty) {
       (await ApiService.create()).client
           .freeTime(
               model.doctor!.uuid!, DentistFreeTimeRequest(date: model.date, procedureTypeUuids: model.procedureTypes!.map((e) => e.uuid).toList()))
@@ -243,7 +242,7 @@ class NewAppointmentProvider extends ChangeNotifier {
 
   void removeProcedureType(ProcedureTypeModel model) {
     this.model.procedureTypes!.remove(model);
-    if (this.model.procedureTypes.isEmpty) {
+    if (this.model.procedureTypes!.isEmpty) {
       timeRanges = [];
     }
     notifyListeners();
