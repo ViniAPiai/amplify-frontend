@@ -24,6 +24,7 @@ dependencies:
   dash_flags: ^0.1.1
   datepicker_dropdown: ^0.1.7
   dio: ^5.4.0
+  equatable: ^2.0.7
   flutter_bloc: ^9.1.1
   flutter_dotenv: ^5.2.1
   flutter_svg: ^2.1.0
