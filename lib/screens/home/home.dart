@@ -1,5 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/bloc/side_bar/side_bar_bloc.dart';
+import 'package:frontend/bloc/side_bar/side_bar_event.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/enums/tooth_code.dart';
@@ -11,8 +13,6 @@ import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-
-part 'home.provider.dart';
 part 'home.mobile.dart';
 part 'home.tablet.dart';
 part 'home.desktop.dart';

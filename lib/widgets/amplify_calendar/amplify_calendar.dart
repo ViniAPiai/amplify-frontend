@@ -1,8 +1,16 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:calendar_view/calendar_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:frontend/bloc/agenda/agenda_bloc.dart';
+import 'package:frontend/bloc/agenda/agenda_event.dart';
+import 'package:frontend/bloc/agenda/agenda_state.dart';
+import 'package:frontend/bloc/locale/locale_bloc.dart';
+import 'package:frontend/bloc/side_bar/side_bar_bloc.dart';
+import 'package:frontend/bloc/side_bar/side_bar_event.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/locale_provider.dart';
+import 'package:frontend/extension/locale_extension.dart';
 import 'package:frontend/extension/utils_extension.dart';
 import 'package:frontend/models/appointment/appointment_model.dart';
 import 'package:frontend/models/appointment/enum/appointment_status_enum.dart';
@@ -39,9 +47,9 @@ class AmplifyCalendar extends StatefulWidget {
 class _AmplifyCalendarScreen extends State<AmplifyCalendar> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<AgendaProvider>(
-        builder: (context, provider, child) {
-          switch (widget.selectedIndex ?? provider.selectedIndex) {
+    return BlocBuilder<AgendaBloc, AgendaState>(
+        builder: (context, state) {
+          switch (widget.selectedIndex ?? state.selectedIndex) {
             case 0:
               return _$AmplifyCalendarDay();
             case 1:

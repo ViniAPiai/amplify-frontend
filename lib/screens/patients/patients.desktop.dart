@@ -6,7 +6,6 @@ class _$PatientsDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     PatientsProvider provider = Provider.of<PatientsProvider>(context);
-    AgendaProvider agendaProvider = Provider.of<AgendaProvider>(context);
     SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
     return SideBar(

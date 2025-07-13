@@ -5,8 +5,6 @@ class _$HomeTabletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HomeProvider provider = Provider.of<HomeProvider>(context);
-    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     return SideBar(
         appBar: PreferredSize(
           preferredSize: Size(context.width, 100),
@@ -22,7 +20,7 @@ class _$HomeTabletPage extends StatelessWidget {
                   Padding(
                       padding: const EdgeInsets.only(bottom: 8),
                       child: IconButton(
-                        onPressed: () => sideBarProvider.key.currentState!.openDrawer(),
+                        onPressed: () => context.read<SideBarBloc>().add(OpenSideBar()),
                         icon: Icon(
                           Icons.menu,
                           color: AppColors.grayBlack,

@@ -18,7 +18,7 @@ class Routes {
   static GoRouter getRoutes(BuildContext context) {
     return GoRouter(
       initialLocation: SignInPage.route,
-      redirect: (BuildContext context, GoRouterState state) {
+      /*redirect: (BuildContext context, GoRouterState state) {
         final authNotifier = context.read<AuthNotifier>();
         final isLoggedIn = authNotifier.isLoggedIn;
         final path = state.matchedLocation;
@@ -42,11 +42,11 @@ class Routes {
         }
 
         if (isLoggedIn && isPublic) {
-          return AgendaPage.route;
+          return HomePage.route;
         }
 
         return null;
-      },
+      },*/
       routes: [
         GoRoute(
           name: SignInPage.routeName,

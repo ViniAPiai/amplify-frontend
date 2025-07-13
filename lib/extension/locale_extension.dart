@@ -8,6 +8,10 @@ extension LocaleExtension on BuildContext {
   String get languageCode => locale.languageCode; // Ex: "pt"
   String? get countryCode => locale.countryCode; // Ex: "BR"
 
+  String getLocaleString(Locale locale) {
+    return "${locale.languageCode}${locale.countryCode != null ? "_${locale.countryCode}" : ""}";
+  }
+
   PatternValidator validatorPostalCode(String? country) {
     String cc = countryCode ?? 'PT';
     if(country != null) {
