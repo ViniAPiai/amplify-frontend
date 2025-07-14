@@ -6,7 +6,7 @@ class NewPatientProvider extends ChangeNotifier {
   bool showPassword = false;
   String? tecCity;
   String? tecState;
-  String tecCountry = "";
+  String  tecCountry = "";
   String? tecGender;
   TextEditingController tecEmail = TextEditingController(text: "vini@gmail.com");
   TextEditingController tecFullName = TextEditingController(text: "Vinicius");

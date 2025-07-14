@@ -15,6 +15,7 @@ import 'package:frontend/models/page_request_model.dart';
 import 'package:frontend/models/page_response_model.dart';
 import 'package:frontend/models/patient/patient_model.dart';
 import 'package:frontend/models/procedure_type/procedure_type.model.dart';
+import 'package:frontend/models/simple/simple_response.dart';
 import 'package:frontend/models/user/user_model.dart';
 import 'package:retrofit/error_logger.dart';
 import 'package:retrofit/http.dart';
@@ -105,5 +106,17 @@ abstract class ApiClient {
 
     @POST('/erp/clinical_exam/{uuid}')
     Future<ClinicalExamModel> insertOrUpdateClinicalExam(@Body() ClinicalExamModel data, @Path("uuid") String uuid);
+    
+    /// Address endpoints
+
+    @GET('/erp/country/all')
+    Future<List<SimpleResponse>> getCountries();
+
+    @GET('/erp/state/all/{uuid}')
+    Future<List<SimpleResponse>> getStates(@Path("uuid") String uuid);
+
+    @GET('/erp/city/all/{uuid}')
+    Future<List<SimpleResponse>> getCities(@Path("uuid") String uuid);
+
 
 }
