@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/assets.dart';
 import 'package:frontend/widgets/form/register_patient/birthday_date_form_field.dart';
 import 'package:frontend/widgets/form/register_patient/city_form_field.dart';
@@ -25,6 +26,7 @@ import 'package:frontend/widgets/form/register_patient/postal_code_form_field.da
 import 'package:frontend/widgets/form/register_patient/state_form_field.dart';
 import 'package:frontend/widgets/form/register_patient/street_form_field.dart';
 import 'package:frontend/widgets/locale_changer/locale_changer.dart';
+import 'package:frontend/widgets/timeline/timeline.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -33,6 +35,8 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'dart:convert';
+
+import 'package:timeline_tile/timeline_tile.dart';
 
 part 'sign_up.provider.dart';
 part 'sign_up.mobile.dart';

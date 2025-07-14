@@ -47,7 +47,7 @@ dependencies:
   syncfusion_flutter_datepicker: ^28.2.4
   shared_preferences: ^2.3.5
   smooth_page_indicator: ^1.2.0+3
-  timelines_plus: ^1.0.7
+  timeline_tile: ^2.0.0
   toastification: ^3.0.2
   toggle_switch: ^2.3.0
 
