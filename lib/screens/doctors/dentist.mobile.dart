@@ -1,4 +1,4 @@
-part of 'doctors.dart';
+part of 'dentist.dart';
 
 class _DoctorsMobile extends StatelessWidget {
 
@@ -6,9 +6,7 @@ class _DoctorsMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    DoctorsProvider provider = Provider.of<DoctorsProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
-    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     return SideBar(
       appBar: PreferredSize(
           preferredSize: Size(context.width, 175),

@@ -11,6 +11,7 @@ import 'package:frontend/models/appointment/appointment_model.dart';
 import 'package:frontend/models/dentist_free_time/dentist_free_time_response.dart';
 import 'package:frontend/models/dentist_free_time_request.dart';
 import 'package:frontend/models/language/language.model.dart';
+import 'package:frontend/models/message/message_model.dart';
 import 'package:frontend/models/page_request_model.dart';
 import 'package:frontend/models/page_response_model.dart';
 import 'package:frontend/models/patient/patient_model.dart';
@@ -84,8 +85,8 @@ abstract class ApiClient {
 
     /// Patient endpoints
 
-    @POST('/erp/patient/insert_by_clinic')
-    Future<String> insertByClinic(@Body() PatientModel patient);
+    @POST('/erp/patient/insert_or_update_by_clinic')
+    Future<MessageModel> insertOrUpdateByClinic(@Body() PatientModel patient);
 
     @GET('/erp/patient/{uuid}')
     Future<PatientModel> findById(@Path("uuid") String uuid);

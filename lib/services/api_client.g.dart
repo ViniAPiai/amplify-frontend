@@ -479,26 +479,26 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<String> insertByClinic(PatientModel patient) async {
+  Future<MessageModel> insertOrUpdateByClinic(PatientModel patient) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(patient.toJson());
-    final _options = _setStreamType<String>(
+    final _options = _setStreamType<MessageModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/erp/patient/insert_by_clinic',
+            '/erp/patient/insert_or_update_by_clinic',
             queryParameters: queryParameters,
             data: _data,
           )
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
-    final _result = await _dio.fetch<String>(_options);
-    late String _value;
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late MessageModel _value;
     try {
-      _value = _result.data!;
+      _value = MessageModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:frontend/l10n/app_localizations.dart';
 
 extension LocaleExtension on BuildContext {
   Locale get locale => Localizations.localeOf(this);
@@ -32,6 +33,19 @@ extension LocaleExtension on BuildContext {
         return PatternValidator(RegExp(r'^\d{5}-?\d{3}$'), errorText: "Um Código Postal válido deve ser informado");
       default:
         return PatternValidator(RegExp(r'^\d{4}-\d{3}$'), errorText: "Um Código Postal válido deve ser informado");
+    }
+  }
+
+  String convert(String value) {
+    AppLocalizations t = AppLocalizations.of(this)!;
+    switch(value) {
+      case 'brazil':
+        return t.brazil;
+      case 'portugal':
+        return t.portugal;
+      case 'usa':
+      default:
+        return '';
     }
   }
 

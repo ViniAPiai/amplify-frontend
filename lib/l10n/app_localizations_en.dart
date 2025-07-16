@@ -30,7 +30,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get complement => 'Complement';
 
   @override
-  String get district => 'District';
+  String get neighborhood => 'Neighborhood';
 
   @override
   String get city => 'City';
@@ -60,7 +60,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get documentNumber => 'NINo';
 
   @override
-  String get documentNumberExpirationDate => 'Document Number Expiration Date';
+  String get nationalRegistry => 'Cartão Nacional de Identidade';
 
   @override
   String get occupation => 'Occupation';
@@ -209,7 +209,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get newPatient => 'New Patient';
 
   @override
+  String get updatePatient => 'Update Patient';
+
+  @override
   String get register => 'Register';
+
+  @override
+  String get update => 'Update';
 
   @override
   String get edit => 'Edit';
@@ -236,6 +242,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cancel => 'Cancel';
 
   @override
+  String get next => 'Next';
+
+  @override
   String get newAppointment => 'New Appointment';
 
   @override
@@ -252,6 +261,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get teeth => 'Teeth';
+
+  @override
+  String get basicInformation => 'Basic Information';
+
+  @override
+  String get address => 'Address';
+
+  @override
+  String get personalInformation => 'Personal Information';
+
+  @override
+  String get brazil => 'Brazil';
+
+  @override
+  String get portugal => 'Portugal';
 
   @override
   String thePatientRequestedAnConsultation(Object name) {

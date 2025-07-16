@@ -17,6 +17,7 @@ class _SignInMobileScreen extends State<_$SignInMobile> {
       body: BlocListener<SignInBloc, SignInState>(
         listener: (context, state) {
           if(state.success) {
+            context.read<AuthBloc>().add(LoggedIn());
             context.go(HomePage.route);
           } else if (state.error != null) {
             toastification.show(

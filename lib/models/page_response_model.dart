@@ -10,7 +10,7 @@ class PageResponseModel<T> {
   late int totalPages;
   late int totalItems;
 
-  PageResponseModel({required this.content, required this.totalPages, required this.totalItems});
+  PageResponseModel({this.content = const [], this.totalPages = 0, this.totalItems = 0});
 
   factory PageResponseModel.fromJson(Map<String, dynamic> json, T Function(Object? json) fromJsonT) => _$PageResponseModelFromJson(json, fromJsonT);
 

@@ -1,23 +1,50 @@
 import 'package:flutter/cupertino.dart';
+import 'package:frontend/bloc/auth/auth_bloc.dart';
+import 'package:frontend/bloc/auth/auth_state.dart';
+import 'package:frontend/configs/auth_refresh.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
-import 'package:frontend/screens/doctors/doctors.dart';
+import 'package:frontend/screens/doctors/dentist.dart';
 import 'package:frontend/screens/home/home.dart';
-import 'package:frontend/screens/patient_detail/patient_detail.dart';
 import 'package:frontend/screens/patients/patients.dart';
-import 'package:frontend/screens/new_patient/new_patient.dart';
 import 'package:frontend/screens/sign_in/sign_in.dart';
 import 'package:frontend/screens/sign_up/sign_up.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:provider/provider.dart';
-
-import 'auth_notifier.dart';
 
 class Routes {
 
-  static GoRouter getRoutes(BuildContext context) {
+  static GoRouter getRoutes(AuthBloc bloc) {
     return GoRouter(
       initialLocation: SignInPage.route,
+      refreshListenable: AuthRefresh(bloc.stream),
+      redirect: (BuildContext context, GoRouterState state) {
+        final authState = bloc.state;
+        final isLoggedIn = authState is Authenticated;
+        final isLoading = authState is AuthLoading;
+        final path = state.matchedLocation;
+
+        const exactPublicPaths = [
+          SignInPage.route,
+          SignUpPage.route,
+          '/recovery_password',
+        ];
+
+        final patternPublicPaths = [RegExp(r'^/reset-password/[^/]+$'),];
+
+        final isExactPublic = exactPublicPaths.contains(path);
+        final matchesPattern = patternPublicPaths.any((regex) => regex.hasMatch(path));
+        final isPublic = isExactPublic || matchesPattern;
+
+        if (!isLoggedIn && !isPublic) {
+          return SignInPage.route;
+        }
+
+        if (isLoggedIn && isPublic) {
+          return PatientsPage.route;
+        }
+
+        return null;
+      },
       /*redirect: (BuildContext context, GoRouterState state) {
         final authNotifier = context.read<AuthNotifier>();
         final isLoggedIn = authNotifier.isLoggedIn;
@@ -48,26 +75,26 @@ class Routes {
         return null;
       },*/
       routes: [
-        GoRoute(
-          name: SignInPage.routeName,
-          path: SignInPage.route,
-          builder: (context, state) => SignInPage(),
-        ),
-        GoRoute(
-          name: HomePage.routeName,
-          path: HomePage.route,
-          builder: (context, state) => HomePage(),
-        ),
-        GoRoute(
-          name: SignUpPage.routeName,
-          path: SignUpPage.route,
-          builder: (context, state) => SignUpPage(),
-        ),
-        GoRoute(
-          name: PatientsPage.routeName,
-          path: PatientsPage.route,
-          builder: (context, state) => PatientsPage(),
-          /*routes: [
+      GoRoute(
+      name: SignInPage.routeName,
+      path: SignInPage.route,
+      builder: (context, state) => SignInPage(),
+    ),
+    GoRoute(
+    name: HomePage.routeName,
+    path: HomePage.route,
+    builder: (context, state) => HomePage(),
+    ),
+    GoRoute(
+    name: SignUpPage.routeName,
+    path: SignUpPage.route,
+    builder: (context, state) => SignUpPage(),
+    ),
+    GoRoute(
+    name: PatientsPage.routeName,
+    path: PatientsPage.route,
+    builder: (context, state) => PatientsPage(),
+    /*routes: [
             GoRoute(
               name: NewPatientPage.routeName,
               path: NewPatientPage.routeName,
@@ -79,18 +106,19 @@ class Routes {
               builder: (context, state) => PatientDetailPage(uuid: state.pathParameters['uuid']!),
             ),
           ]*/
-        ),
-        GoRoute(
-          name: AgendaPage.routeName,
-          path: AgendaPage.route,
-          builder: (context, state) => AgendaPage(),
-        ),
-        GoRoute(
-          name: DoctorsPage.routeName,
-          path: DoctorsPage.route,
-          builder: (context, state) => DoctorsPage(),
-        ),
-      ],
+    ),
+    GoRoute(
+    name: AgendaPage.routeName,
+    path: AgendaPage.route,
+    builder: (context, state) => AgendaPage(),
+    ),
+    GoRoute(
+    name: DoctorsPage.routeName,
+    path: DoctorsPage.route,
+    builder: (context, state) => DoctorsPage(),
+    ),
+    ]
+    ,
 
     );
   }

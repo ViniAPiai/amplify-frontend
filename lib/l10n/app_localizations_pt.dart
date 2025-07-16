@@ -30,7 +30,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get complement => 'Complemento';
 
   @override
-  String get district => 'Distrito';
+  String get neighborhood => 'Distrito';
 
   @override
   String get city => 'Cidade';
@@ -60,7 +60,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get documentNumber => 'NIF';
 
   @override
-  String get documentNumberExpirationDate => 'Data de Validade do NIF';
+  String get nationalRegistry => 'Cartão Nacional de Identidade';
 
   @override
   String get occupation => 'Ocupação';
@@ -209,7 +209,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get newPatient => 'Novo Paciente';
 
   @override
+  String get updatePatient => 'Atualizar Paciente';
+
+  @override
   String get register => 'Cadastrar';
+
+  @override
+  String get update => 'Atualizar';
 
   @override
   String get edit => 'Editar';
@@ -236,6 +242,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get cancel => 'Cancelar';
 
   @override
+  String get next => 'Próximo';
+
+  @override
   String get newAppointment => 'Nova Consulta';
 
   @override
@@ -252,6 +261,21 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get teeth => 'Dentes';
+
+  @override
+  String get basicInformation => 'Informações Básicas';
+
+  @override
+  String get address => 'Endereço';
+
+  @override
+  String get personalInformation => 'Informações Pessoais';
+
+  @override
+  String get brazil => 'Brasil';
+
+  @override
+  String get portugal => 'Portugal';
 
   @override
   String thePatientRequestedAnConsultation(Object name) {
@@ -348,7 +372,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get complement => 'Complemento';
 
   @override
-  String get district => 'Bairro';
+  String get neighborhood => 'Bairro';
 
   @override
   String get city => 'Cidade';
@@ -376,9 +400,6 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get documentNumber => 'CPF';
-
-  @override
-  String get documentNumberExpirationDate => 'Data de Validade do NIF';
 
   @override
   String get occupation => 'Ocupação';
@@ -526,7 +547,13 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get newPatient => 'Novo Paciente';
 
   @override
+  String get updatePatient => 'Atualizar Paciente';
+
+  @override
   String get register => 'Cadastrar';
+
+  @override
+  String get update => 'Atualizar';
 
   @override
   String get edit => 'Editar';
@@ -553,6 +580,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get cancel => 'Cancelar';
 
   @override
+  String get next => 'Próximo';
+
+  @override
   String get newAppointment => 'Nova Consulta';
 
   @override
@@ -569,6 +599,21 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get teeth => 'Dentes';
+
+  @override
+  String get basicInformation => 'Informações Básicas';
+
+  @override
+  String get address => 'Endereço';
+
+  @override
+  String get personalInformation => 'Informações Pessoais';
+
+  @override
+  String get brazil => 'Brasil';
+
+  @override
+  String get portugal => 'Portugal';
 
   @override
   String thePatientRequestedAnConsultation(Object name) {

@@ -14,14 +14,13 @@ import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:frontend/l10n/app_localizations.dart';
 
-part 'doctors.provider.dart';
-part 'doctors.mobile.dart';
-part 'doctors.tablet.dart';
-part 'doctors.desktop.dart';
+part 'dentist.mobile.dart';
+part 'dentist.tablet.dart';
+part 'dentist.desktop.dart';
 
 class DoctorsPage extends StatelessWidget {
 
-  static const String routeName = 'doctors';
+  static const String routeName = 'dentist';
   static const String route = '/$routeName';
 
   const DoctorsPage({super.key});

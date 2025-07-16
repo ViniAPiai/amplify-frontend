@@ -141,11 +141,11 @@ abstract class AppLocalizations {
   /// **'Complemento'**
   String get complement;
 
-  /// No description provided for @district.
+  /// No description provided for @neighborhood.
   ///
   /// In pt, this message translates to:
   /// **'Distrito'**
-  String get district;
+  String get neighborhood;
 
   /// No description provided for @city.
   ///
@@ -201,11 +201,11 @@ abstract class AppLocalizations {
   /// **'NIF'**
   String get documentNumber;
 
-  /// No description provided for @documentNumberExpirationDate.
+  /// No description provided for @nationalRegistry.
   ///
   /// In pt, this message translates to:
-  /// **'Data de Validade do NIF'**
-  String get documentNumberExpirationDate;
+  /// **'Cartão Nacional de Identidade'**
+  String get nationalRegistry;
 
   /// No description provided for @occupation.
   ///
@@ -477,11 +477,23 @@ abstract class AppLocalizations {
   /// **'Novo Paciente'**
   String get newPatient;
 
+  /// No description provided for @updatePatient.
+  ///
+  /// In pt, this message translates to:
+  /// **'Atualizar Paciente'**
+  String get updatePatient;
+
   /// No description provided for @register.
   ///
   /// In pt, this message translates to:
   /// **'Cadastrar'**
   String get register;
+
+  /// No description provided for @update.
+  ///
+  /// In pt, this message translates to:
+  /// **'Atualizar'**
+  String get update;
 
   /// No description provided for @edit.
   ///
@@ -531,6 +543,12 @@ abstract class AppLocalizations {
   /// **'Cancelar'**
   String get cancel;
 
+  /// No description provided for @next.
+  ///
+  /// In pt, this message translates to:
+  /// **'Próximo'**
+  String get next;
+
   /// No description provided for @newAppointment.
   ///
   /// In pt, this message translates to:
@@ -566,6 +584,36 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Dentes'**
   String get teeth;
+
+  /// No description provided for @basicInformation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Informações Básicas'**
+  String get basicInformation;
+
+  /// No description provided for @address.
+  ///
+  /// In pt, this message translates to:
+  /// **'Endereço'**
+  String get address;
+
+  /// No description provided for @personalInformation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Informações Pessoais'**
+  String get personalInformation;
+
+  /// No description provided for @brazil.
+  ///
+  /// In pt, this message translates to:
+  /// **'Brasil'**
+  String get brazil;
+
+  /// No description provided for @portugal.
+  ///
+  /// In pt, this message translates to:
+  /// **'Portugal'**
+  String get portugal;
 
   /// No description provided for @thePatientRequestedAnConsultation.
   ///

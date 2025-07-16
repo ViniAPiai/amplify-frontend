@@ -9,23 +9,20 @@ import 'package:frontend/bloc/new_appointment/new_appointment_bloc.dart';
 import 'package:frontend/bloc/new_appointment/new_appointment_event.dart';
 import 'package:frontend/bloc/side_bar/side_bar_bloc.dart';
 import 'package:frontend/bloc/side_bar/side_bar_state.dart';
+import 'package:frontend/bloc/sign_up/sign_up_bloc.dart';
+import 'package:frontend/bloc/sign_up/sign_up_event.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/configs/assets.dart';
 import 'package:frontend/modals/appointment_clinical_exam/appointment_clinical_exam.modal.dart';
 import 'package:frontend/modals/appointment_details/appointment_details.modal.dart';
-import 'package:frontend/models/appointment/appointment_model.dart';
-import 'package:frontend/models/appointment/clinical_exam/clinical_exam.model.dart';
+import 'package:frontend/modals/new_patient/new_patient.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
-import 'package:frontend/screens/doctors/doctors.dart';
+import 'package:frontend/screens/doctors/dentist.dart';
 import 'package:frontend/screens/patients/patients.dart';
 import 'package:frontend/modals/new_appointment/new_appointment.modal.dart';
-import 'package:frontend/services/api_service.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:responsive_builder/responsive_builder.dart';
-
-part 'side_bar.provider.dart';
 
 part 'side_bar.mobile.dart';
 

@@ -32,6 +32,15 @@ class ToggleAppointmentDetailsModal extends SideBarEvent {
 
 class ToggleClinicalExamModal extends SideBarEvent {}
 
+class ToggleNewPatientModal extends SideBarEvent {
+  final String uuid;
+
+  const ToggleNewPatientModal({this.uuid = ''});
+
+  @override
+  List<Object?> get props => [uuid];
+}
+
 class OpenEditAppointmentModal extends SideBarEvent {
   final String uuid;
 

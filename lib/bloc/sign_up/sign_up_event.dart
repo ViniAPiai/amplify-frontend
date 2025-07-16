@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:frontend/models/simple/simple_response.dart';
 
 abstract class SignUpEvent extends Equatable {
   const SignUpEvent();
@@ -7,7 +8,24 @@ abstract class SignUpEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class SignUpLoad extends SignUpEvent {}
+
+class SignUpEdit extends SignUpEvent {
+  final String patientUuid;
+
+  const SignUpEdit({required this.patientUuid});
+
+  @override
+  List<Object?> get props => [patientUuid];
+}
+
+class SignUpValidate extends SignUpEvent {}
+
 class SignUpSubmit extends SignUpEvent {}
+
+class PreviousStep extends SignUpEvent {}
+
+class NextStep extends SignUpEvent {}
 
 class LoadCountries extends SignUpEvent {}
 
@@ -24,33 +42,34 @@ class LoadCities extends SignUpEvent {
 }
 
 class UpdateCountry extends SignUpEvent {
-  final String country;
+  final SimpleResponse country;
 
-  const UpdateCountry(this.country);
+  const UpdateCountry({required this.country});
 
   @override
   List<Object?> get props => [country];
 }
 
 class UpdateState extends SignUpEvent {
-  final String state;
+  final SimpleResponse state;
 
-  const UpdateState(this.state);
+  const UpdateState({required this.state});
 
   @override
   List<Object?> get props => [state];
 }
 
 class UpdateCity extends SignUpEvent {
-  final String city;
+  final SimpleResponse city;
 
-  const UpdateCity(this.city);
+  const UpdateCity({required this.city});
 
   @override
   List<Object?> get props => [city];
 }
 
 class UpdateFields extends SignUpEvent {
+  final int? step;
   final bool? showPassword;
   final String? gender;
   final String? email;
@@ -61,9 +80,9 @@ class UpdateFields extends SignUpEvent {
   final String? street;
   final String? number;
   final String? complement;
-  final String? district;
+  final String? neighborhood;
   final String? zipCode;
-  final String? birthDate;
+  final DateTime? birthDate;
   final String? phoneNumber;
   final String? healthNumber;
   final String? nationalRegistry;
@@ -71,6 +90,7 @@ class UpdateFields extends SignUpEvent {
   final String? occupation;
 
   const UpdateFields({
+    this.step,
     this.showPassword,
     this.gender,
     this.email,
@@ -81,7 +101,7 @@ class UpdateFields extends SignUpEvent {
     this.street,
     this.number,
     this.complement,
-    this.district,
+    this.neighborhood,
     this.zipCode,
     this.birthDate,
     this.phoneNumber,
@@ -93,6 +113,7 @@ class UpdateFields extends SignUpEvent {
 
   @override
   List<Object?> get props => [
+        step,
         showPassword,
         gender,
         email,
@@ -103,7 +124,7 @@ class UpdateFields extends SignUpEvent {
         street,
         number,
         complement,
-        district,
+        neighborhood,
         zipCode,
         birthDate,
         phoneNumber,

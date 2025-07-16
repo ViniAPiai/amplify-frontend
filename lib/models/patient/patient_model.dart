@@ -10,8 +10,6 @@ class PatientModel extends UserModel {
   late DateTime birthDate;
   late String phoneNumber;
   late String healthNumber;
-  late String nationalRegistry;
-  late DateTime? nationalRegistryExpirationDate;
   late String occupation;
   late AddressModel address;
 
@@ -20,8 +18,6 @@ class PatientModel extends UserModel {
       required this.birthDate,
       required this.phoneNumber,
       required this.healthNumber,
-      required this.nationalRegistry,
-      this.nationalRegistryExpirationDate,
       required this.occupation,
       required this.address,
       required super.uuid,
@@ -38,8 +34,6 @@ class PatientModel extends UserModel {
     birthDate: DateTime.now(),
     phoneNumber: "",
     healthNumber: "",
-    nationalRegistry: "",
-    nationalRegistryExpirationDate: DateTime.now(),
     occupation: '',
     address: AddressModel.empty,
   );
@@ -54,8 +48,6 @@ class PatientModel extends UserModel {
       birthDate: DateTime.now(),
       phoneNumber: "",
       healthNumber: "",
-      nationalRegistry: "",
-      nationalRegistryExpirationDate: DateTime.now(),
       occupation: '',
       address: AddressModel.empty,
     );

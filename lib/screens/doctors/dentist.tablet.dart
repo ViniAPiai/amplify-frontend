@@ -1,13 +1,11 @@
-part of 'doctors.dart';
+part of 'dentist.dart';
 
 class _DoctorsTablet extends StatelessWidget {
   const _DoctorsTablet();
 
   @override
   Widget build(BuildContext context) {
-    DoctorsProvider provider = Provider.of<DoctorsProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
-    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     return SideBar(
         appBar: PreferredSize(
             preferredSize: Size(context.width, 175),
@@ -25,7 +23,7 @@ class _DoctorsTablet extends StatelessWidget {
                       SizedBox(
                         width: 300,
                         child: TextFormField(
-                          controller: provider.tecSearch,
+                          controller: TextEditingController(),
                           decoration: InputDecoration(
                             border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                             hintText: AppLocalizations.of(context)!.searchPatientHint,

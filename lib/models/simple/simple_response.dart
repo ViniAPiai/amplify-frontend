@@ -15,4 +15,15 @@ class SimpleResponse {
 
   Map<String, dynamic> toJson() => _$SimpleResponseToJson(this);
 
+  @override
+  String toString() {
+    return 'SimpleResponse(uuid: $uuid, name: $name)';
+  }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) || other is SimpleResponse && runtimeType == other.runtimeType && uuid == other.uuid && name == other.name;
+
+  @override
+  int get hashCode => uuid.hashCode ^ name.hashCode;
 }

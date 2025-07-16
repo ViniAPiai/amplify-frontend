@@ -18,6 +18,7 @@ class _SignInDesktopScreen extends State<_$SignInDesktop> {
         body: BlocListener<SignInBloc, SignInState>(
           listener: (context, state) {
             if(state.success) {
+              context.read<AuthBloc>().add(LoggedIn());
               context.go(HomePage.route);
             }
           },

@@ -11,9 +11,10 @@ PageResponseModel<T> _$PageResponseModelFromJson<T>(
   T Function(Object? json) fromJsonT,
 ) =>
     PageResponseModel<T>(
-      content: (json['content'] as List<dynamic>).map(fromJsonT).toList(),
-      totalPages: (json['totalPages'] as num).toInt(),
-      totalItems: (json['totalItems'] as num).toInt(),
+      content: (json['content'] as List<dynamic>?)?.map(fromJsonT).toList() ??
+          const [],
+      totalPages: (json['totalPages'] as num?)?.toInt() ?? 0,
+      totalItems: (json['totalItems'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$PageResponseModelToJson<T>(
