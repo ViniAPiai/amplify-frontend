@@ -615,11 +615,11 @@ abstract class AppLocalizations {
   /// **'Portugal'**
   String get portugal;
 
-  /// No description provided for @thePatientRequestedAnConsultation.
+  /// No description provided for @thePatientRequestedAnAppointment.
   ///
   /// In pt, this message translates to:
   /// **'O paciente {name} solicitou uma consulta, confirmar?'**
-  String thePatientRequestedAnConsultation(Object name);
+  String thePatientRequestedAnAppointment(Object name);
 
   /// No description provided for @patientCreatedSuccessfully.
   ///
@@ -645,29 +645,29 @@ abstract class AppLocalizations {
   /// **'Paciente atualizado pela clínica com sucesso'**
   String get patientUpdatedByClinicSuccessfully;
 
-  /// No description provided for @consultationScheduledSuccessfully.
+  /// No description provided for @appointmentScheduledSuccessfully.
   ///
   /// In pt, this message translates to:
   /// **'Consulta agendada com sucesso'**
-  String get consultationScheduledSuccessfully;
+  String get appointmentScheduledSuccessfully;
 
-  /// No description provided for @consultationUpdatedSuccessfully.
+  /// No description provided for @appointmentUpdatedSuccessfully.
   ///
   /// In pt, this message translates to:
   /// **'Consulta atualizada com sucesso'**
-  String get consultationUpdatedSuccessfully;
+  String get appointmentUpdatedSuccessfully;
 
-  /// No description provided for @consultationDeletedSuccessfully.
+  /// No description provided for @appointmentDeletedSuccessfully.
   ///
   /// In pt, this message translates to:
   /// **'Consulta deletada com sucesso'**
-  String get consultationDeletedSuccessfully;
+  String get appointmentDeletedSuccessfully;
 
-  /// No description provided for @consultationConfirmedSuccessfully.
+  /// No description provided for @appointmentConfirmedSuccessfully.
   ///
   /// In pt, this message translates to:
   /// **'Consulta confirmada com sucesso'**
-  String get consultationConfirmedSuccessfully;
+  String get appointmentConfirmedSuccessfully;
 
   /// No description provided for @patientNotFoundException.
   ///
@@ -693,11 +693,11 @@ abstract class AppLocalizations {
   /// **'Paciente não pertence à clínica'**
   String get patientNotBelongToClinicException;
 
-  /// No description provided for @youAlreadyHaveAScheduledConsultationException.
+  /// No description provided for @youAlreadyHaveAScheduledAppointmentException.
   ///
   /// In pt, this message translates to:
   /// **'Você já tem uma consulta agendada'**
-  String get youAlreadyHaveAScheduledConsultationException;
+  String get youAlreadyHaveAScheduledAppointmentException;
 
   /// No description provided for @patientAlreadyInClinicException.
   ///
@@ -711,17 +711,53 @@ abstract class AppLocalizations {
   /// **'Médico não pertence à clínica'**
   String get doctorNotBelongToClinicException;
 
-  /// No description provided for @consultationAlreadyIsFinishedException.
+  /// No description provided for @appointmentAlreadyIsFinishedException.
   ///
   /// In pt, this message translates to:
   /// **'Consulta já está finalizada, não pode ser atualizado ou deletado'**
-  String get consultationAlreadyIsFinishedException;
+  String get appointmentAlreadyIsFinishedException;
 
-  /// No description provided for @consultationIsCancelledException.
+  /// No description provided for @appointmentIsCancelledException.
   ///
   /// In pt, this message translates to:
   /// **'Consulta está cancelada, não pode ser atualizado ou deletado'**
-  String get consultationIsCancelledException;
+  String get appointmentIsCancelledException;
+
+  /// No description provided for @emailOrPasswordIsIncorrectException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Email ou senha incorretos'**
+  String get emailOrPasswordIsIncorrectException;
+
+  /// No description provided for @accountIsLockedException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Conta bloqueada'**
+  String get accountIsLockedException;
+
+  /// No description provided for @youAreNotAuthorizedToThisResourceException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Você não está autorizado a acessar este recurso'**
+  String get youAreNotAuthorizedToThisResourceException;
+
+  /// No description provided for @sessionNonValidException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sessão não válida'**
+  String get sessionNonValidException;
+
+  /// No description provided for @sessionExpiredException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sessão expirada'**
+  String get sessionExpiredException;
+
+  /// No description provided for @unknownErrorException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Erro desconhecido'**
+  String get unknownErrorException;
 }
 
 class _AppLocalizationsDelegate

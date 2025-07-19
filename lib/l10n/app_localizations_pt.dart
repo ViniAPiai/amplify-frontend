@@ -278,7 +278,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get portugal => 'Portugal';
 
   @override
-  String thePatientRequestedAnConsultation(Object name) {
+  String thePatientRequestedAnAppointment(Object name) {
     return 'O paciente $name solicitou uma consulta, confirmar?';
   }
 
@@ -297,18 +297,18 @@ class AppLocalizationsPt extends AppLocalizations {
       'Paciente atualizado pela clínica com sucesso';
 
   @override
-  String get consultationScheduledSuccessfully =>
+  String get appointmentScheduledSuccessfully =>
       'Consulta agendada com sucesso';
 
   @override
-  String get consultationUpdatedSuccessfully =>
+  String get appointmentUpdatedSuccessfully =>
       'Consulta atualizada com sucesso';
 
   @override
-  String get consultationDeletedSuccessfully => 'Consulta deletada com sucesso';
+  String get appointmentDeletedSuccessfully => 'Consulta deletada com sucesso';
 
   @override
-  String get consultationConfirmedSuccessfully =>
+  String get appointmentConfirmedSuccessfully =>
       'Consulta confirmada com sucesso';
 
   @override
@@ -326,7 +326,7 @@ class AppLocalizationsPt extends AppLocalizations {
       'Paciente não pertence à clínica';
 
   @override
-  String get youAlreadyHaveAScheduledConsultationException =>
+  String get youAlreadyHaveAScheduledAppointmentException =>
       'Você já tem uma consulta agendada';
 
   @override
@@ -338,12 +338,31 @@ class AppLocalizationsPt extends AppLocalizations {
       'Médico não pertence à clínica';
 
   @override
-  String get consultationAlreadyIsFinishedException =>
+  String get appointmentAlreadyIsFinishedException =>
       'Consulta já está finalizada, não pode ser atualizado ou deletado';
 
   @override
-  String get consultationIsCancelledException =>
+  String get appointmentIsCancelledException =>
       'Consulta está cancelada, não pode ser atualizado ou deletado';
+
+  @override
+  String get emailOrPasswordIsIncorrectException => 'Email ou senha incorretos';
+
+  @override
+  String get accountIsLockedException => 'Conta bloqueada';
+
+  @override
+  String get youAreNotAuthorizedToThisResourceException =>
+      'Você não está autorizado a acessar este recurso';
+
+  @override
+  String get sessionNonValidException => 'Sessão não válida';
+
+  @override
+  String get sessionExpiredException => 'Sessão expirada';
+
+  @override
+  String get unknownErrorException => 'Erro desconhecido';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -616,7 +635,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get portugal => 'Portugal';
 
   @override
-  String thePatientRequestedAnConsultation(Object name) {
+  String thePatientRequestedAnAppointment(Object name) {
     return 'O paciente $name solicitou uma consulta, confirmar?';
   }
 
@@ -635,18 +654,18 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Paciente atualizado pela clínica com sucesso';
 
   @override
-  String get consultationScheduledSuccessfully =>
+  String get appointmentScheduledSuccessfully =>
       'Consulta agendada com sucesso';
 
   @override
-  String get consultationUpdatedSuccessfully =>
+  String get appointmentUpdatedSuccessfully =>
       'Consulta atualizada com sucesso';
 
   @override
-  String get consultationDeletedSuccessfully => 'Consulta deletada com sucesso';
+  String get appointmentDeletedSuccessfully => 'Consulta deletada com sucesso';
 
   @override
-  String get consultationConfirmedSuccessfully =>
+  String get appointmentConfirmedSuccessfully =>
       'Consulta confirmada com sucesso';
 
   @override
@@ -664,7 +683,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Paciente não pertence à clínica';
 
   @override
-  String get youAlreadyHaveAScheduledConsultationException =>
+  String get youAlreadyHaveAScheduledAppointmentException =>
       'Você já tem uma consulta agendada';
 
   @override
@@ -676,10 +695,29 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Médico não pertence à clínica';
 
   @override
-  String get consultationAlreadyIsFinishedException =>
+  String get appointmentAlreadyIsFinishedException =>
       'Consulta já está finalizada, não pode ser atualizado ou deletado';
 
   @override
-  String get consultationIsCancelledException =>
+  String get appointmentIsCancelledException =>
       'Consulta está cancelada, não pode ser atualizado ou deletado';
+
+  @override
+  String get emailOrPasswordIsIncorrectException => 'Email ou senha incorretos';
+
+  @override
+  String get accountIsLockedException => 'Conta bloqueada';
+
+  @override
+  String get youAreNotAuthorizedToThisResourceException =>
+      'Você não está autorizado a acessar este recurso';
+
+  @override
+  String get sessionNonValidException => 'Sessão não válida';
+
+  @override
+  String get sessionExpiredException => 'Sessão expirada';
+
+  @override
+  String get unknownErrorException => 'Erro desconhecido';
 }

@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:frontend/models/agenda_request.model.dart';
@@ -8,6 +7,7 @@ import 'package:frontend/models/auth/auth_request_model.dart';
 import 'package:frontend/models/auth/auth_response_model.dart';
 import 'package:frontend/models/clinic/clinic_country.dart';
 import 'package:frontend/models/appointment/appointment_model.dart';
+import 'package:frontend/models/crm/columns/columns.model.dart';
 import 'package:frontend/models/dentist_free_time/dentist_free_time_response.dart';
 import 'package:frontend/models/dentist_free_time_request.dart';
 import 'package:frontend/models/language/language.model.dart';
@@ -26,98 +26,131 @@ part 'api_client.g.dart';
 @RestApi()
 abstract class ApiClient {
 
-    factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
+  factory ApiClient(Dio dio, {String baseUrl}) = _ApiClient;
 
-    /// Access endpoints
+  /// Access endpoints
 
-    @POST("/auth/sign_in")
-    Future<AuthResponseModel> signIn(@Body() AuthRequestModel model);
+  @POST("/auth/sign_in")
+  Future<AuthResponseModel> signIn(@Body() AuthRequestModel model);
 
-    /// User endpoints
-    @GET("/users/me")
-    Future<UserModel> me();
+  /// User endpoints
+  @GET("/users/me")
+  Future<UserModel> me();
 
-    @PUT("/users/language/{code}")
-    Future<UserModel> updateLanguage(@Path("code") String code);
+  @PUT("/users/language/{code}")
+  Future<UserModel> updateLanguage(@Path("code") String code);
 
-    /// Appointment endpoints
+  /// Appointment endpoints
 
-    @POST("/erp/appointment/clinic")
-    Future<AppointmentModel> insertAppointment(@Body() Map<String, dynamic> data);
+  @POST("/erp/appointment/clinic")
+  Future<AppointmentModel> insertAppointment(@Body() Map<String, dynamic> data);
 
-    @GET('/erp/appointment/type/all')
-    Future<List<AppointmentTypeModel>> getAppointmentTypes();
+  @GET('/erp/appointment/type/all')
+  Future<List<AppointmentTypeModel>> getAppointmentTypes();
 
-    @POST('/erp/appointment/clinic/agenda')
-    Future<List<AppointmentModel>> secretaryAgenda(@Body() AgendaRequestModel data);
+  @POST('/erp/appointment/clinic/agenda')
+  Future<List<AppointmentModel>> secretaryAgenda(@Body() AgendaRequestModel data);
 
-    @GET('/erp/procedure/type/all')
-    Future<List<ProcedureTypeModel>> getProcedureTypes();
+  @GET('/erp/procedure/type/all')
+  Future<List<ProcedureTypeModel>> getProcedureTypes();
 
-    @GET('/erp/appointment/{uuid}')
-    Future<AppointmentModel> findAppointmentByUuid(@Path("uuid") String uuid);
-    
-    @PATCH('/erp/appointment/clinic/in_progress/{uuid}')
-    Future<AppointmentModel> inProgressAppointmentByClinic(@Path("uuid") String uuid);
+  @GET('/erp/appointment/{uuid}')
+  Future<AppointmentModel> findAppointmentByUuid(@Path("uuid") String uuid);
 
-    @PATCH('/erp/appointment/clinic/patient_arrived/{uuid}')
-    Future<AppointmentModel> patientArrivedAppointmentByClinic(@Path("uuid") String uuid);
+  @PATCH('/erp/appointment/clinic/in_progress/{uuid}')
+  Future<AppointmentModel> inProgressAppointmentByClinic(@Path("uuid") String uuid);
 
-    @PATCH('/erp/appointment/clinic/finish/{uuid}')
-    Future<AppointmentModel> finishAppointmentByClinic(@Path("uuid") String uuid);
+  @PATCH('/erp/appointment/clinic/patient_arrived/{uuid}')
+  Future<AppointmentModel> patientArrivedAppointmentByClinic(@Path("uuid") String uuid);
 
-    @PATCH('/erp/appointment/clinic/cancel/{uuid}')
-    Future<AppointmentModel> cancelAppointmentByClinic(@Path("uuid") String uuid);
+  @PATCH('/erp/appointment/clinic/finish/{uuid}')
+  Future<AppointmentModel> finishAppointmentByClinic(@Path("uuid") String uuid);
 
-    @PATCH('/erp/appointment/patient/cancel/{uuid}')
-    Future<AppointmentModel> cancelAppointmentByPatient(@Path("uuid") String uuid);
+  @PATCH('/erp/appointment/clinic/cancel/{uuid}')
+  Future<AppointmentModel> cancelAppointmentByClinic(@Path("uuid") String uuid);
 
-    /// Dentist endpoints
+  @PATCH('/erp/appointment/patient/cancel/{uuid}')
+  Future<AppointmentModel> cancelAppointmentByPatient(@Path("uuid") String uuid);
 
-    @GET('/erp/dentist/names')
-    Future<List<UserModel>> dentistNames();
+  /// Dentist endpoints
 
-    @POST('/erp/dentist/{uuid}/free-time')
-    Future<DentistFreeTimeResponse> freeTime(@Path("uuid") String uuid, @Body() DentistFreeTimeRequest data);
+  @GET('/erp/dentist/names')
+  Future<List<UserModel>> dentistNames();
 
-    @GET('/erp/nurse/names')
-    Future<List<UserModel>> nurseNames();
+  @POST('/erp/dentist/{uuid}/free-time')
+  Future<DentistFreeTimeResponse> freeTime(@Path("uuid") String uuid, @Body() DentistFreeTimeRequest data);
 
-    /// Patient endpoints
+  @GET('/erp/nurse/names')
+  Future<List<UserModel>> nurseNames();
 
-    @POST('/erp/patient/insert_or_update_by_clinic')
-    Future<MessageModel> insertOrUpdateByClinic(@Body() PatientModel patient);
+  /// Patient endpoints
 
-    @GET('/erp/patient/{uuid}')
-    Future<PatientModel> findById(@Path("uuid") String uuid);
+  @POST('/erp/patient/insert_or_update_by_clinic')
+  Future<MessageModel> insertOrUpdateByClinic(@Body() PatientModel patient);
 
-    @POST('/erp/patient/page/secretary')
-    Future<PageResponseModel<PatientModel>> patientSecretaryPagination(@Body() PageRequestModel data);
+  @GET('/erp/patient/{uuid}')
+  Future<PatientModel> findById(@Path("uuid") String uuid);
 
-    @POST('/erp/patient/names')
-    Future<List<UserModel>> patientNames(@Body() PageRequestModel data);
+  @POST('/erp/patient/page/secretary')
+  Future<PageResponseModel<PatientModel>> patientSecretaryPagination(@Body() PageRequestModel data);
 
-    @GET('/erp/language')
-    Future<List<LanguageModel>> getLanguages();
+  @POST('/erp/patient/names')
+  Future<List<UserModel>> patientNames(@Body() PageRequestModel data);
 
-    @GET('/erp/clinic/country')
-    Future<ClinicCountry> getCountry();
+  @GET('/erp/language')
+  Future<List<LanguageModel>> getLanguages();
 
-    /// Clinical exam endpoints
+  @GET('/erp/clinic/country')
+  Future<ClinicCountry> getCountry();
 
-    @POST('/erp/clinical_exam/{uuid}')
-    Future<ClinicalExamModel> insertOrUpdateClinicalExam(@Body() ClinicalExamModel data, @Path("uuid") String uuid);
-    
-    /// Address endpoints
+  /// Clinical exam endpoints
 
-    @GET('/erp/country/all')
-    Future<List<SimpleResponse>> getCountries();
+  @POST('/erp/clinical_exam/{uuid}')
+  Future<ClinicalExamModel> insertOrUpdateClinicalExam(@Body() ClinicalExamModel data, @Path("uuid") String uuid);
 
-    @GET('/erp/state/all/{uuid}')
-    Future<List<SimpleResponse>> getStates(@Path("uuid") String uuid);
+  /// Address endpoints
 
-    @GET('/erp/city/all/{uuid}')
-    Future<List<SimpleResponse>> getCities(@Path("uuid") String uuid);
+  @GET('/erp/country/all')
+  Future<List<SimpleResponse>> getCountries();
 
+  @GET('/erp/state/all/{uuid}')
+  Future<List<SimpleResponse>> getStates(@Path("uuid") String uuid);
+
+  @GET('/erp/city/all/{uuid}')
+  Future<List<SimpleResponse>> getCities(@Path("uuid") String uuid);
+
+
+  /// CRM ENDPOINTS
+
+  /// Columns endpoints
+
+  @POST('/crm/columns')
+  Future<MessageModel> insertColumns(Map<String, dynamic> json);
+
+  @PUT('/crm/columns/update')
+  Future<MessageModel> updateColumns(Map<String, dynamic> json);
+
+  @PUT('/crm/columns/change_position')
+  Future<MessageModel> changePositionColumns(Map<String, dynamic> json);
+
+  @GET('/crm/columns/all')
+  Future<List<ColumnsModel>> findAllColumns();
+
+  @DELETE('/crm/columns/{uuid}')
+  Future<MessageModel> deleteColumns(@Path("uuid") String uuid);
+
+  /// Card endpoints
+
+  @POST('/crm/card')
+  Future<MessageModel> insertCard(Map<String, dynamic> json);
+
+  @PUT('/crm/card/update')
+  Future<MessageModel> updateCard(Map<String, dynamic> json);
+
+  @PUT('/crm/card/change_position')
+  Future<MessageModel> changePositionCard(Map<String, dynamic> json);
+
+  @DELETE('/crm/card/{uuid}')
+  Future<MessageModel> deleteCard(@Path("uuid") String uuid);
 
 }

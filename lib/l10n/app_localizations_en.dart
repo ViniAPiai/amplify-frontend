@@ -278,8 +278,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get portugal => 'Portugal';
 
   @override
-  String thePatientRequestedAnConsultation(Object name) {
-    return 'The patient $name requested an consultation, confirm?';
+  String thePatientRequestedAnAppointment(Object name) {
+    return 'The patient $name requested an appointment, confirm?';
   }
 
   @override
@@ -297,20 +297,20 @@ class AppLocalizationsEn extends AppLocalizations {
       'Patient updated by clinic successfully';
 
   @override
-  String get consultationScheduledSuccessfully =>
-      'Consultation scheduled successfully';
+  String get appointmentScheduledSuccessfully =>
+      'Appointment scheduled successfully';
 
   @override
-  String get consultationUpdatedSuccessfully =>
-      'Consultation updated successfully';
+  String get appointmentUpdatedSuccessfully =>
+      'Appointment updated successfully';
 
   @override
-  String get consultationDeletedSuccessfully =>
-      'Consultation deleted successfully';
+  String get appointmentDeletedSuccessfully =>
+      'Appointment deleted successfully';
 
   @override
-  String get consultationConfirmedSuccessfully =>
-      'Consultation confirmed successfully';
+  String get appointmentConfirmedSuccessfully =>
+      'Appointment confirmed successfully';
 
   @override
   String get patientNotFoundException => 'Patient not found';
@@ -328,8 +328,8 @@ class AppLocalizationsEn extends AppLocalizations {
       'Patient not belongs to clinic';
 
   @override
-  String get youAlreadyHaveAScheduledConsultationException =>
-      'You already have a scheduled consultation';
+  String get youAlreadyHaveAScheduledAppointmentException =>
+      'You already have a scheduled appointment';
 
   @override
   String get patientAlreadyInClinicException =>
@@ -339,10 +339,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get doctorNotBelongToClinicException => 'Doctor not belongs to clinic';
 
   @override
-  String get consultationAlreadyIsFinishedException =>
-      'Consultation already is finished, cannot be updated or deleted';
+  String get appointmentAlreadyIsFinishedException =>
+      'Appointment already is finished, cannot be updated or deleted';
 
   @override
-  String get consultationIsCancelledException =>
-      'Consultation is cancelled, cannot be updated or deleted';
+  String get appointmentIsCancelledException =>
+      'Appointment is cancelled, cannot be updated or deleted';
+
+  @override
+  String get emailOrPasswordIsIncorrectException =>
+      'Email or password is incorrect';
+
+  @override
+  String get accountIsLockedException => 'Account is locked';
+
+  @override
+  String get youAreNotAuthorizedToThisResourceException =>
+      'You are not authorized to this resource';
+
+  @override
+  String get sessionNonValidException => 'Session non valid';
+
+  @override
+  String get sessionExpiredException => 'Session expired';
+
+  @override
+  String get unknownErrorException => 'Unknown error';
 }

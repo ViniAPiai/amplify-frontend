@@ -14,14 +14,14 @@ extension MessageExtension on BuildContext {
         return t.patientUpdatedSuccessfully;
       case "patientUpdatedByClinicSuccessfully":
         return t.patientUpdatedByClinicSuccessfully;
-      case "consultationScheduledSuccessfully":
-        return t.consultationScheduledSuccessfully;
-      case "consultationUpdatedSuccessfully":
-        return t.consultationUpdatedSuccessfully;
-      case "consultationDeletedSuccessfully":
-        return t.consultationDeletedSuccessfully;
-      case "consultationConfirmedSuccessfully":
-        return t.consultationConfirmedSuccessfully;
+      case "appointmentScheduledSuccessfully":
+        return t.appointmentScheduledSuccessfully;
+      case "appointmentUpdatedSuccessfully":
+        return t.appointmentUpdatedSuccessfully;
+      case "appointmentDeletedSuccessfully":
+        return t.appointmentDeletedSuccessfully;
+      case "appointmentConfirmedSuccessfully":
+        return t.appointmentConfirmedSuccessfully;
       //Exceptions
       case "patientNotFoundException":
         return t.patientNotFoundException;
@@ -31,16 +31,28 @@ extension MessageExtension on BuildContext {
         return t.patientUniqueDocumentNumberException;
       case "patientNotBelongToClinicException":
         return t.patientNotBelongToClinicException;
-      case "youAlreadyHaveAScheduledConsultationException":
-        return t.youAlreadyHaveAScheduledConsultationException;
+      case "youAlreadyHaveAScheduledAppointmentException":
+        return t.youAlreadyHaveAScheduledAppointmentException;
       case "patientAlreadyInClinicException":
         return t.patientAlreadyInClinicException;
       case "doctorNotBelongToClinicException":
         return t.doctorNotBelongToClinicException;
-      case "consultationAlreadyIsFinishedException":
-        return t.consultationAlreadyIsFinishedException;
-      case "consultationIsCancelledException":
-        return t.consultationIsCancelledException;
+      case "appointmentAlreadyIsFinishedException":
+        return t.appointmentAlreadyIsFinishedException;
+      case "appointmentIsCancelledException":
+        return t.appointmentIsCancelledException;
+      case "emailOrPasswordIsIncorrectException":
+        return t.emailOrPasswordIsIncorrectException;
+      case "accountIsLockedException":
+        return t.accountIsLockedException;
+      case "youAreNotAuthorizedToThisResourceException":
+        return t.youAreNotAuthorizedToThisResourceException;
+      case "sessionNonValidException":
+        return t.sessionNonValidException;
+      case "sessionExpiredException":
+        return t.sessionExpiredException;
+      case "unknownErrorException":
+        return t.unknownErrorException;
       default:
         return '';
     }

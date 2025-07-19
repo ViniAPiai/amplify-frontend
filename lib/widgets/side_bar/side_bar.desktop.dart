@@ -39,6 +39,11 @@ class _SideBarDesktop extends State<_$SideBarDesktop> {
                             height: 32,
                           ),
                           SideBarItem(
+                            title: "CRM",
+                            query: Crm.route,
+                            icon: Icons.developer_board,
+                          ),
+                          SideBarItem(
                             title: "Dashboard",
                             query: AgendaPage.route,
                             icon: FontAwesomeIcons.chartColumn,

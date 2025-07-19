@@ -14,6 +14,7 @@ import 'package:frontend/bloc/sign_up/sign_up_event.dart';
 import 'package:frontend/bloc/sign_up/sign_up_state.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/extension/locale_extension.dart';
+import 'package:frontend/extension/message_extension.dart';
 import 'package:frontend/extension/utils_extension.dart';
 import 'package:frontend/extension/widget_extension.dart';
 import 'package:frontend/l10n/app_localizations.dart';
@@ -123,7 +124,7 @@ class _NewPatientModalState extends State<NewPatientModal> {
         if (state.successSubmittingForm) {
           context.read<SideBarBloc>().add(ToggleNewPatientModal());
           toastification.show(
-              title: Text(context.convert(state.message.message!),
+              title: Text(context.getMessage(state.message.message!),
                   style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w400)),
               type: ToastificationType.success,
               style: ToastificationStyle.minimal,
