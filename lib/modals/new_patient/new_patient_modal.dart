@@ -133,109 +133,111 @@ class _NewPatientModalState extends State<NewPatientModal> {
         }
       },
       child: BlocBuilder<SignUpBloc, SignUpState>(builder: (context, state) {
-        return Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  state.patientUuid.isEmpty ? t.newPatient : t.updatePatient,
-                  style: GoogleFonts.montserrat(fontSize: 20, fontWeight: FontWeight.w700),
-                ),
-                Spacer(),
-                IconButton(onPressed: () => context.read<SideBarBloc>().add(ToggleNewPatientModal()), icon: Icon(Icons.close))
-              ],
-            ),
-            Divider(),
-            SizedBox(
-              width: widget.width,
-              height: context.height - 160,
-              child: Stepper(
-                  currentStep: state.step,
-                  type: StepperType.horizontal,
-                  physics: ClampingScrollPhysics(),
-                  elevation: 0,
-                  controlsBuilder: (context, details) {
-                    return Row(
-                      children: [
-                        if (state.step > 0)
-                          IconButton(
-                              onPressed: () => context.read<SignUpBloc>().add(PreviousStep()),
-                              icon: Icon(
-                                Icons.arrow_back_ios_new,
-                                color: AppColors.black,
-                                size: 24,
-                              )),
-                        Expanded(child: SizedBox()),
-                        if (state.step < 2)
-                          TextButton(
-                            onPressed: () {
-                              if ((state.step == 0 && (_formKeyBasicInformation.currentState?.validate() ?? false)) ||
-                                  (state.step == 1 && (_formKeyAddress.currentState?.validate() ?? false))) {
-                                context.read<SignUpBloc>().add(NextStep());
-                              }
-                            },
-                            child: Text(
-                              t.next,
-                              style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700),
-                            ),
-                          ),
-                        if (state.step == 2)
-                          TextButton(
+        return SafeArea(
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text(
+                    state.patientUuid.isEmpty ? t.newPatient : t.updatePatient,
+                    style: GoogleFonts.montserrat(fontSize: 20, fontWeight: FontWeight.w700),
+                  ),
+                  Spacer(),
+                  IconButton(onPressed: () => context.read<SideBarBloc>().add(ToggleNewPatientModal()), icon: Icon(Icons.close))
+                ],
+              ),
+              Divider(),
+              SizedBox(
+                width: widget.width,
+                height: context.height - 160,
+                child: Stepper(
+                    currentStep: state.step,
+                    type: StepperType.horizontal,
+                    physics: ClampingScrollPhysics(),
+                    elevation: 0,
+                    controlsBuilder: (context, details) {
+                      return Row(
+                        children: [
+                          if (state.step > 0)
+                            IconButton(
+                                onPressed: () => context.read<SignUpBloc>().add(PreviousStep()),
+                                icon: Icon(
+                                  Icons.arrow_back_ios_new,
+                                  color: AppColors.black,
+                                  size: 24,
+                                )),
+                          Expanded(child: SizedBox()),
+                          if (state.step < 2)
+                            TextButton(
                               onPressed: () {
-                                if (_formKeyPersonalInformation.currentState?.validate() ?? false) {
-                                  context.read<SignUpBloc>().add(SignUpSubmit());
+                                if ((state.step == 0 && (_formKeyBasicInformation.currentState?.validate() ?? false)) ||
+                                    (state.step == 1 && (_formKeyAddress.currentState?.validate() ?? false))) {
+                                  context.read<SignUpBloc>().add(NextStep());
                                 }
                               },
-                              child: Text(state.patientUuid.isEmpty ? t.register : t.update,
-                                  style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700)))
-                      ],
-                    );
-                  },
-                  steps: [
-                    Step(
-                      title: state.step == 0
-                          ? Text(
-                              t.basicInformation,
-                              style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700),
-                            )
-                          : const SizedBox(),
-                      state: state.step == 0 ? StepState.editing : StepState.complete,
-                      isActive: state.step == 0,
-                      stepStyle: StepStyle(
-                        color: state.step == 0 ? context.primaryColor : null,
+                              child: Text(
+                                t.next,
+                                style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          if (state.step == 2)
+                            TextButton(
+                                onPressed: () {
+                                  if (_formKeyPersonalInformation.currentState?.validate() ?? false) {
+                                    context.read<SignUpBloc>().add(SignUpSubmit());
+                                  }
+                                },
+                                child: Text(state.patientUuid.isEmpty ? t.register : t.update,
+                                    style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700)))
+                        ],
+                      );
+                    },
+                    steps: [
+                      Step(
+                        title: state.step == 0
+                            ? Text(
+                                t.basicInformation,
+                                style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700),
+                              )
+                            : const SizedBox(),
+                        state: state.step == 0 ? StepState.editing : StepState.complete,
+                        isActive: state.step == 0,
+                        stepStyle: StepStyle(
+                          color: state.step == 0 ? context.primaryColor : null,
+                        ),
+                        content: _basicInformation(),
                       ),
-                      content: _basicInformation(),
-                    ),
-                    Step(
-                        title: state.step == 1
-                            ? Text(
-                                t.address,
-                                style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700),
-                              )
-                            : const SizedBox(),
-                        state: state.step == 1 ? StepState.editing : StepState.indexed,
-                        isActive: state.step == 1,
-                        stepStyle: StepStyle(
-                          color: state.step == 1 ? context.primaryColor : null,
-                        ),
-                        content: _address()),
-                    Step(
-                        title: state.step == 2
-                            ? Text(
-                                t.personalInformation,
-                                style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700),
-                              )
-                            : const SizedBox(),
-                        state: state.step == 2 ? StepState.editing : StepState.indexed,
-                        isActive: state.step == 2,
-                        stepStyle: StepStyle(
-                          color: state.step == 2 ? context.primaryColor : null,
-                        ),
-                        content: _personalInformation()),
-                  ]),
-            ),
-          ],
-        ).paddingAll(context.isDesktop ? 32 : 8);
+                      Step(
+                          title: state.step == 1
+                              ? Text(
+                                  t.address,
+                                  style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700),
+                                )
+                              : const SizedBox(),
+                          state: state.step == 1 ? StepState.editing : StepState.indexed,
+                          isActive: state.step == 1,
+                          stepStyle: StepStyle(
+                            color: state.step == 1 ? context.primaryColor : null,
+                          ),
+                          content: _address()),
+                      Step(
+                          title: state.step == 2
+                              ? Text(
+                                  t.personalInformation,
+                                  style: GoogleFonts.montserrat(fontSize: 16, fontWeight: FontWeight.w700),
+                                )
+                              : const SizedBox(),
+                          state: state.step == 2 ? StepState.editing : StepState.indexed,
+                          isActive: state.step == 2,
+                          stepStyle: StepStyle(
+                            color: state.step == 2 ? context.primaryColor : null,
+                          ),
+                          content: _personalInformation()),
+                    ]),
+              ),
+            ],
+          ).paddingAll(context.isDesktop ? 32 : 8),
+        );
       }),
     );
   }
@@ -250,7 +252,7 @@ class _NewPatientModalState extends State<NewPatientModal> {
         builder: (context, state) {
           if (state.isLoadingClinicCountry) {
             return SizedBox(
-              width: 700,
+              width: widget.width,
               height: context.height - 320,
               child: Center(
                 child: CircularProgressIndicator(color: AppColors.primary),
@@ -258,14 +260,14 @@ class _NewPatientModalState extends State<NewPatientModal> {
             );
           }
           return SizedBox(
-            width: 700,
+            width: widget.width,
             height: context.height - 320,
             child: Form(
               key: _formKeyBasicInformation,
               child: FocusTraversalGroup(
                 child: SingleChildScrollView(
                   child: Column(
-                    spacing: 16,
+                    spacing: context.isTabletOrDesktop ? 16 : 8,
                     children: [
                       Label(label: t.fullName),
                       TextFormField(

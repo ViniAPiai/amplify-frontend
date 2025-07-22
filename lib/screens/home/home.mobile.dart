@@ -11,7 +11,7 @@ class _$HomeMobilePage extends StatelessWidget {
           child: Container(
             color: AppColors.gray,
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 16, 16, 0),
+              padding: const EdgeInsets.fromLTRB(16, 40, 16, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.center,

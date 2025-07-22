@@ -92,7 +92,7 @@ class _AmplifyCalendarMobileScreen extends State<_$AmplifyCalendarDay> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
                             backgroundColor: Colors.white,
                             padding: EdgeInsets.zero,
-                            fixedSize: Size(context.isTabletOrDesktop ? 220 : context.width - 160, 25)),
+                            fixedSize: Size(context.isTabletOrDesktop ? 220 : context.width - 180, 25)),
                         child: Text(
                           finalDate,
                           style: GoogleFonts.inter(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),

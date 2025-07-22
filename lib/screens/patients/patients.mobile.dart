@@ -22,76 +22,80 @@ class _$PatientsMobileState extends State<_$PatientsMobile> {
     AppLocalizations t = AppLocalizations.of(context)!;
     return SideBar(
       appBar: PreferredSize(
-          preferredSize: Size(context.width, 175),
-          child: Column(
-            children: [
-              Container(
-                height: 100,
-                decoration: BoxDecoration(
-                    color: AppColors.gray,
-                    border: Border(
-                        bottom: BorderSide(color: AppColors.gray2)
-                    )
-                ),
-                padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                child: Row(
-                  spacing: 16,
-                  children: [
-                    HeaderTitle(icon: Icons.person_3, title: AppLocalizations.of(context)!.patientList),
-                    Expanded(child: SizedBox()),
-                    OutlinedButton(
-                        onPressed: () => context.read<SideBarBloc>().add(ToggleNewPatientModal()),
-                        style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: context.primaryColor)),
-                            padding: EdgeInsets.all(8),
-                            fixedSize: Size(50, 50)),
-                        child: Center(
-                          child: Icon(
-                            Icons.add,
-                            color: context.primaryColor,
-                            size: 20,
-                          ),
-                        )),
-                  ],
-                ),
-              ),
-              Container(
-                width: context.width,
-                height: 75,
-                decoration: BoxDecoration(
-                    color: AppColors.gray,
-                    border: Border(
-                        bottom: BorderSide(color: AppColors.gray2)
-                    )
-                ),
-                padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
-                child: Row(
-                  spacing: 16,
-                  children: [
-                    RichText(
-                        text: TextSpan(
-                            text: "76",
-                            style: GoogleFonts.inter(
+          preferredSize: Size(context.width, 125),
+          child: SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: AppColors.gray,
+                      border: Border(
+                          bottom: BorderSide(color: AppColors.gray2)
+                      )
+                  ),
+                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                  child: Row(
+                    spacing: 16,
+                    children: [
+                      HeaderTitle(icon: Icons.person_3, title: AppLocalizations.of(context)!.patientList),
+                      Expanded(child: SizedBox()),
+                      IconButton(onPressed: () => context.read<SideBarBloc>().add(ToggleNewPatientModal()),
+                          icon: Icon(Icons.add, color: AppColors.primary, size: 24,)),
+                      /*OutlinedButton(
+                          onPressed: () => context.read<SideBarBloc>().add(ToggleNewPatientModal()),
+                          style: OutlinedButton.styleFrom(
+                              backgroundColor: Colors.white,
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12), side: BorderSide(color: context.primaryColor)),
+                              padding: EdgeInsets.all(8),
+                              fixedSize: Size(50, 50)),
+                          child: Center(
+                            child: Icon(
+                              Icons.add,
                               color: context.primaryColor,
-                              fontSize: 24,
-                              fontWeight: FontWeight.w700,
+                              size: 20,
                             ),
-                            children: [
-                              TextSpan(
-                                  text: " ${t.patientsLabel}",
-                                  style: GoogleFonts.inter(
-                                    color: AppColors.gray2,
-                                    fontSize: 18,
-                                  ))
-                            ])),
-                    Expanded(child: SizedBox()),
-                    PrinterButton(),
-                    FilterButton()
-                  ],
+                          )),*/
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  width: context.width,
+                  height: 75,
+                  decoration: BoxDecoration(
+                      color: AppColors.gray,
+                      border: Border(
+                          bottom: BorderSide(color: AppColors.gray2)
+                      )
+                  ),
+                  padding: const EdgeInsets.fromLTRB(24, 0, 24, 0),
+                  child: Row(
+                    spacing: 16,
+                    children: [
+                      RichText(
+                          text: TextSpan(
+                              text: "76",
+                              style: GoogleFonts.inter(
+                                color: context.primaryColor,
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              children: [
+                                TextSpan(
+                                    text: " ${t.patientsLabel}",
+                                    style: GoogleFonts.inter(
+                                      color: AppColors.gray2,
+                                      fontSize: 18,
+                                    ))
+                              ])),
+                      Expanded(child: SizedBox()),
+                      PrinterButton(),
+                      FilterButton()
+                    ],
+                  ),
+                ),
+              ],
+            ),
           )
       ),
       child: BlocBuilder<PatientBloc, PatientState>(

@@ -58,7 +58,7 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
   Widget build(BuildContext context) {
     AppLocalizations t = AppLocalizations.of(context)!;
     final double minHeight = MediaQuery.of(context).size.height - 350;
-    final double maxHeight = MediaQuery.of(context).size.height - 360;
+    final double maxHeight = MediaQuery.of(context).size.height - 380;
     DateFormat dateFormat = DateFormat.yMMMMd(context.locale.languageCode);
     return BlocListener<NewAppointmentBloc, NewAppointmentState>(
       listener: (context, state) {
@@ -85,6 +85,7 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(height: 16,),
               Row(mainAxisAlignment: MainAxisAlignment.center, crossAxisAlignment: CrossAxisAlignment.center, children: [
                 IconButton(
                     onPressed: () => context.read<SideBarBloc>().add(ToggleNewAppointmentModal()),

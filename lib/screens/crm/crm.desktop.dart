@@ -226,7 +226,7 @@ class _CrmDesktopState extends State<_CrmDesktop> {
             ),
             child: Container(
               width: double.infinity,
-              height: 200,
+              height: 100,
               padding: const EdgeInsets.all(8.0),
               decoration: BoxDecoration(
                 color: AppColors.gray,

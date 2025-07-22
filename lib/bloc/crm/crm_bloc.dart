@@ -25,47 +25,41 @@ class CrmBloc extends Bloc<CrmEvent, CrmState> {
     emit(state.copyWith(columns: mapColumns, columnsOrder: columnsOrder, isLoading: false));
   }
 
-  void _onCrmChangeColumnOrder(CrmChangeColumnOrder event, Emitter<CrmState> emit) {
-    List<String> columnsOrder = List.from(state.columnsOrder);
+  void _onCrmChangeColumnOrder(CrmChangeColumnOrder event, Emitter<CrmState> emit) async {
+    /*List<String> columnsOrder = List.from(state.columnsOrder);
     final oldIndex = state.columnsOrder.indexOf(event.oldColumnUuid);
     final newIndex = state.columnsOrder.indexOf(event.columnUuid);
     columnsOrder.removeAt(oldIndex);
     columnsOrder.insert(newIndex, event.oldColumnUuid);
-    emit(state.copyWith(columnsOrder: columnsOrder));
+    emit(state.copyWith(columnsOrder: columnsOrder));*/
+    emit(state.copyWith(isLoading: true));
+    final newIndex = state.columnsOrder.indexOf(event.columnUuid);
+    await (await ApiService.create()).client.changePositionColumns({'uuid': event.oldColumnUuid, 'newPosition': newIndex});
+    add(CrmLoadBoard());
   }
 
-  void _onCrmChangeCardPosition(CrmChangeCardPosition event, Emitter<CrmState> emit) {
-    Map<String, ColumnsModel> columns = Map.from(state.columns);
+  void _onCrmChangeCardPosition(CrmChangeCardPosition event, Emitter<CrmState> emit) async{
+    
+    /*Map<String, ColumnsModel> columns = Map.from(state.columns);
     columns[event.oldColumnUuid]!.cards.removeAt(event.oldCardIndex);
-    print(event.newIndex);
-    print(event.sameColumn);
     if(event.sameColumn) {
-      /*columns[event.oldColumnUuid]!.cards.removeAt(event.oldCardIndex);
-      columns[event.columnUuid]!.cards.insert(event.newIndex, event.card.copyWith(index: event.newIndex));
-      for (var i = 0; i < columns[event.columnUuid]!.cards.length; i++) {
-        columns[event.columnUuid]!.cards[i] = columns[event.columnUuid]!.cards[i].copyWith(index: i);
-      }*/
-      // Remove do local original
+      print('aqui');
+      print('index: ${event.newIndex}, cards length: ${columns[event.columnUuid]!.cards.length}');
       columns[event.oldColumnUuid]!.cards.removeAt(event.oldCardIndex);
-
-      // Garante que o índice seja válido
       final targetIndex = event.newIndex.clamp(0, columns[event.columnUuid]!.cards.length);
-
-      // Insere na nova posição ou adiciona ao final se o índice for igual ao tamanho da lista
       if (targetIndex == columns[event.columnUuid]!.cards.length) {
         columns[event.columnUuid]!.cards.add(event.card.copyWith(index: targetIndex));
       } else {
         columns[event.columnUuid]!.cards.insert(targetIndex, event.card.copyWith(index: targetIndex));
       }
 
-      // Atualiza índices dos cartões
       for (var i = 0; i < columns[event.columnUuid]!.cards.length; i++) {
         columns[event.columnUuid]!.cards[i] = columns[event.columnUuid]!.cards[i].copyWith(index: i);
       }
     }else {
       columns[event.columnUuid]!.cards.add(event.card.copyWith(index: state.columns[event.columnUuid]!.cards.length));
     }
-    emit(state.copyWith(columns: columns));
+    emit(state.copyWith(columns: columns));*/
   }
 
 }
