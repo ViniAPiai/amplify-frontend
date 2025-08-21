@@ -779,16 +779,17 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<MessageModel> insertColumns(Map<String, dynamic> json) async {
+  Future<MessageModel> insertColumn(Map<String, dynamic> json) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(json);
     final _options = _setStreamType<MessageModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/crm/columns',
+            '/crm/column',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -806,16 +807,17 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<MessageModel> updateColumns(Map<String, dynamic> json) async {
+  Future<MessageModel> updateColumn(Map<String, dynamic> json) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(json);
     final _options = _setStreamType<MessageModel>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/crm/columns/update',
+            '/crm/column/update',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -833,16 +835,17 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<MessageModel> changePositionColumns(Map<String, dynamic> json) async {
+  Future<MessageModel> changePositionColumn(Map<String, dynamic> json) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(json);
     final _options = _setStreamType<MessageModel>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/crm/columns/change_position',
+            '/crm/column/change_position',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -860,7 +863,61 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<List<ColumnsModel>> findAllColumns() async {
+  Future<SimpleResponse> findColumnSimple(String uuid) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<SimpleResponse>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/crm/column/simple/${uuid}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late SimpleResponse _value;
+    try {
+      _value = SimpleResponse.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<ColumnsModel> findColumn(String uuid) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<ColumnsModel>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/crm/column/${uuid}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late ColumnsModel _value;
+    try {
+      _value = ColumnsModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<List<ColumnsModel>> findAllColumn() async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
@@ -869,7 +926,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/crm/columns/all',
+            '/crm/column/all',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -891,16 +948,17 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<MessageModel> deleteColumns(String uuid) async {
+  Future<MessageModel> deleteColumn(Map<String, dynamic> json) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(json);
     final _options = _setStreamType<MessageModel>(
       Options(method: 'DELETE', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/crm/columns/${uuid}',
+            '/crm/column',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -918,16 +976,20 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<MessageModel> insertCard(Map<String, dynamic> json) async {
+  Future<MessageModel> insertDefaultCard(
+    dynamic columnUuid,
+    Map<String, dynamic> json,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(json);
     final _options = _setStreamType<MessageModel>(
       Options(method: 'POST', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/crm/card',
+            '/crm/card/default/${columnUuid}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -945,16 +1007,82 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<MessageModel> updateCard(Map<String, dynamic> json) async {
+  Future<MessageModel> updateDefaultCard(
+    String uuid,
+    Map<String, dynamic> json,
+  ) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(json);
     final _options = _setStreamType<MessageModel>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            '/crm/card/update',
+            '/crm/card/default/${uuid}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late MessageModel _value;
+    try {
+      _value = MessageModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<MessageModel> insertGetInTouchCard(
+    dynamic columnUuid,
+    Map<String, dynamic> json,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(json);
+    final _options = _setStreamType<MessageModel>(
+      Options(method: 'POST', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/crm/card/get_in_touch/${columnUuid}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late MessageModel _value;
+    try {
+      _value = MessageModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<MessageModel> updateGetInTouchCard(
+    String uuid,
+    Map<String, dynamic> json,
+  ) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(json);
+    final _options = _setStreamType<MessageModel>(
+      Options(method: 'PUT', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/crm/card/get_in_touch/${uuid}',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -976,7 +1104,8 @@ class _ApiClient implements ApiClient {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _headers = <String, dynamic>{};
-    const Map<String, dynamic>? _data = null;
+    final _data = <String, dynamic>{};
+    _data.addAll(json);
     final _options = _setStreamType<MessageModel>(
       Options(method: 'PUT', headers: _headers, extra: _extra)
           .compose(
@@ -991,6 +1120,33 @@ class _ApiClient implements ApiClient {
     late MessageModel _value;
     try {
       _value = MessageModel.fromJson(_result.data!);
+    } on Object catch (e, s) {
+      errorLogger?.logError(e, s, _options);
+      rethrow;
+    }
+    return _value;
+  }
+
+  @override
+  Future<CardModel> findCard(String uuid) async {
+    final _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _headers = <String, dynamic>{};
+    const Map<String, dynamic>? _data = null;
+    final _options = _setStreamType<CardModel>(
+      Options(method: 'GET', headers: _headers, extra: _extra)
+          .compose(
+            _dio.options,
+            '/crm/card/${uuid}',
+            queryParameters: queryParameters,
+            data: _data,
+          )
+          .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
+    );
+    final _result = await _dio.fetch<Map<String, dynamic>>(_options);
+    late CardModel _value;
+    try {
+      _value = CardModel.fromJson(_result.data!);
     } on Object catch (e, s) {
       errorLogger?.logError(e, s, _options);
       rethrow;

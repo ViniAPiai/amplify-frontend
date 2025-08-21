@@ -122,6 +122,19 @@ class _SideBarDesktop extends State<_$SideBarDesktop> {
                             child: NewAppointmentModal()))),
 
               /**
+               * Modal for adding a new card to the crm
+               */
+              if (state.showNewCardModal)
+                BlocProvider(
+                    create: (context) => NewCrmCardBloc()..add(NewCrmCardLoad(columnUuid: state.columnUuid)),
+                    child: AnimatedPositioned(
+                        right: 16,
+                        bottom: 16,
+                        top: 16,
+                        duration: Duration(milliseconds: 500),
+                        child: NewCrmCardModal())),
+
+              /**
                * Modal for viewing clinical exam
                */
               if (state.showAppointmentDetailsModal)

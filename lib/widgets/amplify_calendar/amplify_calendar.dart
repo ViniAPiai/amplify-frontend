@@ -9,7 +9,6 @@ import 'package:frontend/bloc/locale/locale_bloc.dart';
 import 'package:frontend/bloc/side_bar/side_bar_bloc.dart';
 import 'package:frontend/bloc/side_bar/side_bar_event.dart';
 import 'package:frontend/configs/app_colors.dart';
-import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/extension/locale_extension.dart';
 import 'package:frontend/extension/utils_extension.dart';
 import 'package:frontend/models/appointment/appointment_model.dart';

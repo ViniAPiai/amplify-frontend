@@ -603,6 +603,24 @@ abstract class AppLocalizations {
   /// **'Informações Pessoais'**
   String get personalInformation;
 
+  /// No description provided for @add.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar'**
+  String get add;
+
+  /// No description provided for @delete.
+  ///
+  /// In pt, this message translates to:
+  /// **'Deletar'**
+  String get delete;
+
+  /// No description provided for @confirm.
+  ///
+  /// In pt, this message translates to:
+  /// **'Confirmar'**
+  String get confirm;
+
   /// No description provided for @brazil.
   ///
   /// In pt, this message translates to:
@@ -614,6 +632,138 @@ abstract class AppLocalizations {
   /// In pt, this message translates to:
   /// **'Portugal'**
   String get portugal;
+
+  /// No description provided for @crmColumnAddNewCard.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar novo cartão'**
+  String get crmColumnAddNewCard;
+
+  /// No description provided for @crmColumnAddNewColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar nova coluna'**
+  String get crmColumnAddNewColumn;
+
+  /// No description provided for @crmColumnDeleteColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Deletar coluna'**
+  String get crmColumnDeleteColumn;
+
+  /// No description provided for @crmColumnMoveToRight.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mover para a direita'**
+  String get crmColumnMoveToRight;
+
+  /// No description provided for @crmColumnMoveToLeft.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mover para a esquerda'**
+  String get crmColumnMoveToLeft;
+
+  /// No description provided for @crmWhichSideOfColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar coluna à qual lado da coluna {columnName}?'**
+  String crmWhichSideOfColumn(Object columnName);
+
+  /// No description provided for @crmLeft.
+  ///
+  /// In pt, this message translates to:
+  /// **'Esquerda'**
+  String get crmLeft;
+
+  /// No description provided for @crmRight.
+  ///
+  /// In pt, this message translates to:
+  /// **'Direita'**
+  String get crmRight;
+
+  /// No description provided for @crmToConfirmColumnRemovalType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Para confirmar a remoção da coluna, digite \"{columnName}\"'**
+  String crmToConfirmColumnRemovalType(Object columnName);
+
+  /// No description provided for @crmMoveCardsToColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mover cartões para a coluna:'**
+  String get crmMoveCardsToColumn;
+
+  /// No description provided for @crmTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Título'**
+  String get crmTitle;
+
+  /// No description provided for @crmDescription.
+  ///
+  /// In pt, this message translates to:
+  /// **'Descrição'**
+  String get crmDescription;
+
+  /// No description provided for @crmDueDate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Data de vencimento'**
+  String get crmDueDate;
+
+  /// No description provided for @crmName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nome'**
+  String get crmName;
+
+  /// No description provided for @crmEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'E-mail'**
+  String get crmEmail;
+
+  /// No description provided for @crmPhone.
+  ///
+  /// In pt, this message translates to:
+  /// **'Telefone'**
+  String get crmPhone;
+
+  /// No description provided for @crmMessage.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mensagem'**
+  String get crmMessage;
+
+  /// No description provided for @crmColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Coluna'**
+  String get crmColumn;
+
+  /// No description provided for @crmCardType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tipo de cartão'**
+  String get crmCardType;
+
+  /// No description provided for @crmDefaultCardType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Padrão'**
+  String get crmDefaultCardType;
+
+  /// No description provided for @crmRegisterPatientCardType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Registrar paciente'**
+  String get crmRegisterPatientCardType;
+
+  /// No description provided for @crmGetInTouchCardType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Entrar em contato'**
+  String get crmGetInTouchCardType;
 
   /// No description provided for @thePatientRequestedAnAppointment.
   ///

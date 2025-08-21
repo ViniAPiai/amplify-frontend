@@ -9,6 +9,8 @@ class SideBarState extends Equatable {
   final bool showNewAppointmentModal;
   final bool showAppointmentDetailsModal;
   final bool showClinicalExamModal;
+  final bool showNewCardModal;
+  final String columnUuid;
   final bool showNewPatientModal;
   final String patientUuid;
   final DateTime? selectedDate;
@@ -23,6 +25,8 @@ class SideBarState extends Equatable {
     this.showNewAppointmentModal = false,
     this.showAppointmentDetailsModal = false,
     this.showClinicalExamModal = false,
+    this.showNewCardModal = false,
+    this.columnUuid = '',
     this.showNewPatientModal = false,
     this.patientUuid = '',
     this.selectedDate,
@@ -38,6 +42,8 @@ class SideBarState extends Equatable {
     bool? showNewAppointmentModal,
     bool? showAppointmentDetailsModal,
     bool? showClinicalExamModal,
+    bool? showNewCardModal,
+    String? columnUuid,
     bool? showNewPatientModal,
     String? patientUuid,
     DateTime? selectedDate,
@@ -52,6 +58,8 @@ class SideBarState extends Equatable {
       showNewAppointmentModal: showNewAppointmentModal ?? this.showNewAppointmentModal,
       showAppointmentDetailsModal: showAppointmentDetailsModal ?? this.showAppointmentDetailsModal,
       showClinicalExamModal: showClinicalExamModal ?? this.showClinicalExamModal,
+      showNewCardModal: showNewCardModal ?? this.showNewCardModal,
+      columnUuid: columnUuid ?? this.columnUuid,
       showNewPatientModal: showNewPatientModal ?? this.showNewPatientModal,
       patientUuid: patientUuid ?? this.patientUuid,
       selectedDate: selectedDate ?? this.selectedDate,
@@ -69,6 +77,8 @@ class SideBarState extends Equatable {
     showNewAppointmentModal,
     showAppointmentDetailsModal,
     showClinicalExamModal,
+    showNewCardModal,
+    columnUuid,
     showNewPatientModal,
     patientUuid,
     selectedDate,

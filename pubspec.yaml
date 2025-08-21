@@ -82,6 +82,7 @@ flutter:
     - assets/.env
     - assets/.env.dev
     - assets/.env.local
+    - assets/.env.local_mobile
     - assets/GetItOnGooglePlayPtBr.png
     - assets/countries_states_and_cities/portugal.json
     - assets/countries_states_and_cities/brazil.json

@@ -7,6 +7,7 @@ import 'package:frontend/models/auth/auth_request_model.dart';
 import 'package:frontend/models/auth/auth_response_model.dart';
 import 'package:frontend/models/clinic/clinic_country.dart';
 import 'package:frontend/models/appointment/appointment_model.dart';
+import 'package:frontend/models/crm/card/card.model.dart';
 import 'package:frontend/models/crm/columns/columns.model.dart';
 import 'package:frontend/models/dentist_free_time/dentist_free_time_response.dart';
 import 'package:frontend/models/dentist_free_time_request.dart';
@@ -124,31 +125,46 @@ abstract class ApiClient {
 
   /// Columns endpoints
 
-  @POST('/crm/columns')
-  Future<MessageModel> insertColumns(Map<String, dynamic> json);
+  @POST('/crm/column')
+  Future<MessageModel> insertColumn(@Body() Map<String, dynamic> json);
 
-  @PUT('/crm/columns/update')
-  Future<MessageModel> updateColumns(Map<String, dynamic> json);
+  @PUT('/crm/column/update')
+  Future<MessageModel> updateColumn(@Body() Map<String, dynamic> json);
 
-  @PUT('/crm/columns/change_position')
-  Future<MessageModel> changePositionColumns(Map<String, dynamic> json);
+  @PUT('/crm/column/change_position')
+  Future<MessageModel> changePositionColumn(@Body() Map<String, dynamic> json);
 
-  @GET('/crm/columns/all')
-  Future<List<ColumnsModel>> findAllColumns();
+  @GET('/crm/column/simple/{uuid}')
+  Future<SimpleResponse> findColumnSimple(@Path() String uuid);
 
-  @DELETE('/crm/columns/{uuid}')
-  Future<MessageModel> deleteColumns(@Path("uuid") String uuid);
+  @GET('/crm/column/{uuid}')
+  Future<ColumnsModel> findColumn(@Path() String uuid);
+
+  @GET('/crm/column/all')
+  Future<List<ColumnsModel>> findAllColumn();
+
+  @DELETE('/crm/column')
+  Future<MessageModel> deleteColumn(@Body() Map<String, dynamic> json);
 
   /// Card endpoints
 
-  @POST('/crm/card')
-  Future<MessageModel> insertCard(Map<String, dynamic> json);
+  @POST('/crm/card/default/{columnUuid}')
+  Future<MessageModel> insertDefaultCard(@Path() columnUuid, @Body() Map<String, dynamic> json);
 
-  @PUT('/crm/card/update')
-  Future<MessageModel> updateCard(Map<String, dynamic> json);
+  @PUT('/crm/card/default/{uuid}')
+  Future<MessageModel> updateDefaultCard(@Path() String uuid, @Body() Map<String, dynamic> json);
+
+  @POST('/crm/card/get_in_touch/{columnUuid}')
+  Future<MessageModel> insertGetInTouchCard(@Path() columnUuid, @Body() Map<String, dynamic> json);
+
+  @PUT('/crm/card/get_in_touch/{uuid}')
+  Future<MessageModel> updateGetInTouchCard(@Path() String uuid, @Body() Map<String, dynamic> json);
 
   @PUT('/crm/card/change_position')
-  Future<MessageModel> changePositionCard(Map<String, dynamic> json);
+  Future<MessageModel> changePositionCard(@Body() Map<String, dynamic> json);
+
+  @GET('/crm/card/{uuid}')
+  Future<CardModel> findCard(@Path() String uuid);
 
   @DELETE('/crm/card/{uuid}')
   Future<MessageModel> deleteCard(@Path("uuid") String uuid);

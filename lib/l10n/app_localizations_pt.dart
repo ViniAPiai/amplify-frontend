@@ -272,10 +272,89 @@ class AppLocalizationsPt extends AppLocalizations {
   String get personalInformation => 'Informações Pessoais';
 
   @override
+  String get add => 'Adicionar';
+
+  @override
+  String get delete => 'Deletar';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
   String get brazil => 'Brasil';
 
   @override
   String get portugal => 'Portugal';
+
+  @override
+  String get crmColumnAddNewCard => 'Adicionar novo cartão';
+
+  @override
+  String get crmColumnAddNewColumn => 'Adicionar nova coluna';
+
+  @override
+  String get crmColumnDeleteColumn => 'Deletar coluna';
+
+  @override
+  String get crmColumnMoveToRight => 'Mover para a direita';
+
+  @override
+  String get crmColumnMoveToLeft => 'Mover para a esquerda';
+
+  @override
+  String crmWhichSideOfColumn(Object columnName) {
+    return 'Adicionar coluna à qual lado da coluna $columnName?';
+  }
+
+  @override
+  String get crmLeft => 'Esquerda';
+
+  @override
+  String get crmRight => 'Direita';
+
+  @override
+  String crmToConfirmColumnRemovalType(Object columnName) {
+    return 'Para confirmar a remoção da coluna, digite \"$columnName\"';
+  }
+
+  @override
+  String get crmMoveCardsToColumn => 'Mover cartões para a coluna:';
+
+  @override
+  String get crmTitle => 'Título';
+
+  @override
+  String get crmDescription => 'Descrição';
+
+  @override
+  String get crmDueDate => 'Data de vencimento';
+
+  @override
+  String get crmName => 'Nome';
+
+  @override
+  String get crmEmail => 'E-mail';
+
+  @override
+  String get crmPhone => 'Telefone';
+
+  @override
+  String get crmMessage => 'Mensagem';
+
+  @override
+  String get crmColumn => 'Coluna';
+
+  @override
+  String get crmCardType => 'Tipo de cartão';
+
+  @override
+  String get crmDefaultCardType => 'Padrão';
+
+  @override
+  String get crmRegisterPatientCardType => 'Registrar paciente';
+
+  @override
+  String get crmGetInTouchCardType => 'Entrar em contato';
 
   @override
   String thePatientRequestedAnAppointment(Object name) {
@@ -629,10 +708,89 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get personalInformation => 'Informações Pessoais';
 
   @override
+  String get add => 'Adicionar';
+
+  @override
+  String get delete => 'Deletar';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
   String get brazil => 'Brasil';
 
   @override
   String get portugal => 'Portugal';
+
+  @override
+  String get crmColumnAddNewCard => 'Adicionar novo cartão';
+
+  @override
+  String get crmColumnAddNewColumn => 'Adicionar nova coluna';
+
+  @override
+  String get crmColumnDeleteColumn => 'Deletar coluna';
+
+  @override
+  String get crmColumnMoveToRight => 'Mover para a direita';
+
+  @override
+  String get crmColumnMoveToLeft => 'Mover para a esquerda';
+
+  @override
+  String crmWhichSideOfColumn(Object columnName) {
+    return 'Adicionar coluna à qual lado da coluna $columnName?';
+  }
+
+  @override
+  String get crmLeft => 'Esquerda';
+
+  @override
+  String get crmRight => 'Direita';
+
+  @override
+  String crmToConfirmColumnRemovalType(Object columnName) {
+    return 'Para confirmar a remoção da coluna, digite \"$columnName\"';
+  }
+
+  @override
+  String get crmMoveCardsToColumn => 'Mover cartões para a coluna:';
+
+  @override
+  String get crmTitle => 'Título';
+
+  @override
+  String get crmDescription => 'Descrição';
+
+  @override
+  String get crmDueDate => 'Data de vencimento';
+
+  @override
+  String get crmName => 'Nome';
+
+  @override
+  String get crmEmail => 'E-mail';
+
+  @override
+  String get crmPhone => 'Telefone';
+
+  @override
+  String get crmMessage => 'Mensagem';
+
+  @override
+  String get crmColumn => 'Coluna';
+
+  @override
+  String get crmCardType => 'Tipo de cartão';
+
+  @override
+  String get crmDefaultCardType => 'Padrão';
+
+  @override
+  String get crmRegisterPatientCardType => 'Registrar paciente';
+
+  @override
+  String get crmGetInTouchCardType => 'Entrar em contato';
 
   @override
   String thePatientRequestedAnAppointment(Object name) {

@@ -12,6 +12,7 @@ class DioFactory {
     dio.options.connectTimeout = const Duration(seconds: 10);
     dio.options.receiveTimeout = const Duration(seconds: 10);
     dio.interceptors.add(DioErrorInterceptor());
+    dio.options.headers['Content-Type'] = 'application/json';
 
     if (withAuth) {
       final prefs = await SharedPreferences.getInstance();

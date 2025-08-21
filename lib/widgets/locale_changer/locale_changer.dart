@@ -4,9 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:frontend/bloc/locale/locale_bloc.dart';
 import 'package:frontend/bloc/locale/locale_event.dart';
 import 'package:frontend/bloc/locale/locale_state.dart';
-import 'package:frontend/configs/locale_provider.dart';
 import 'package:frontend/services/api_service.dart';
-import 'package:provider/provider.dart';
 
 class LocaleChanger extends StatelessWidget {
   const LocaleChanger({super.key});

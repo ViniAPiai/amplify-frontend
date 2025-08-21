@@ -86,7 +86,7 @@ class _PatientDetailTablet extends StatelessWidget {
         });*/
   }
 
-  Widget _patientInfo(BuildContext context, PatientDetailProvider provider, PatientModel patient, AppLocalizations t) {
+  /*Widget _patientInfo(BuildContext context, PatientDetailProvider provider, PatientModel patient, AppLocalizations t) {
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     return Container(
         width: context.width,
@@ -145,8 +145,8 @@ class _PatientDetailTablet extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     InfoShower(label: t.complement, value: patient.address.neighborhood),
-                    /*InfoShower(label: t.city, value: patient.address.city),
-                    InfoShower(label: t.state, value: patient.address.state),*/
+                    *//*InfoShower(label: t.city, value: patient.address.city),
+                    InfoShower(label: t.state, value: patient.address.state),*//*
                   ],
                 ).expanded(),
               ],
@@ -230,5 +230,5 @@ class _PatientDetailTablet extends StatelessWidget {
                 ],
               );
             }));
-  }
+  }*/
 }

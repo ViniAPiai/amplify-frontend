@@ -1,4 +1,5 @@
 import 'package:frontend/models/crm/card/card.model.dart';
+import 'package:frontend/models/simple/simple_response.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'columns.model.g.dart';
@@ -44,6 +45,10 @@ class ColumnsModel {
         'uuid': uuid,
         'name': name,
       };
+
+  SimpleResponse toSimpleResponse() {
+    return SimpleResponse(uuid: uuid, name: name);
+  }
 
   Map<String, dynamic> toShow() => {'uuid': uuid, 'index': index, 'name': name, 'type': 'column'};
 

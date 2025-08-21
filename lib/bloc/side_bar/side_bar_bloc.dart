@@ -12,6 +12,7 @@ class SideBarBloc extends Bloc<SideBarEvent, SideBarState> {
     on<ToggleNewAppointmentModal>(_onToggleNewAppointmentModal);
     on<ToggleAppointmentDetailsModal>(_onToggleAppointmentDetailsModal);
     on<ToggleClinicalExamModal>(_onToggleClinicalExamModal);
+    on<ToggleNewCardModal>(_onToggleNewCardModal);
     on<OpenEditAppointmentModal>(_onOpenEditAppointmentModal);
     on<ToggleNewPatientModal>(_onToggleNewPatientModal);
   }
@@ -60,7 +61,17 @@ class SideBarBloc extends Bloc<SideBarEvent, SideBarState> {
     final isOpening = !state.showClinicalExamModal;
     emit(state.copyWith(
       showClinicalExamModal: isOpening,
+      showBarrier: isOpening,
       appointmentDetailsModalRightPosition: isOpening ? -350 : 16,
+    ));
+  }
+
+  void _onToggleNewCardModal(ToggleNewCardModal event, Emitter<SideBarState> emit) {
+    final isOpening = !state.showNewCardModal;
+    emit(state.copyWith(
+      showNewCardModal: isOpening,
+      showBarrier: isOpening,
+      columnUuid: event.columnUuid,
     ));
   }
 

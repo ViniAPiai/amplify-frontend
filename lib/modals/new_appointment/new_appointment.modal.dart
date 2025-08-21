@@ -277,7 +277,7 @@ class _NewAppointmentModalState extends State<NewAppointmentModal> with SingleTi
                               color: Colors.white,
                               child: SizedBox(
                                 width: context.width,
-                                height: state.filteredProcedureTypes.length * 50 > minHeight ? maxHeight : state.filteredProcedureTypes.length * 50,
+                                height: state.filteredProcedureTypes.length * 50 > minHeight ? maxHeight - 20 : state.filteredProcedureTypes.length * 45,
                                 child: ListView.separated(
                                   shrinkWrap: true,
                                   itemCount: state.filteredProcedureTypes.length,

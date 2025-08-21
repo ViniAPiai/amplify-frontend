@@ -8,7 +8,6 @@ import 'package:frontend/bloc/agenda/agenda_event.dart';
 import 'package:frontend/bloc/auth/auth_bloc.dart';
 import 'package:frontend/bloc/auth/auth_event.dart';
 import 'package:frontend/bloc/crm/crm_bloc.dart';
-import 'package:frontend/bloc/crm/crm_event.dart';
 import 'package:frontend/bloc/locale/locale_bloc.dart';
 import 'package:frontend/bloc/locale/locale_event.dart';
 import 'package:frontend/bloc/locale/locale_state.dart';

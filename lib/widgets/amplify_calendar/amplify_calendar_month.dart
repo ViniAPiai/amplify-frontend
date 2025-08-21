@@ -150,17 +150,4 @@ class _AmplifyCalendarDesktopScreen extends State<_$AmplifyCalendarMonth> {
     );
   }
 
-  String _dateTimeToMonthYearString(DateTime date, LocaleProvider locale) {
-    String data = DateFormat.yMMMM(locale.getLocaleString()).format(date);
-    return data.substring(0, 1).toUpperCase() + data.substring(1);
-  }
-
-  List<Meeting> _getDataSource() {
-    final List<Meeting> meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime = DateTime(today.year, today.month, today.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(hours: 2));
-    meetings.add(Meeting('Conference', startTime, endTime, const Color(0xFF0F8644), false));
-    return meetings;
-  }
 }
