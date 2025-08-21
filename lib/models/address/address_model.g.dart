@@ -11,9 +11,11 @@ AddressModel _$AddressModelFromJson(Map<String, dynamic> json) => AddressModel(
       street: json['street'] as String,
       number: json['number'] as String,
       neighborhood: json['neighborhood'] as String,
-      city: json['city'] as String,
-      state: json['state'] as String,
-      country: json['country'] as String,
+      zipCode: json['zipCode'] as String,
+      complement: json['complement'] as String,
+      city: SimpleResponse.fromJson(json['city'] as Map<String, dynamic>),
+      state: SimpleResponse.fromJson(json['state'] as Map<String, dynamic>),
+      country: SimpleResponse.fromJson(json['country'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
@@ -22,7 +24,7 @@ Map<String, dynamic> _$AddressModelToJson(AddressModel instance) =>
       'street': instance.street,
       'number': instance.number,
       'neighborhood': instance.neighborhood,
-      'city': instance.city,
-      'state': instance.state,
-      'country': instance.country,
+      'zipCode': instance.zipCode,
+      'complement': instance.complement,
+      'city': AddressModel._cityToJson(instance.city),
     };

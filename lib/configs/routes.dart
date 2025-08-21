@@ -1,24 +1,52 @@
 import 'package:flutter/cupertino.dart';
+import 'package:frontend/bloc/auth/auth_bloc.dart';
+import 'package:frontend/bloc/auth/auth_state.dart';
+import 'package:frontend/configs/auth_refresh.dart';
 import 'package:frontend/screens/agenda/agenda.dart';
-import 'package:frontend/screens/doctors/doctors.dart';
+import 'package:frontend/screens/crm/crm.dart';
+import 'package:frontend/screens/doctors/dentist.dart';
 import 'package:frontend/screens/home/home.dart';
-import 'package:frontend/screens/patient_detail/patient_detail.dart';
 import 'package:frontend/screens/patients/patients.dart';
-import 'package:frontend/screens/new_patient/new_patient.dart';
 import 'package:frontend/screens/sign_in/sign_in.dart';
 import 'package:frontend/screens/sign_up/sign_up.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:provider/provider.dart';
-
-import 'auth_notifier.dart';
-
 class Routes {
-
-  static GoRouter getRoutes(BuildContext context) {
+  static GoRouter getRoutes(AuthBloc bloc) {
     return GoRouter(
       initialLocation: SignInPage.route,
+      refreshListenable: AuthRefresh(bloc.stream),
       redirect: (BuildContext context, GoRouterState state) {
+        final authState = bloc.state;
+        final isLoggedIn = authState is Authenticated;
+        final isLoading = authState is AuthLoading;
+        final path = state.matchedLocation;
+
+        const exactPublicPaths = [
+          SignInPage.route,
+          SignUpPage.route,
+          '/recovery_password',
+        ];
+
+        final patternPublicPaths = [
+          RegExp(r'^/reset-password/[^/]+$'),
+        ];
+
+        final isExactPublic = exactPublicPaths.contains(path);
+        final matchesPattern = patternPublicPaths.any((regex) => regex.hasMatch(path));
+        final isPublic = isExactPublic || matchesPattern;
+
+        if (!isLoggedIn && !isPublic) {
+          return SignInPage.route;
+        }
+
+        if (isLoggedIn && isPublic) {
+          return Crm.route;
+        }
+
+        return null;
+      },
+      /*redirect: (BuildContext context, GoRouterState state) {
         final authNotifier = context.read<AuthNotifier>();
         final isLoggedIn = authNotifier.isLoggedIn;
         final path = state.matchedLocation;
@@ -42,11 +70,11 @@ class Routes {
         }
 
         if (isLoggedIn && isPublic) {
-          return AgendaPage.route;
+          return HomePage.route;
         }
 
         return null;
-      },
+      },*/
       routes: [
         GoRoute(
           name: SignInPage.routeName,
@@ -80,6 +108,7 @@ class Routes {
             ),
           ]*/
         ),
+
         GoRoute(
           name: AgendaPage.routeName,
           path: AgendaPage.route,
@@ -90,9 +119,12 @@ class Routes {
           path: DoctorsPage.route,
           builder: (context, state) => DoctorsPage(),
         ),
+        GoRoute(
+          name: Crm.routeName,
+          path: Crm.route,
+          builder: (context, state) => Crm(),
+        )
       ],
-
     );
   }
-
 }

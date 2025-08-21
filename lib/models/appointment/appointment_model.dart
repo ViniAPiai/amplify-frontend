@@ -59,7 +59,7 @@ class AppointmentModel {
       date: date ?? DateTime.now(),
       startTime: TimeOfDay(hour: 0, minute: 0),
       endTime: TimeOfDay(hour: 0, minute: 0),
-      patient: PatientModel.empty(),
+      patient: PatientModel.empty,
       doctor: UserModel.empty(),
       nurse: UserModel.empty(),
       appointmentType: AppointmentTypeModel.empty(),
@@ -83,6 +83,38 @@ class AppointmentModel {
     json.remove("status");
     json["teeth"] = teeth!.map((e) => e.toUpperCase()).toList();
     return json;
+  }
+
+  AppointmentModel copyWith({
+    String? uuid,
+    String? notes,
+    DateTime? date,
+    TimeOfDay? startTime,
+    TimeOfDay? endTime,
+    AppointmentStatusEnum? status,
+    PatientModel? patient,
+    UserModel? doctor,
+    UserModel? nurse,
+    AppointmentTypeModel? appointmentType,
+    List<ProcedureTypeModel>? procedureTypes,
+    List<ToothCode>? teeth,
+    ClinicalExamModel? clinicalExam,
+  }) {
+    return AppointmentModel(
+      uuid: uuid ?? this.uuid,
+      notes: notes ?? this.notes,
+      date: date ?? this.date,
+      startTime: startTime ?? this.startTime,
+      endTime: endTime ?? this.endTime,
+      status: status ?? this.status,
+      patient: patient ?? this.patient,
+      doctor: doctor ?? this.doctor,
+      nurse: nurse ?? this.nurse,
+      appointmentType: appointmentType ?? this.appointmentType,
+      procedureTypes: procedureTypes ?? this.procedureTypes,
+      teeth: teeth ?? this.teeth,
+      clinicalExam: clinicalExam ?? this.clinicalExam,
+    );
   }
 
   static String? _userToUuid(UserModel? user) => user?.uuid;

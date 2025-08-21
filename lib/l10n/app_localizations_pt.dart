@@ -30,7 +30,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get complement => 'Complemento';
 
   @override
-  String get district => 'Distrito';
+  String get neighborhood => 'Distrito';
 
   @override
   String get city => 'Cidade';
@@ -60,7 +60,7 @@ class AppLocalizationsPt extends AppLocalizations {
   String get documentNumber => 'NIF';
 
   @override
-  String get documentNumberExpirationDate => 'Data de Validade do NIF';
+  String get nationalRegistry => 'Cartão Nacional de Identidade';
 
   @override
   String get occupation => 'Ocupação';
@@ -209,7 +209,13 @@ class AppLocalizationsPt extends AppLocalizations {
   String get newPatient => 'Novo Paciente';
 
   @override
+  String get updatePatient => 'Atualizar Paciente';
+
+  @override
   String get register => 'Cadastrar';
+
+  @override
+  String get update => 'Atualizar';
 
   @override
   String get edit => 'Editar';
@@ -236,6 +242,9 @@ class AppLocalizationsPt extends AppLocalizations {
   String get cancel => 'Cancelar';
 
   @override
+  String get next => 'Próximo';
+
+  @override
   String get newAppointment => 'Nova Consulta';
 
   @override
@@ -254,7 +263,101 @@ class AppLocalizationsPt extends AppLocalizations {
   String get teeth => 'Dentes';
 
   @override
-  String thePatientRequestedAnConsultation(Object name) {
+  String get basicInformation => 'Informações Básicas';
+
+  @override
+  String get address => 'Endereço';
+
+  @override
+  String get personalInformation => 'Informações Pessoais';
+
+  @override
+  String get add => 'Adicionar';
+
+  @override
+  String get delete => 'Deletar';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
+  String get brazil => 'Brasil';
+
+  @override
+  String get portugal => 'Portugal';
+
+  @override
+  String get crmColumnAddNewCard => 'Adicionar novo cartão';
+
+  @override
+  String get crmColumnAddNewColumn => 'Adicionar nova coluna';
+
+  @override
+  String get crmColumnDeleteColumn => 'Deletar coluna';
+
+  @override
+  String get crmColumnMoveToRight => 'Mover para a direita';
+
+  @override
+  String get crmColumnMoveToLeft => 'Mover para a esquerda';
+
+  @override
+  String crmWhichSideOfColumn(Object columnName) {
+    return 'Adicionar coluna à qual lado da coluna $columnName?';
+  }
+
+  @override
+  String get crmLeft => 'Esquerda';
+
+  @override
+  String get crmRight => 'Direita';
+
+  @override
+  String crmToConfirmColumnRemovalType(Object columnName) {
+    return 'Para confirmar a remoção da coluna, digite \"$columnName\"';
+  }
+
+  @override
+  String get crmMoveCardsToColumn => 'Mover cartões para a coluna:';
+
+  @override
+  String get crmTitle => 'Título';
+
+  @override
+  String get crmDescription => 'Descrição';
+
+  @override
+  String get crmDueDate => 'Data de vencimento';
+
+  @override
+  String get crmName => 'Nome';
+
+  @override
+  String get crmEmail => 'E-mail';
+
+  @override
+  String get crmPhone => 'Telefone';
+
+  @override
+  String get crmMessage => 'Mensagem';
+
+  @override
+  String get crmColumn => 'Coluna';
+
+  @override
+  String get crmCardType => 'Tipo de cartão';
+
+  @override
+  String get crmDefaultCardType => 'Padrão';
+
+  @override
+  String get crmRegisterPatientCardType => 'Registrar paciente';
+
+  @override
+  String get crmGetInTouchCardType => 'Entrar em contato';
+
+  @override
+  String thePatientRequestedAnAppointment(Object name) {
     return 'O paciente $name solicitou uma consulta, confirmar?';
   }
 
@@ -273,18 +376,18 @@ class AppLocalizationsPt extends AppLocalizations {
       'Paciente atualizado pela clínica com sucesso';
 
   @override
-  String get consultationScheduledSuccessfully =>
+  String get appointmentScheduledSuccessfully =>
       'Consulta agendada com sucesso';
 
   @override
-  String get consultationUpdatedSuccessfully =>
+  String get appointmentUpdatedSuccessfully =>
       'Consulta atualizada com sucesso';
 
   @override
-  String get consultationDeletedSuccessfully => 'Consulta deletada com sucesso';
+  String get appointmentDeletedSuccessfully => 'Consulta deletada com sucesso';
 
   @override
-  String get consultationConfirmedSuccessfully =>
+  String get appointmentConfirmedSuccessfully =>
       'Consulta confirmada com sucesso';
 
   @override
@@ -302,7 +405,7 @@ class AppLocalizationsPt extends AppLocalizations {
       'Paciente não pertence à clínica';
 
   @override
-  String get youAlreadyHaveAScheduledConsultationException =>
+  String get youAlreadyHaveAScheduledAppointmentException =>
       'Você já tem uma consulta agendada';
 
   @override
@@ -314,12 +417,31 @@ class AppLocalizationsPt extends AppLocalizations {
       'Médico não pertence à clínica';
 
   @override
-  String get consultationAlreadyIsFinishedException =>
+  String get appointmentAlreadyIsFinishedException =>
       'Consulta já está finalizada, não pode ser atualizado ou deletado';
 
   @override
-  String get consultationIsCancelledException =>
+  String get appointmentIsCancelledException =>
       'Consulta está cancelada, não pode ser atualizado ou deletado';
+
+  @override
+  String get emailOrPasswordIsIncorrectException => 'Email ou senha incorretos';
+
+  @override
+  String get accountIsLockedException => 'Conta bloqueada';
+
+  @override
+  String get youAreNotAuthorizedToThisResourceException =>
+      'Você não está autorizado a acessar este recurso';
+
+  @override
+  String get sessionNonValidException => 'Sessão não válida';
+
+  @override
+  String get sessionExpiredException => 'Sessão expirada';
+
+  @override
+  String get unknownErrorException => 'Erro desconhecido';
 }
 
 /// The translations for Portuguese, as used in Brazil (`pt_BR`).
@@ -348,7 +470,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get complement => 'Complemento';
 
   @override
-  String get district => 'Bairro';
+  String get neighborhood => 'Bairro';
 
   @override
   String get city => 'Cidade';
@@ -376,9 +498,6 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
 
   @override
   String get documentNumber => 'CPF';
-
-  @override
-  String get documentNumberExpirationDate => 'Data de Validade do NIF';
 
   @override
   String get occupation => 'Ocupação';
@@ -526,7 +645,13 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get newPatient => 'Novo Paciente';
 
   @override
+  String get updatePatient => 'Atualizar Paciente';
+
+  @override
   String get register => 'Cadastrar';
+
+  @override
+  String get update => 'Atualizar';
 
   @override
   String get edit => 'Editar';
@@ -553,6 +678,9 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get cancel => 'Cancelar';
 
   @override
+  String get next => 'Próximo';
+
+  @override
   String get newAppointment => 'Nova Consulta';
 
   @override
@@ -571,7 +699,101 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
   String get teeth => 'Dentes';
 
   @override
-  String thePatientRequestedAnConsultation(Object name) {
+  String get basicInformation => 'Informações Básicas';
+
+  @override
+  String get address => 'Endereço';
+
+  @override
+  String get personalInformation => 'Informações Pessoais';
+
+  @override
+  String get add => 'Adicionar';
+
+  @override
+  String get delete => 'Deletar';
+
+  @override
+  String get confirm => 'Confirmar';
+
+  @override
+  String get brazil => 'Brasil';
+
+  @override
+  String get portugal => 'Portugal';
+
+  @override
+  String get crmColumnAddNewCard => 'Adicionar novo cartão';
+
+  @override
+  String get crmColumnAddNewColumn => 'Adicionar nova coluna';
+
+  @override
+  String get crmColumnDeleteColumn => 'Deletar coluna';
+
+  @override
+  String get crmColumnMoveToRight => 'Mover para a direita';
+
+  @override
+  String get crmColumnMoveToLeft => 'Mover para a esquerda';
+
+  @override
+  String crmWhichSideOfColumn(Object columnName) {
+    return 'Adicionar coluna à qual lado da coluna $columnName?';
+  }
+
+  @override
+  String get crmLeft => 'Esquerda';
+
+  @override
+  String get crmRight => 'Direita';
+
+  @override
+  String crmToConfirmColumnRemovalType(Object columnName) {
+    return 'Para confirmar a remoção da coluna, digite \"$columnName\"';
+  }
+
+  @override
+  String get crmMoveCardsToColumn => 'Mover cartões para a coluna:';
+
+  @override
+  String get crmTitle => 'Título';
+
+  @override
+  String get crmDescription => 'Descrição';
+
+  @override
+  String get crmDueDate => 'Data de vencimento';
+
+  @override
+  String get crmName => 'Nome';
+
+  @override
+  String get crmEmail => 'E-mail';
+
+  @override
+  String get crmPhone => 'Telefone';
+
+  @override
+  String get crmMessage => 'Mensagem';
+
+  @override
+  String get crmColumn => 'Coluna';
+
+  @override
+  String get crmCardType => 'Tipo de cartão';
+
+  @override
+  String get crmDefaultCardType => 'Padrão';
+
+  @override
+  String get crmRegisterPatientCardType => 'Registrar paciente';
+
+  @override
+  String get crmGetInTouchCardType => 'Entrar em contato';
+
+  @override
+  String thePatientRequestedAnAppointment(Object name) {
     return 'O paciente $name solicitou uma consulta, confirmar?';
   }
 
@@ -590,18 +812,18 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Paciente atualizado pela clínica com sucesso';
 
   @override
-  String get consultationScheduledSuccessfully =>
+  String get appointmentScheduledSuccessfully =>
       'Consulta agendada com sucesso';
 
   @override
-  String get consultationUpdatedSuccessfully =>
+  String get appointmentUpdatedSuccessfully =>
       'Consulta atualizada com sucesso';
 
   @override
-  String get consultationDeletedSuccessfully => 'Consulta deletada com sucesso';
+  String get appointmentDeletedSuccessfully => 'Consulta deletada com sucesso';
 
   @override
-  String get consultationConfirmedSuccessfully =>
+  String get appointmentConfirmedSuccessfully =>
       'Consulta confirmada com sucesso';
 
   @override
@@ -619,7 +841,7 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Paciente não pertence à clínica';
 
   @override
-  String get youAlreadyHaveAScheduledConsultationException =>
+  String get youAlreadyHaveAScheduledAppointmentException =>
       'Você já tem uma consulta agendada';
 
   @override
@@ -631,10 +853,29 @@ class AppLocalizationsPtBr extends AppLocalizationsPt {
       'Médico não pertence à clínica';
 
   @override
-  String get consultationAlreadyIsFinishedException =>
+  String get appointmentAlreadyIsFinishedException =>
       'Consulta já está finalizada, não pode ser atualizado ou deletado';
 
   @override
-  String get consultationIsCancelledException =>
+  String get appointmentIsCancelledException =>
       'Consulta está cancelada, não pode ser atualizado ou deletado';
+
+  @override
+  String get emailOrPasswordIsIncorrectException => 'Email ou senha incorretos';
+
+  @override
+  String get accountIsLockedException => 'Conta bloqueada';
+
+  @override
+  String get youAreNotAuthorizedToThisResourceException =>
+      'Você não está autorizado a acessar este recurso';
+
+  @override
+  String get sessionNonValidException => 'Sessão não válida';
+
+  @override
+  String get sessionExpiredException => 'Sessão expirada';
+
+  @override
+  String get unknownErrorException => 'Erro desconhecido';
 }

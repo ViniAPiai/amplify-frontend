@@ -5,7 +5,7 @@ class Label extends StatelessWidget {
   const Label({
     super.key,
     required this.label,
-    this.required = true,
+    this.required = false,
   });
 
   final String label;

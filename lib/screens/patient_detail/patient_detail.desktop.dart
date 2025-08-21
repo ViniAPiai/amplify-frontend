@@ -84,7 +84,7 @@ class _PatientDetailDesktop extends StatelessWidget {
             }));*/
     }
 
-  Widget _chooseView(BuildContext context, PatientDetailProvider provider, PatientModel patient, AppLocalizations t) {
+  /*Widget _chooseView(BuildContext context, PatientDetailProvider provider, PatientModel patient, AppLocalizations t) {
     switch (provider.selectedIndex) {
       case 0:
           return _patientInfo(context, provider, patient, t);
@@ -93,9 +93,9 @@ class _PatientDetailDesktop extends StatelessWidget {
       default:
           return _patientInfo(context, provider, patient, t);
     }
-  }
+  }*/
 
-  Widget _patientInfo(BuildContext context, PatientDetailProvider provider, PatientModel patient, AppLocalizations t) {
+  /*Widget _patientInfo(BuildContext context, PatientDetailProvider provider, PatientModel patient, AppLocalizations t) {
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     return Container(
         width: context.width - 260,
@@ -151,9 +151,9 @@ class _PatientDetailDesktop extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    InfoShower(label: t.complement, value: patient.address.neighborhood),
+                    *//*InfoShower(label: t.complement, value: patient.address.neighborhood),
                     InfoShower(label: t.city, value: patient.address.city),
-                    InfoShower(label: t.state, value: patient.address.state),
+                    InfoShower(label: t.state, value: patient.address.state),*//*
                   ],
                 ).expanded(),
               ],
@@ -237,7 +237,7 @@ class _PatientDetailDesktop extends StatelessWidget {
             );
           }
         ));
-  }
+  }*/
 
 
 }

@@ -40,6 +40,40 @@ class ClinicalExamModel {
     message: "",
   );
 
+  static ClinicalExamModel e = ClinicalExamModel(
+    uuid: "",
+    hasCavities: false,
+    hasToothWear: false,
+    hasFractures: false,
+    hasGumBleeding: false,
+    hasGumInflammation: false,
+    hasGumRecession: false,
+    otherObservations: "",
+    message: "",
+  );
+
+  ClinicalExamModel copyWith({
+    String? uuid,
+    bool? hasCavities,
+    bool? hasToothWear,
+    bool? hasFractures,
+    bool? hasGumBleeding,
+    bool? hasGumInflammation,
+    bool? hasGumRecession,
+    String? otherObservations,
+  }) {
+    return ClinicalExamModel(
+      uuid: uuid ?? this.uuid,
+      hasCavities: hasCavities ?? this.hasCavities,
+      hasToothWear: hasToothWear ?? this.hasToothWear,
+      hasFractures: hasFractures ?? this.hasFractures,
+      hasGumBleeding: hasGumBleeding ?? this.hasGumBleeding,
+      hasGumInflammation: hasGumInflammation ?? this.hasGumInflammation,
+      hasGumRecession: hasGumRecession ?? this.hasGumRecession,
+      otherObservations: otherObservations ?? this.otherObservations, message: '',
+    );
+  }
+
   factory ClinicalExamModel.fromJson(Map<String, dynamic> json) => _$ClinicalExamModelFromJson(json);
 
   Map<String, dynamic> toJson() => _$ClinicalExamModelToJson(this);

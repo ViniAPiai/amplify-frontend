@@ -141,11 +141,11 @@ abstract class AppLocalizations {
   /// **'Complemento'**
   String get complement;
 
-  /// No description provided for @district.
+  /// No description provided for @neighborhood.
   ///
   /// In pt, this message translates to:
   /// **'Distrito'**
-  String get district;
+  String get neighborhood;
 
   /// No description provided for @city.
   ///
@@ -201,11 +201,11 @@ abstract class AppLocalizations {
   /// **'NIF'**
   String get documentNumber;
 
-  /// No description provided for @documentNumberExpirationDate.
+  /// No description provided for @nationalRegistry.
   ///
   /// In pt, this message translates to:
-  /// **'Data de Validade do NIF'**
-  String get documentNumberExpirationDate;
+  /// **'Cartão Nacional de Identidade'**
+  String get nationalRegistry;
 
   /// No description provided for @occupation.
   ///
@@ -477,11 +477,23 @@ abstract class AppLocalizations {
   /// **'Novo Paciente'**
   String get newPatient;
 
+  /// No description provided for @updatePatient.
+  ///
+  /// In pt, this message translates to:
+  /// **'Atualizar Paciente'**
+  String get updatePatient;
+
   /// No description provided for @register.
   ///
   /// In pt, this message translates to:
   /// **'Cadastrar'**
   String get register;
+
+  /// No description provided for @update.
+  ///
+  /// In pt, this message translates to:
+  /// **'Atualizar'**
+  String get update;
 
   /// No description provided for @edit.
   ///
@@ -531,6 +543,12 @@ abstract class AppLocalizations {
   /// **'Cancelar'**
   String get cancel;
 
+  /// No description provided for @next.
+  ///
+  /// In pt, this message translates to:
+  /// **'Próximo'**
+  String get next;
+
   /// No description provided for @newAppointment.
   ///
   /// In pt, this message translates to:
@@ -567,11 +585,191 @@ abstract class AppLocalizations {
   /// **'Dentes'**
   String get teeth;
 
-  /// No description provided for @thePatientRequestedAnConsultation.
+  /// No description provided for @basicInformation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Informações Básicas'**
+  String get basicInformation;
+
+  /// No description provided for @address.
+  ///
+  /// In pt, this message translates to:
+  /// **'Endereço'**
+  String get address;
+
+  /// No description provided for @personalInformation.
+  ///
+  /// In pt, this message translates to:
+  /// **'Informações Pessoais'**
+  String get personalInformation;
+
+  /// No description provided for @add.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar'**
+  String get add;
+
+  /// No description provided for @delete.
+  ///
+  /// In pt, this message translates to:
+  /// **'Deletar'**
+  String get delete;
+
+  /// No description provided for @confirm.
+  ///
+  /// In pt, this message translates to:
+  /// **'Confirmar'**
+  String get confirm;
+
+  /// No description provided for @brazil.
+  ///
+  /// In pt, this message translates to:
+  /// **'Brasil'**
+  String get brazil;
+
+  /// No description provided for @portugal.
+  ///
+  /// In pt, this message translates to:
+  /// **'Portugal'**
+  String get portugal;
+
+  /// No description provided for @crmColumnAddNewCard.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar novo cartão'**
+  String get crmColumnAddNewCard;
+
+  /// No description provided for @crmColumnAddNewColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar nova coluna'**
+  String get crmColumnAddNewColumn;
+
+  /// No description provided for @crmColumnDeleteColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Deletar coluna'**
+  String get crmColumnDeleteColumn;
+
+  /// No description provided for @crmColumnMoveToRight.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mover para a direita'**
+  String get crmColumnMoveToRight;
+
+  /// No description provided for @crmColumnMoveToLeft.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mover para a esquerda'**
+  String get crmColumnMoveToLeft;
+
+  /// No description provided for @crmWhichSideOfColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Adicionar coluna à qual lado da coluna {columnName}?'**
+  String crmWhichSideOfColumn(Object columnName);
+
+  /// No description provided for @crmLeft.
+  ///
+  /// In pt, this message translates to:
+  /// **'Esquerda'**
+  String get crmLeft;
+
+  /// No description provided for @crmRight.
+  ///
+  /// In pt, this message translates to:
+  /// **'Direita'**
+  String get crmRight;
+
+  /// No description provided for @crmToConfirmColumnRemovalType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Para confirmar a remoção da coluna, digite \"{columnName}\"'**
+  String crmToConfirmColumnRemovalType(Object columnName);
+
+  /// No description provided for @crmMoveCardsToColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mover cartões para a coluna:'**
+  String get crmMoveCardsToColumn;
+
+  /// No description provided for @crmTitle.
+  ///
+  /// In pt, this message translates to:
+  /// **'Título'**
+  String get crmTitle;
+
+  /// No description provided for @crmDescription.
+  ///
+  /// In pt, this message translates to:
+  /// **'Descrição'**
+  String get crmDescription;
+
+  /// No description provided for @crmDueDate.
+  ///
+  /// In pt, this message translates to:
+  /// **'Data de vencimento'**
+  String get crmDueDate;
+
+  /// No description provided for @crmName.
+  ///
+  /// In pt, this message translates to:
+  /// **'Nome'**
+  String get crmName;
+
+  /// No description provided for @crmEmail.
+  ///
+  /// In pt, this message translates to:
+  /// **'E-mail'**
+  String get crmEmail;
+
+  /// No description provided for @crmPhone.
+  ///
+  /// In pt, this message translates to:
+  /// **'Telefone'**
+  String get crmPhone;
+
+  /// No description provided for @crmMessage.
+  ///
+  /// In pt, this message translates to:
+  /// **'Mensagem'**
+  String get crmMessage;
+
+  /// No description provided for @crmColumn.
+  ///
+  /// In pt, this message translates to:
+  /// **'Coluna'**
+  String get crmColumn;
+
+  /// No description provided for @crmCardType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Tipo de cartão'**
+  String get crmCardType;
+
+  /// No description provided for @crmDefaultCardType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Padrão'**
+  String get crmDefaultCardType;
+
+  /// No description provided for @crmRegisterPatientCardType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Registrar paciente'**
+  String get crmRegisterPatientCardType;
+
+  /// No description provided for @crmGetInTouchCardType.
+  ///
+  /// In pt, this message translates to:
+  /// **'Entrar em contato'**
+  String get crmGetInTouchCardType;
+
+  /// No description provided for @thePatientRequestedAnAppointment.
   ///
   /// In pt, this message translates to:
   /// **'O paciente {name} solicitou uma consulta, confirmar?'**
-  String thePatientRequestedAnConsultation(Object name);
+  String thePatientRequestedAnAppointment(Object name);
 
   /// No description provided for @patientCreatedSuccessfully.
   ///
@@ -597,29 +795,29 @@ abstract class AppLocalizations {
   /// **'Paciente atualizado pela clínica com sucesso'**
   String get patientUpdatedByClinicSuccessfully;
 
-  /// No description provided for @consultationScheduledSuccessfully.
+  /// No description provided for @appointmentScheduledSuccessfully.
   ///
   /// In pt, this message translates to:
   /// **'Consulta agendada com sucesso'**
-  String get consultationScheduledSuccessfully;
+  String get appointmentScheduledSuccessfully;
 
-  /// No description provided for @consultationUpdatedSuccessfully.
+  /// No description provided for @appointmentUpdatedSuccessfully.
   ///
   /// In pt, this message translates to:
   /// **'Consulta atualizada com sucesso'**
-  String get consultationUpdatedSuccessfully;
+  String get appointmentUpdatedSuccessfully;
 
-  /// No description provided for @consultationDeletedSuccessfully.
+  /// No description provided for @appointmentDeletedSuccessfully.
   ///
   /// In pt, this message translates to:
   /// **'Consulta deletada com sucesso'**
-  String get consultationDeletedSuccessfully;
+  String get appointmentDeletedSuccessfully;
 
-  /// No description provided for @consultationConfirmedSuccessfully.
+  /// No description provided for @appointmentConfirmedSuccessfully.
   ///
   /// In pt, this message translates to:
   /// **'Consulta confirmada com sucesso'**
-  String get consultationConfirmedSuccessfully;
+  String get appointmentConfirmedSuccessfully;
 
   /// No description provided for @patientNotFoundException.
   ///
@@ -645,11 +843,11 @@ abstract class AppLocalizations {
   /// **'Paciente não pertence à clínica'**
   String get patientNotBelongToClinicException;
 
-  /// No description provided for @youAlreadyHaveAScheduledConsultationException.
+  /// No description provided for @youAlreadyHaveAScheduledAppointmentException.
   ///
   /// In pt, this message translates to:
   /// **'Você já tem uma consulta agendada'**
-  String get youAlreadyHaveAScheduledConsultationException;
+  String get youAlreadyHaveAScheduledAppointmentException;
 
   /// No description provided for @patientAlreadyInClinicException.
   ///
@@ -663,17 +861,53 @@ abstract class AppLocalizations {
   /// **'Médico não pertence à clínica'**
   String get doctorNotBelongToClinicException;
 
-  /// No description provided for @consultationAlreadyIsFinishedException.
+  /// No description provided for @appointmentAlreadyIsFinishedException.
   ///
   /// In pt, this message translates to:
   /// **'Consulta já está finalizada, não pode ser atualizado ou deletado'**
-  String get consultationAlreadyIsFinishedException;
+  String get appointmentAlreadyIsFinishedException;
 
-  /// No description provided for @consultationIsCancelledException.
+  /// No description provided for @appointmentIsCancelledException.
   ///
   /// In pt, this message translates to:
   /// **'Consulta está cancelada, não pode ser atualizado ou deletado'**
-  String get consultationIsCancelledException;
+  String get appointmentIsCancelledException;
+
+  /// No description provided for @emailOrPasswordIsIncorrectException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Email ou senha incorretos'**
+  String get emailOrPasswordIsIncorrectException;
+
+  /// No description provided for @accountIsLockedException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Conta bloqueada'**
+  String get accountIsLockedException;
+
+  /// No description provided for @youAreNotAuthorizedToThisResourceException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Você não está autorizado a acessar este recurso'**
+  String get youAreNotAuthorizedToThisResourceException;
+
+  /// No description provided for @sessionNonValidException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sessão não válida'**
+  String get sessionNonValidException;
+
+  /// No description provided for @sessionExpiredException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Sessão expirada'**
+  String get sessionExpiredException;
+
+  /// No description provided for @unknownErrorException.
+  ///
+  /// In pt, this message translates to:
+  /// **'Erro desconhecido'**
+  String get unknownErrorException;
 }
 
 class _AppLocalizationsDelegate

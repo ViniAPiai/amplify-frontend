@@ -16,7 +16,7 @@ class NeighborhoodFormField extends StatelessWidget {
   Widget build(BuildContext context) {
     AppLocalizations t = AppLocalizations.of(context)!;
     return Column(spacing: 16, mainAxisAlignment: MainAxisAlignment.start, children: [
-      Label(label: t.district),
+      Label(label: t.neighborhood),
       TextFormField(
         controller: controller,
         focusNode: currentFocusNode,
@@ -24,7 +24,7 @@ class NeighborhoodFormField extends StatelessWidget {
           FocusScope.of(context).requestFocus(nextFocusNode);
         },
         decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(12))),
-        validator: RequiredValidator(errorText: "${t.district} ${t.isMandatory}").call,
+        validator: RequiredValidator(errorText: "${t.neighborhood} ${t.isMandatory}").call,
         autovalidateMode: AutovalidateMode.onUnfocus,
         enabled: enabled,
       ),

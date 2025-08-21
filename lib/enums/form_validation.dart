@@ -1,0 +1,2 @@
+
+enum FormValidation {none, isValidating}

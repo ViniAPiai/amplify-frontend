@@ -10,31 +10,33 @@ class PatientModel extends UserModel {
   late DateTime birthDate;
   late String phoneNumber;
   late String healthNumber;
-  late String nationalRegistry;
-  late DateTime? nationalRegistryExpirationDate;
   late String occupation;
   late AddressModel address;
 
-  PatientModel({required this.gender, required this.birthDate, required this.phoneNumber, required this.healthNumber, required this.nationalRegistry,
-    this.nationalRegistryExpirationDate, required this.occupation, required this.address,
-    required super.uuid, required super.fullName, required super.email, required super.documentNumber});
+  PatientModel(
+      {required this.gender,
+      required this.birthDate,
+      required this.phoneNumber,
+      required this.healthNumber,
+      required this.occupation,
+      required this.address,
+      required super.uuid,
+      required super.fullName,
+      required super.email,
+      required super.documentNumber});
 
-  factory PatientModel.empty() {
-    return PatientModel(
-      uuid: "",
-      fullName: "",
-      email: "",
-      documentNumber: "",
-      gender: "",
-      birthDate: DateTime.now(),
-      phoneNumber: "",
-      healthNumber: "",
-      nationalRegistry: "",
-      nationalRegistryExpirationDate: DateTime.now(),
-      occupation: '',
-      address: AddressModel.empty(),
-    );
-  }
+  static final PatientModel empty = PatientModel(
+    uuid: "",
+    fullName: "",
+    email: "",
+    documentNumber: "",
+    gender: "",
+    birthDate: DateTime.now(),
+    phoneNumber: "",
+    healthNumber: "",
+    occupation: '',
+    address: AddressModel.empty,
+  );
 
   factory PatientModel.fromUserModel(UserModel model) {
     return PatientModel(
@@ -46,10 +48,8 @@ class PatientModel extends UserModel {
       birthDate: DateTime.now(),
       phoneNumber: "",
       healthNumber: "",
-      nationalRegistry: "",
-      nationalRegistryExpirationDate: DateTime.now(),
       occupation: '',
-      address: AddressModel.empty(),
+      address: AddressModel.empty,
     );
   }
 
@@ -57,6 +57,4 @@ class PatientModel extends UserModel {
 
   @override
   Map<String, dynamic> toJson() => _$PatientModelToJson(this);
-
-
 }

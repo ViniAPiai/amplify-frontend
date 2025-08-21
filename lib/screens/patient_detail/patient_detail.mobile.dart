@@ -9,7 +9,6 @@ class _PatientDetailMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     PatientDetailProvider provider = Provider.of<PatientDetailProvider>(context);
     AppLocalizations t = AppLocalizations.of(context)!;
-    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     return Container();
     /*return FutureBuilder<PatientModel>(
         future: (await ApiService.create()).client.findById(patientUuid),
@@ -75,7 +74,7 @@ class _PatientDetailMobile extends StatelessWidget {
         });*/
   }
 
-  Widget _patientInfo(BuildContext context, PatientDetailProvider provider, PatientModel patient, AppLocalizations t) {
+  /*Widget _patientInfo(BuildContext context, PatientDetailProvider provider, PatientModel patient, AppLocalizations t) {
     LocaleProvider locale = Provider.of<LocaleProvider>(context);
     return Container(
         width: context.width,
@@ -119,8 +118,8 @@ class _PatientDetailMobile extends StatelessWidget {
             InfoShower(label: t.street, value: patient.address.street),
             InfoShower(label: t.number, value: patient.address.number),
             InfoShower(label: t.complement, value: patient.address.neighborhood),
-            InfoShower(label: t.city, value: patient.address.city),
-            InfoShower(label: t.state, value: patient.address.state),
+            *//*InfoShower(label: t.city, value: patient.address.city),
+            InfoShower(label: t.state, value: patient.address.state),*//*
           ],
         ));
   }
@@ -181,5 +180,5 @@ class _PatientDetailMobile extends StatelessWidget {
                 ],
               );
             }));
-  }
+  }*/
 }

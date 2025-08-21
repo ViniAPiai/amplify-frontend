@@ -11,11 +11,6 @@ PatientModel _$PatientModelFromJson(Map<String, dynamic> json) => PatientModel(
       birthDate: DateTime.parse(json['birthDate'] as String),
       phoneNumber: json['phoneNumber'] as String,
       healthNumber: json['healthNumber'] as String,
-      nationalRegistry: json['nationalRegistry'] as String,
-      nationalRegistryExpirationDate: json['nationalRegistryExpirationDate'] ==
-              null
-          ? null
-          : DateTime.parse(json['nationalRegistryExpirationDate'] as String),
       occupation: json['occupation'] as String,
       address: AddressModel.fromJson(json['address'] as Map<String, dynamic>),
       uuid: json['uuid'] as String?,
@@ -46,9 +41,6 @@ Map<String, dynamic> _$PatientModelToJson(PatientModel instance) =>
       'birthDate': instance.birthDate.toIso8601String(),
       'phoneNumber': instance.phoneNumber,
       'healthNumber': instance.healthNumber,
-      'nationalRegistry': instance.nationalRegistry,
-      'nationalRegistryExpirationDate':
-          instance.nationalRegistryExpirationDate?.toIso8601String(),
       'occupation': instance.occupation,
       'address': instance.address,
     };

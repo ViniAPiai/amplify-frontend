@@ -8,189 +8,206 @@ class _$AmplifyCalendarWeek extends StatefulWidget {
 }
 
 class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
+
+  final GlobalKey<WeekViewState> weekKey = GlobalKey<WeekViewState>();
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      Provider.of<AgendaProvider>(context, listen: false).loadEventsByDate(DateTime.now());
+      context.read<AgendaBloc>().add(LoadEventsByDate(DateTime.now()));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    AgendaProvider provider = Provider.of<AgendaProvider>(context);
-    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
-    LocaleProvider locale = Provider.of<LocaleProvider>(context);
+    LocaleBloc locale = context.read<LocaleBloc>();
     AppLocalizations t = AppLocalizations.of(context)!;
-    return WeekView(
-      key: provider.weekKey,
-      controller: provider.controller,
-      backgroundColor: AppColors.gray,
-      headerStyle: HeaderStyle(decoration: BoxDecoration(color: context.primaryColor)),
-      weekPageHeaderBuilder: (startDate, endDate) {
-        String data = DateFormat.yMd(locale.getLocaleString()).format(startDate);
-        String to = DateFormat.yMd(locale.getLocaleString()).format(endDate);
-        String finalDate = '${data.substring(0, 1).toUpperCase()}${data.substring(1)} ${t.to} ${to.substring(0, 1).toUpperCase()}${to.substring(1)}';
-        return Padding(
-          padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
-          child: Row(
-            spacing: 16,
-            children: [
-              OutlinedButton(
-                  onPressed: () => provider.previousWeek(),
-                  style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                      backgroundColor: Colors.white,
-                      padding: EdgeInsets.zero,
-                      fixedSize: Size(25, 25)),
-                  child: Icon(
-                    Icons.arrow_back_ios_new_outlined,
-                    color: Colors.grey.shade700,
-                    size: 24,
-                  )),
-              OutlinedButton(
-                  onPressed: () async {
-                    DateTime? date = await showDatePicker(
-                      context: context,
-                      firstDate: DateTime.now().subtract(Duration(days: 365)),
-                      lastDate: DateTime.now().add(Duration(days: 365 * 4)),
-                      locale: locale.locale,
-                      builder: (context, child) {
-                        return Theme(
-                          data: ThemeData(
-                            colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-                          ),
-                          child: child!,
-                        );
-                      },
-                    );
-                    if (date != null) {
-                      provider.setWeek(date);
-                    }
-                  },
-                  style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                      backgroundColor: Colors.white,
-                      padding: EdgeInsets.zero,
-                      fixedSize: Size(275, 25)),
-                  child: Text(
-                    finalDate,
-                    style: GoogleFonts.inter(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
-                  )),
-              OutlinedButton(
-                  onPressed: () => provider.nextWeek(),
-                  style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                      backgroundColor: Colors.white,
-                      padding: EdgeInsets.zero,
-                      fixedSize: Size(25, 25)),
-                  child: Icon(
-                    Icons.arrow_forward_ios_outlined,
-                    color: Colors.grey.shade700,
-                    size: 24,
-                  )),
-              Expanded(child: const SizedBox()),
-              OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                      backgroundColor: Colors.white,
-                      padding: EdgeInsets.zero,
-                      fixedSize: Size(25, 25)),
-                  child: Icon(
-                    Icons.refresh,
-                    color: Colors.grey.shade700,
-                    size: 24,
-                  )),
-              OutlinedButton(
-                  onPressed: () {},
-                  style: OutlinedButton.styleFrom(
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                      backgroundColor: Colors.white,
-                      padding: EdgeInsets.zero,
-                      fixedSize: Size(25, 25)),
-                  child: Icon(
-                    Icons.print,
-                    color: Colors.grey.shade700,
-                    size: 24,
-                  )),
-              OutlinedButton.icon(
-                onPressed: () {},
-                style: OutlinedButton.styleFrom(
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
-                  backgroundColor: Colors.white,
-                  padding: EdgeInsets.zero,
-                  fixedSize: Size(120, 25),
-                ),
-                icon: Icon(
-                  Icons.filter_alt,
-                  color: Colors.grey.shade700,
-                  size: 24,
-                ),
-                label: Text(
-                  t.filter,
-                  style: GoogleFonts.inter(color: Colors.grey.shade700, fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-      weekDayBuilder: (date) {
-        String day = DateFormat.E(locale.getLocaleString()).format(date);
-        day = day.substring(0, 1).toUpperCase() + day.substring(1);
-        return Container(
-            padding: EdgeInsets.all(8),
-            height: 70,
-            decoration:
-                BoxDecoration(border: Border.all(color: Color(0xffe0e1e1)), color: date == DateTime.now() ? AppColors.primary : AppColors.gray),
-            child: RichText(
-                textAlign: TextAlign.center,
-                text: TextSpan(text: "$day ", style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500), children: [
-                  TextSpan(
-                      text: DateFormat.d(locale.getLocaleString()).format(date),
-                      style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
-                ])));
-      },
-      timeLineBuilder: (date) {
-        return Container(
-          padding: EdgeInsets.all(8),
-          height: 70,
-          margin: EdgeInsets.zero,
-          child: Text(
-            DateFormat.Hm(locale.getLocaleString()).format(date),
-            textAlign: TextAlign.right,
-            style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
-          ),
-        );
-      },
-      weekNumberBuilder: (firstDayOfWeek) => Container(
-        color: AppColors.gray,
-      ),
-      onDateTap: (date) => sideBarProvider.openOrCloseNewAppointmentModal(context: context, date: date),
-      onEventTap: (events, date) {
-        print(events.first.color);
-        switch (AppointmentStatusEnum.fromColor(events.first.color)) {
-          case AppointmentStatusEnum.waitingForClinicConfirmation:
-            break;
-          case AppointmentStatusEnum.cancelled:
-            break;
-          case AppointmentStatusEnum.scheduled:
-            sideBarProvider.openOrCloseAppointmentDetailsModal(context: context, uuid: (events.first.event as AppointmentModel).uuid!);
-            break;
-          case AppointmentStatusEnum.arrived:
-            sideBarProvider.openOrCloseAppointmentDetailsModal(context: context, uuid: (events.first.event as AppointmentModel).uuid!);
-            break;
-          case AppointmentStatusEnum.finished:
-            sideBarProvider.openOrCloseNewAppointmentModal(context: context);
-            break;
-          case AppointmentStatusEnum.inProgress:
-            sideBarProvider.openOrCloseAppointmentDetailsModal(context: context, uuid: (events.first.event as AppointmentModel).uuid!);
+    return BlocListener<AgendaBloc, AgendaState>(
+      listener: (context, state) {
+        if(state.type == AgendaActionType.week) {
+          switch(state.action) {
+            case AgendaAction.set:
+              weekKey.currentState!.animateToWeek(state.date!);
+              break;
+            case AgendaAction.next:
+              weekKey.currentState!.nextPage();
+              break;
+            case AgendaAction.previous:
+              weekKey.currentState!.previousPage();
+              break;
+          }
         }
       },
-      eventTileBuilder: (date, events, boundary, startDuration, endDuration) {
-        return events.isNotEmpty
-            ? Container(
+      child: BlocBuilder<AgendaBloc, AgendaState>(
+        builder: (context, state) {
+          return WeekView(
+            key: weekKey,
+            controller: state.controller,
+            backgroundColor: AppColors.gray,
+            headerStyle: HeaderStyle(decoration: BoxDecoration(color: context.primaryColor)),
+            weekPageHeaderBuilder: (startDate, endDate) {
+              String data = DateFormat.yMd(context.getLocaleString(locale.state.locale)).format(startDate);
+              String to = DateFormat.yMd(context.getLocaleString(locale.state.locale)).format(endDate);
+              String finalDate = '${data.substring(0, 1).toUpperCase()}${data.substring(1)} ${t.to} ${to.substring(0, 1).toUpperCase()}${to.substring(1)}';
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
+                child: Row(
+                  spacing: 16,
+                  children: [
+                    OutlinedButton(
+                        onPressed: () => context.read<AgendaBloc>().add(const NavigationChanged(AgendaActionType.week, AgendaAction.previous)),
+                        style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                            backgroundColor: Colors.white,
+                            padding: EdgeInsets.zero,
+                            fixedSize: Size(25, 25)),
+                        child: Icon(
+                          Icons.arrow_back_ios_new_outlined,
+                          color: Colors.grey.shade700,
+                          size: 24,
+                        )),
+                    OutlinedButton(
+                        onPressed: () async {
+                          DateTime? date = await showDatePicker(
+                            context: context,
+                            firstDate: DateTime.now().subtract(Duration(days: 365)),
+                            lastDate: DateTime.now().add(Duration(days: 365 * 4)),
+                            locale: locale.state.locale,
+                            builder: (context, child) {
+                              return Theme(
+                                data: ThemeData(
+                                  colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
+                                ),
+                                child: child!,
+                              );
+                            },
+                          );
+                          if (date != null) {
+                            context.read<AgendaBloc>().add(NavigationChanged(AgendaActionType.week, AgendaAction.set, date: date));
+                          }
+                        },
+                        style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                            backgroundColor: Colors.white,
+                            padding: EdgeInsets.zero,
+                            fixedSize: Size(275, 25)),
+                        child: Text(
+                          finalDate,
+                          style: GoogleFonts.inter(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w700),
+                        )),
+                    OutlinedButton(
+                        onPressed: () => context.read<AgendaBloc>().add(const NavigationChanged(AgendaActionType.week, AgendaAction.next)),
+                        style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                            backgroundColor: Colors.white,
+                            padding: EdgeInsets.zero,
+                            fixedSize: Size(25, 25)),
+                        child: Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.grey.shade700,
+                          size: 24,
+                        )),
+                    Expanded(child: const SizedBox()),
+                    OutlinedButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                            backgroundColor: Colors.white,
+                            padding: EdgeInsets.zero,
+                            fixedSize: Size(25, 25)),
+                        child: Icon(
+                          Icons.refresh,
+                          color: Colors.grey.shade700,
+                          size: 24,
+                        )),
+                    OutlinedButton(
+                        onPressed: () {},
+                        style: OutlinedButton.styleFrom(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                            backgroundColor: Colors.white,
+                            padding: EdgeInsets.zero,
+                            fixedSize: Size(25, 25)),
+                        child: Icon(
+                          Icons.print,
+                          color: Colors.grey.shade700,
+                          size: 24,
+                        )),
+                    OutlinedButton.icon(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4), side: BorderSide(color: Colors.grey.shade50)),
+                        backgroundColor: Colors.white,
+                        padding: EdgeInsets.zero,
+                        fixedSize: Size(120, 25),
+                      ),
+                      icon: Icon(
+                        Icons.filter_alt,
+                        color: Colors.grey.shade700,
+                        size: 24,
+                      ),
+                      label: Text(
+                        t.filter,
+                        style: GoogleFonts.inter(color: Colors.grey.shade700, fontSize: 16, fontWeight: FontWeight.w500),
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+            weekDayBuilder: (date) {
+              String day = DateFormat.E(context.getLocaleString(locale.state.locale)).format(date);
+              day = day.substring(0, 1).toUpperCase() + day.substring(1);
+              return Container(
+                  padding: EdgeInsets.all(8),
+                  height: 70,
+                  decoration:
+                  BoxDecoration(border: Border.all(color: Color(0xffe0e1e1)), color: date == DateTime.now() ? AppColors.primary : AppColors.gray),
+                  child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(text: "$day ", style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w500), children: [
+                        TextSpan(
+                            text: DateFormat.d(context.getLocaleString(locale.state.locale)).format(date),
+                            style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400)),
+                      ])));
+            },
+            timeLineBuilder: (date) {
+              return Container(
+                padding: EdgeInsets.all(8),
+                height: 70,
+                margin: EdgeInsets.zero,
+                child: Text(
+                  DateFormat.Hm(context.getLocaleString(locale.state.locale)).format(date),
+                  textAlign: TextAlign.right,
+                  style: GoogleFonts.inter(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w400),
+                ),
+              );
+            },
+            weekNumberBuilder: (firstDayOfWeek) => Container(
+              color: AppColors.gray,
+            ),
+            onDateTap: (date) => context.read<SideBarBloc>().add(ToggleNewAppointmentModal(date: date)),
+            onEventTap: (events, date) {
+              switch (AppointmentStatusEnum.fromColor(events.first.color)) {
+                case AppointmentStatusEnum.waitingForClinicConfirmation:
+                  break;
+                case AppointmentStatusEnum.cancelled:
+                  break;
+                case AppointmentStatusEnum.scheduled:
+                  context.read<SideBarBloc>().add(ToggleAppointmentDetailsModal(uuid: (events.first.event as AppointmentModel).uuid!));
+                  break;
+                case AppointmentStatusEnum.arrived:
+                  context.read<SideBarBloc>().add(ToggleAppointmentDetailsModal(uuid: (events.first.event as AppointmentModel).uuid!));
+                  break;
+                case AppointmentStatusEnum.finished:
+                  break;
+                case AppointmentStatusEnum.inProgress:
+                  context.read<SideBarBloc>().add(ToggleAppointmentDetailsModal(uuid: (events.first.event as AppointmentModel).uuid!));
+              }
+            },
+            eventTileBuilder: (date, events, boundary, startDuration, endDuration) {
+              return events.isNotEmpty
+                  ? Container(
                 decoration: BoxDecoration(
                   color: events.first.color,
                   borderRadius: BorderRadius.circular(5),
@@ -201,10 +218,13 @@ class _AmplifyCalendarTabletScreen extends State<_$AmplifyCalendarWeek> {
                   style: TextStyle(color: Colors.white, fontSize: 12),
                 ),
               )
-            : SizedBox.shrink();
-      },
-      onPageChange: (date, _) => provider.loadEventsByDate(date),
-      heightPerMinute: 2.5,
+                  : SizedBox.shrink();
+            },
+            onPageChange: (date, _) => context.read<AgendaBloc>().add(LoadEventsByDate(date)),
+            heightPerMinute: 2.5,
+          );
+        },
+      )
     );
   }
 }

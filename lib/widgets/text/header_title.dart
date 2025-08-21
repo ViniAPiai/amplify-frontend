@@ -1,5 +1,7 @@
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:frontend/bloc/side_bar/side_bar_bloc.dart';
+import 'package:frontend/bloc/side_bar/side_bar_event.dart';
 import 'package:frontend/l10n/app_localizations.dart';
 import 'package:frontend/configs/app_colors.dart';
 import 'package:frontend/extension/utils_extension.dart';
@@ -15,14 +17,13 @@ class HeaderTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SideBarProvider sideBarProvider = Provider.of<SideBarProvider>(context);
     return Row(
       spacing: context.isTabletOrDesktop ? 0 : 8,
       children: [
         context.isDesktop ? const SizedBox() : Padding(
             padding: const EdgeInsets.only(bottom: 8),
             child: IconButton(
-              onPressed: () => sideBarProvider.key.currentState!.openDrawer(),
+              onPressed: () => context.read<SideBarBloc>().add(OpenSideBar()),
               icon: Icon(
                 Icons.menu,
                 color: AppColors.grayBlack,
